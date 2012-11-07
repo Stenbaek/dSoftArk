@@ -58,6 +58,6 @@ public class TestAlphaCiv {
       game.endOfTurn();
       Player p = game.getPlayerInTurn();
       assertEquals("Red should be first in turn",
-        Player.RED, p);
+        Player.BLUE, p);
   }
 }
