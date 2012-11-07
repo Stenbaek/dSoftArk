@@ -34,7 +34,7 @@ public interface Game {
    * @return the unit that is at the top of the unit stack at position
    * p, OR null if no unit is present at position p.
    */
-  //todo
+  //todo  lav denne metode
   public Unit getUnitAt( Position p );
   
   /** return the city at position 'p' in the world.
