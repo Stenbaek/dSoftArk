@@ -38,4 +38,11 @@ public class TestAlphaCiv {
     assertEquals( "City at (1,1) should be owned by red",
       Player.RED, p );
   }
+
+  @Test
+  public void shouldHaveOceanAt1_0(){
+    Tile t = game.getTileAt(new Position(1,0));
+    //assertNotNull("There should be a tile at position (1,0)" + t.getPosition(),t);
+    assertEquals("There should be an ocean at (1,0)", Ocean.class, t.getClass());
+  }
 }

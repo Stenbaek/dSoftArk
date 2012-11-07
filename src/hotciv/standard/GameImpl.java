@@ -20,10 +20,19 @@ import hotciv.framework.*;
 */
 
 public class GameImpl implements Game {
-  public Tile getTileAt( Position p ) { return null; }
+  private int age;
+
+
+  public Tile getTileAt( Position p ) {
+    if(p.getRow() == 1 && p.getColumn() == 0){
+        return new Ocean(p);
+    }else{
+        return null;
+    }
+  }
   public Unit getUnitAt( Position p ) { return null; }
   public City getCityAt( Position p ) {
-    if(p.getColumn() == 1 && p.getRow() == 1){
+    if(p.getRow() == 1 && p.getColumn() == 1){
         return new CityImpl(Player.RED);
     }else{
         return null;
