@@ -42,7 +42,22 @@ public class TestAlphaCiv {
   @Test
   public void shouldHaveOceanAt1_0(){
     Tile t = game.getTileAt(new Position(1,0));
-    //assertNotNull("There should be a tile at position (1,0)" + t.getPosition(),t);
+    assertNotNull("There should be a tile at position (1,0)" + t.getPosition(),t);
     assertEquals("There should be an ocean at (1,0)", Ocean.class, t.getClass());
+  }
+
+  @Test
+  public void redShouldBeFirstInTurn(){
+      Player p = game.getPlayerInTurn();
+      assertEquals("Red should be first in turn",
+        Player.RED, p);
+  }
+
+  @Test
+  public void afterRedBlueShouldBeInTurn(){
+      game.endOfTurn();
+      Player p = game.getPlayerInTurn();
+      assertEquals("Red should be first in turn",
+        Player.RED, p);
   }
 }
