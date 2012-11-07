@@ -27,6 +27,7 @@ public class TestAlphaCiv {
   @Before
   public void setUp() {
     game = new GameImpl();
+      //hej
   }
 
   @Test
