@@ -13,9 +13,12 @@ import hotciv.framework.Player;
 public class CityImpl implements City{
 
     public Player owner;
+    private int cityTreasury;
+    private String unitInProduction;
 
     public CityImpl(Player p){
              this.owner = p;
+             cityTreasury =0;
     }
 
     @Override
@@ -25,12 +28,12 @@ public class CityImpl implements City{
 
     @Override
     public int getSize() {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return 1;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public String getProduction() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return unitInProduction;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
