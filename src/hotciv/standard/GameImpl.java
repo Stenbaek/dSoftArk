@@ -21,9 +21,10 @@ import hotciv.framework.*;
 
 public class GameImpl implements Game {
   private int age;
-
+  private UnitImpl[][] units; // matrix of units in game
+  // private CityImpl[][] cities; // snak med simon ang.matrix of cities in game
   public GameImpl(){
-      this.age = -4000;
+      this.age = -4000; // initial start age
   }
 
   public Tile getTileAt( Position p ) {
@@ -33,7 +34,24 @@ public class GameImpl implements Game {
         return null;
     }
   }
-  public Unit getUnitAt( Position p ) { return null; }
+  /* alternativ til getTile...snak med Simon kræver TileImpl istedet for Ocean
+   public Tile getTileAt( Position p ) {
+		if (p.equals(new Position(1,0))){ // 1,1 is ocean
+			return new TileImpl(GameConstants.OCEANS,1,0);
+		} else if(p.equals(new Position(0,1))){ // 0,1 is hills
+			return new TileImpl(GameConstants.HILLS,0,1);
+		} else if(p.equals(new Position(2,2))){ // is mountains
+			return new TileImpl(GameConstants.MOUNTAINS,2,2);
+		}
+
+		// All other tiles are of type plains
+		return new TileImpl(GameConstants.PLAINS,p.getRow(),p.getColumn());
+	}
+     */
+
+  public Unit getUnitAt( Position p ) {
+      return units[p.getRow()][p.getColumn()]; }
+
   public City getCityAt( Position p ) {
     if(p.getRow() == 1 && p.getColumn() == 1){
         return new CityImpl(Player.RED);
