@@ -25,6 +25,8 @@ public class GameImpl implements Game {
   public City getCityAt( Position p ) {
     if(p.getColumn() == 1 && p.getRow() == 1){
         return new CityImpl(Player.RED);
+    }else{
+        return null;
     }
   }
   public Player getPlayerInTurn() { return null; }
