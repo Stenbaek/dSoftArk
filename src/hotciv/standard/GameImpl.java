@@ -22,7 +22,11 @@ import hotciv.framework.*;
 public class GameImpl implements Game {
   public Tile getTileAt( Position p ) { return null; }
   public Unit getUnitAt( Position p ) { return null; }
-  public City getCityAt( Position p ) { return null; }
+  public City getCityAt( Position p ) {
+    if(p.getColumn() == 1 && p.getRow() == 1){
+        return new CityImpl(Player.RED);
+    }
+  }
   public Player getPlayerInTurn() { return null; }
   public Player getWinner() { return null; }
   public int getAge() { return 0; }
