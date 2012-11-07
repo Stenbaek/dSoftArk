@@ -31,14 +31,21 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void shouldHaveRedCityAt1_1() {
-    City c = game.getCityAt(new Position(1,1));
-    assertNotNull("There should be a city at (1,1)", c);
-    Player p = c.getOwner();
-    assertEquals( "City at (1,1) should be owned by red",
-      Player.RED, p );
-  }
-
+   public void shouldHaveRedCityAt1_1() {
+        City c = game.getCityAt(new Position(1,1));
+        assertNotNull("There should be a city at (1,1)", c);
+        Player p = c.getOwner();
+        assertEquals( "City at (1,1) should be owned by red",
+                Player.RED, p );
+    }
+   @Test
+   public void shouldHaveBlueCityAt4_1() {
+        City c = game.getCityAt(new Position(4,1));
+        assertNotNull("There should be a city at (4,1)", c);
+        Player p = c.getOwner();
+        assertEquals( "City at (4,1) should be owned by blue",
+                Player.BLUE, p );
+    }
   @Test
   public void shouldHaveOceanAt1_0(){
     Tile t = game.getTileAt(new Position(1,0));
@@ -59,5 +66,34 @@ public class TestAlphaCiv {
       Player p = game.getPlayerInTurn();
       assertEquals("Red should be first in turn",
         Player.BLUE, p);
+  }
+  @Test
+  public void unitCannotMoveOverMountain(){
+      assertFalse("Units cannot move over mountain tiles",
+              game.moveUnit(new Position(3,2),new Position(2,2)));
+  }
+  @Test
+  public void unitCannotMoveOverOcean(){
+      assertFalse("Units cannot move over ocean tiles",
+              game.moveUnit(new Position(2,0),new Position(1,0)));
+    }
+  @Test
+  public void cityPopulationStartsAtOne(){
+      City c= new CityImpl(Player.RED);
+      assertEquals("city population should start at one",1,c.getSize());
+  }
+  @Test
+  public void cityPopulationRemainsAtOne(){
+      CityImpl cStart = (CityImpl)game.getCityAt(new Position(1,1));
+      assertEquals("City population stays at one",1,cStart.getSize());
+      game.endOfTurn();
+      game.endOfTurn();//2 turns to checl that population stays at one
+      CityImpl cAfterTwoTurns = (CityImpl)game.getCityAt(new Position(1,1));
+      assertEquals("The population of a city remains at one, no matter how many turns",1,cAfterTwoTurns.getSize());
+  }
+  @Test
+  public void unitsCanMoveOneTile(){
+      Unit u = new UnitImpl(GameConstants.ARCHER, Player.BLUE);
+      assertEquals("Units can only move 1 tile",1,u.getMoveCount());
   }
 }
