@@ -3,7 +3,7 @@ Test:
 Players
 
 Red is the first player in turn
-Test:redShouldBeFirstInTurn()
+Test: redShouldBeFirstInTurn()
 
 After red, blue player is in turn
 Test: afterRedBlueShouldBeInTurn()
@@ -77,6 +77,7 @@ Setting city production tresuary to 100 it should return 100
 Setting city production tresuary to 200 it should return 2x100
 
 Red has a city at tile(1,1)
+Test: shouldHaveRedCityAt1_1()
 
 Blue has a city at tile(4,1)
 
