@@ -37,7 +37,7 @@ public class GameImpl implements Game {
   }
   /* alternativ til getTile...snak med Simon kræver TileImpl istedet for Ocean*/
    public Tile getTileAt( Position p ) {
-		if (p.equals(new Position(1,0))){ // 1,1 is ocean
+		if (p.equals(new Position(0,1))){ // 1,1 is ocean
 			return new TileImpl(GameConstants.OCEANS,p);
 		} else if(p.equals(new Position(0,1))){ // 0,1 is hills
 			return new TileImpl(GameConstants.HILLS,p);
