@@ -1,6 +1,6 @@
 Test:
 
-Players
+== Players ==
 
 Red is the first player in turn
 Test: redShouldBeFirstInTurn()
@@ -11,7 +11,7 @@ Test: afterRedBlueShouldBeInTurn()
 After blue, red player is in turn
 Test: afterBlueRedShouldBeInTurn()
 
-World Layout
+== World Layout ==
 
 Ocean tile at (1,0)
 Test: shouldHaveOceanAt1_0()
@@ -55,7 +55,7 @@ Units can be move to an empty plains tile
 A move should result in changed position and the unit remains the same
 type/owner, testing movement from (2,3) to (3,3)
 
-Combat
+== Combat ==
 
 Red's unit attacks and destroys Blue's unit
 
@@ -63,7 +63,7 @@ Blue's unit attacks and destroys Red's unit
 
 Red should not be able not attack own units
 
-Cities
+== Cities ==
 
 Choose what unit a city should produce
 
@@ -90,7 +90,7 @@ Game can place a red archer once there is enough production in city at (1,1)
 
 Game can place a blue legion once there is enough production in city at (4,1)
 
-Aging
+== Aging ==
 
 Game starts at 4000 bc
 
@@ -100,7 +100,7 @@ After turn 5 the year is 3500 bc
 
 Units regain the ability to move after each round: setting unit move to 1
 
-Win
+== Win ==
 
 Red should be the winner
 
