@@ -76,6 +76,8 @@ public class GameImpl implements Game {
       this.age = age+100;
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
-  public void changeProductionInCityAt( Position p, String unitType ) {}
+  public void changeProductionInCityAt( Position p, String unitType ) {
+      ((CityImpl)getCityAt(p)).setProduction(unitType);
+  }
   public void performUnitActionAt( Position p ) {}
 }
