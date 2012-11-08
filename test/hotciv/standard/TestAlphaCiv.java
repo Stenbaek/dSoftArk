@@ -50,7 +50,7 @@ public class TestAlphaCiv {
   public void shouldHaveOceanAt1_0(){
     Tile t = game.getTileAt(new Position(1,0));
     assertNotNull("There should be a tile at position (1,0)" + t.getPosition(),t);
-    assertEquals("There should be an ocean at (1,0)", Ocean.class, t.getClass());
+    assertEquals("There should be an ocean at (1,0) Class: " + t.getClass(), Ocean.class, t.getClass());
   }
 
   @Test

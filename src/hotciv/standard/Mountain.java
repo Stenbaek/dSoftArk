@@ -5,17 +5,18 @@ import hotciv.framework.Position;
 import hotciv.framework.Tile;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Thomas
- * Date: 08-11-12
- * Time: 09:01
+ * Created by IntelliJ IDEA.
+ * User: stenbaek
+ * Date: 08/11/12
+ * Time: 09.28
  * To change this template use File | Settings | File Templates.
  */
-public class Ocean implements Tile {
+
+public class Mountain implements Tile {
 
     private Position position;
 
-    public Ocean(Position p){
+    public Mountain(Position p){
         this.position = p;
     }
 
@@ -26,6 +27,6 @@ public class Ocean implements Tile {
 
     @Override
     public String getTypeString() {
-        return GameConstants.OCEANS;  //To change body of implemented methods use File | Settings | File Templates.
+        return GameConstants.MOUNTAINS;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
