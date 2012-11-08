@@ -140,4 +140,15 @@ public class TestAlphaCiv {
             }
         }
     }
+    @Test
+    public void gameStartsAt4000bc(){
+        int startage = game.getAge();
+        assertEquals("The game should start at at 4000bc ", -4000, startage);
+    }
+    @Test
+    public void redShouldWin(){
+        Player p1 = game.getWinner();
+        assertEquals("Red should dbe the winner of the game",Player.RED,p1);
+    }
+
 }

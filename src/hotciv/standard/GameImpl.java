@@ -69,9 +69,10 @@ public class GameImpl implements Game {
         return Player.BLUE;
     }
   }
-  public Player getWinner() { return null; }
+  public Player getWinner() { return Player.RED; }
   public int getAge() { return age; }
   public boolean moveUnit( Position from, Position to ) {
+
     return false;
   }
   public void endOfTurn() {
@@ -88,4 +89,6 @@ public class GameImpl implements Game {
       ((CityImpl)getCityAt(p)).setProduction(unitType);
   }
   public void performUnitActionAt( Position p ) {}
+
+
 }

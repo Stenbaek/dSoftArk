@@ -93,6 +93,7 @@ Game can place a blue legion once there is enough production in city at (4,1)
 == Aging ==
 
 Game starts at 4000 bc
+Test: gameStartsAt4000bc()
 
 Game ages 100 years per turn
 
@@ -103,5 +104,6 @@ Units regain the ability to move after each round: setting unit move to 1
 == Win ==
 
 Red should be the winner
+Test: redShouldWin
 
 
