@@ -46,7 +46,7 @@ public class GameImpl implements Game {
 		}
 
 		// All other tiles are of type plains
-		return new TileImpl(GameConstants.PLAINS,p.getRow(),p.getColumn());
+		return new TileImpl(GameConstants.PLAINS,p);
 	}
 
 
