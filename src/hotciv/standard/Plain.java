@@ -11,11 +11,11 @@ import hotciv.framework.Tile;
  * Time: 09:01
  * To change this template use File | Settings | File Templates.
  */
-public class Ocean implements Tile {
+public class Plain implements Tile {
 
     private Position position;
 
-    public Ocean(Position p){
+    public Plain(Position p){
         this.position = p;
     }
 
@@ -26,6 +26,6 @@ public class Ocean implements Tile {
 
     @Override
     public String getTypeString() {
-        return GameConstants.OCEANS;  //To change body of implemented methods use File | Settings | File Templates.
+        return GameConstants.PLAINS;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
