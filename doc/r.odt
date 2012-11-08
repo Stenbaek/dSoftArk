@@ -1,0 +1,102 @@
+Test:
+
+Players
+
+Red is the first player in turn
+Test:redShouldBeFirstInTurn()
+
+After red, blue player is in turn
+Test: afterRedBlueShouldBeInTurn()
+
+After blue, red player is in turn
+
+World Layout
+
+Ocean tile at (1,0)
+
+Plains everywhere else
+
+Mountian tile at (2,2)
+
+Hills tile at (0,1)
+
+Units
+
+Red settler at tile(4.3)
+
+Blue legion at tile(3,2)
+
+Red archer at tile(2,0)
+
+A unit has a max movent of one
+Test: unitsCanMoveOneTile()
+
+Units can at max move 1 tile per turn
+
+Red should not be able to move Blue's units
+
+Blue should not be able to move Red's units
+
+Units cannot move over mountain tile
+Test: unitCannotMoveOverMountain()
+
+Units cannot move over ocean tile
+Test: unitCannotMoveOverOcean()
+
+The unit at (2,0) (archer, red) cannot move to the ocean tile at (1,0)
+
+Units can be move to an empty plains tile
+
+A move should result in changed position and the unit remains the same
+type/owner, testing movement from (2,3) to (3,3)
+
+Combat
+
+Red's unit attacks and destroys Blue's unit
+
+Blue's unit attacks and destroys Red's unit
+
+Red should not be able not attack own units
+
+Cities
+
+Choose what unit a city should produce
+
+City population stays at 1
+Test: cityPopulationRemainsAtOne()
+
+City population should initially be 1
+Test: cityPopulationStartsAtOne()
+
+Cities produces 6 production after end of round
+After 2 turns cities should have produced 12 production with nothing in
+production
+
+Setting city production tresuary to 100 it should return 100
+
+Setting city production tresuary to 200 it should return 2x100
+
+Red has a city at tile(1,1)
+
+Blue has a city at tile(4,1)
+
+Game can place a red archer once there is enough production in city at (1,1)
+
+Game can place a blue legion once there is enough production in city at (4,1)
+
+Aging
+
+Game starts at 4000 bc
+
+Game ages 100 years per turn
+
+After turn 5 the year is 3500 bc
+
+Units regain the ability to move after each round: setting unit move to 1
+
+Win
+
+Red should be the winner
+ 
+
+
