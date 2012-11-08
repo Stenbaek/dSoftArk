@@ -40,4 +40,15 @@ public class CityImpl implements City{
     public String getWorkforceFocus() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+    public int getProductionTreasury(){
+        return cityTreasury;
+
+    }
+    public void addProductionTreasury(int amount){
+        cityTreasury += amount;
+    }
+    public void setProduction(String unitType){
+        unitInProduction = unitType;
+
+    }
 }
