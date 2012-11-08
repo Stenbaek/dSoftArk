@@ -9,18 +9,23 @@ After red, blue player is in turn
 Test: afterRedBlueShouldBeInTurn()
 
 After blue, red player is in turn
+Test: afterBlueRedShouldBeInTurn()
 
 World Layout
 
 Ocean tile at (1,0)
+Test: shouldHaveOceanAt1_0()
 
 Plains everywhere else
+Test: worldShouldHavePlainsEverywhereElse()
 
 Mountian tile at (2,2)
+Test: shouldHaveMountainAt2_2()
 
 Hills tile at (0,1)
+Test: shouldHaveHillAt0_1()
 
-Units
+== Units ==
 
 Red settler at tile(4.3)
 
