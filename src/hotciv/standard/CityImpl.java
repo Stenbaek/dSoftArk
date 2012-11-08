@@ -47,7 +47,7 @@ public class CityImpl implements City{
     public void addProductionTreasury(int amount){
         cityTreasury += amount;
     }
-    public vid setProduction(String unitType){
+    public void setProduction(String unitType){
         unitInProduction = unitType;
 
     }
