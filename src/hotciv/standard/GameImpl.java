@@ -27,27 +27,28 @@ public class GameImpl implements Game {
       this.age = -4000; // initial start age
   }
 
-  public Tile getTileAt( Position p ) {
+
+  /*public Tile getTileAt( Position p ) {
     if(p.getRow() == 1 && p.getColumn() == 0){
         return new Ocean(p);
     }else{
         return null;
-    }
+    } /*
   }
-  /* alternativ til getTile...snak med Simon kræver TileImpl istedet for Ocean
+  /* alternativ til getTile...snak med Simon kræver TileImpl istedet for Ocean*/
    public Tile getTileAt( Position p ) {
 		if (p.equals(new Position(1,0))){ // 1,1 is ocean
-			return new TileImpl(GameConstants.OCEANS,1,0);
+			return new TileImpl(GameConstants.OCEANS,p);
 		} else if(p.equals(new Position(0,1))){ // 0,1 is hills
-			return new TileImpl(GameConstants.HILLS,0,1);
+			return new TileImpl(GameConstants.HILLS,p);
 		} else if(p.equals(new Position(2,2))){ // is mountains
-			return new TileImpl(GameConstants.MOUNTAINS,2,2);
+			return new TileImpl(GameConstants.MOUNTAINS,p);
 		}
 
 		// All other tiles are of type plains
 		return new TileImpl(GameConstants.PLAINS,p.getRow(),p.getColumn());
 	}
-     */
+
 
   public Unit getUnitAt( Position p ) {
       return units[p.getRow()][p.getColumn()]; }

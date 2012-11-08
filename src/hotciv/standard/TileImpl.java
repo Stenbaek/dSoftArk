@@ -13,18 +13,20 @@ import hotciv.framework.Tile;
 public class TileImpl implements Tile {
 
     private Position position;
+    private String type;
 
-    public TileImpl(Position p){
+    public TileImpl(String type, Position p){
         this.position = p;
+        this.type =type;
     }
 
     @Override
     public Position getPosition() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return position;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public String getTypeString() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return this.type;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
