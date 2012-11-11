@@ -150,5 +150,46 @@ public class TestAlphaCiv {
         Player p1 = game.getWinner();
         assertEquals("Red should dbe the winner of the game",Player.RED,p1);
     }
+    public void shouldInitiallyBeRedAcherAt2x0() {
+        assertNotNull("2,0 should not be null",
+                game.getUnitAt(new Position(2,0))); //unit at 2,0
+        assertEquals("2,0 should be and archer",
+                GameConstants.ARCHER, //archer
+                game.getUnitAt(new Position(2,0)).getTypeString()); //returns unit at 2,0's type
+        assertEquals("2,0 should be a red unit",
+                Player.RED,
+                game.getUnitAt(new Position(2,0)).getOwner()); //returns owner of 2,0
+    }
+
+    @Test
+    public void shouldInitiallyBeBlueLegionAt3x2() {
+        assertNotNull("3,2 should not be null",
+                game.getUnitAt(new Position(3,2))); //blue legion at 3,2
+        assertEquals("3,2 should be an blue legion",
+                GameConstants.LEGION, //legion
+                game.getUnitAt(new Position(3,2)).getTypeString()); //returns unit at 3,2's type
+        assertEquals("3,2 should be a blue unit",
+                Player.BLUE,
+                game.getUnitAt(new Position(3,2)).getOwner()); //returns owner of 3,2
+    }
+
+    @Test
+    public void shouldInitiallyBeRedSettlerAt4x3() {
+        assertNotNull("4,3 should not be null",
+                game.getUnitAt(new Position(4,3))); //red settler at 4,3
+        assertEquals("3,2 should be an red settler",
+                GameConstants.SETTLER, //settler
+                game.getUnitAt(new Position(4,3)).getTypeString()); //returns unit at 3,2's type
+        assertEquals("4,3 should be a red unit",
+                Player.RED,
+                game.getUnitAt(new Position(4,3)).getOwner()); //returns owner of 3,2
+    }
+    @Test
+    public void shouldAdvanceTimeBy100AtEndOfFirstRound() {
+        game.endOfTurn();
+        game.endOfTurn();
+        assertEquals("Ending a round the time should be incremented by 100",
+                -3900, game.getAge());
+    }			// start time is -4000 + 100 = - 3900
 
 }

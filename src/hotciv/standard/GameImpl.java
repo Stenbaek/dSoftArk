@@ -22,11 +22,28 @@ import hotciv.framework.*;
 public class GameImpl implements Game {
   private int age;
   private UnitImpl[][] units; // matrix of units in game
-  // private CityImpl[][] cities; // snak med simon ang.matrix of cities in game
+  private CityImpl[][] cities; // snak med simon ang.matrix of cities in game
+  private Player playerInTurn = Player.RED;
   public GameImpl(){
       this.age = -4000; // initial start age
+      this.createWorld();
   }
+  private void createWorld(){
 
+      units = new UnitImpl[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
+
+      // Creating initial units, map and cities
+      units[2][0] = new UnitImpl(GameConstants.ARCHER, Player.RED);
+      units[3][2] = new UnitImpl(GameConstants.LEGION, Player.BLUE);
+      units[4][3] = new UnitImpl(GameConstants.SETTLER, Player.RED);
+
+
+
+      cities = new CityImpl[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
+      cities[1][1] = new CityImpl(Player.RED);
+      cities[4][1] = new CityImpl(Player.BLUE);
+
+  }
 
   /*public Tile getTileAt( Position p ) {
     if(p.getRow() == 1 && p.getColumn() == 0){
@@ -63,11 +80,13 @@ public class GameImpl implements Game {
     }
   }
   public Player getPlayerInTurn() {
-    if((age/100)%2 == 0){
+      return playerInTurn;
+      /*
+      if((age/100)%2 == 0){
         return Player.RED;
     }else{
         return Player.BLUE;
-    }
+    }  */
   }
   public Player getWinner() { return Player.RED; }
   public int getAge() { return age; }
@@ -76,7 +95,41 @@ public class GameImpl implements Game {
     return false;
   }
   public void endOfTurn() {
-      this.age = age+100;
+      if(playerInTurn == Player.BLUE) { // A round ends after blue players turn as he/she is the last in round
+          age += 100; // advances time by 100 years
+          for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+              for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+                  if (cities[r][c] != null) {
+                      // Adding 6 production to each cities treasury each round
+                      cities[r][c].addProductionTreasury(6);
+
+                      if (cities[r][c].getProduction() != null) {
+
+                          // If the city can afford what it is producing, the unit is placed on the map
+                          if(cities[r][c].getProductionTreasury()
+                                  >= getUnitCost(cities[r][c].getProduction())) {
+
+                              // places the unit on map
+                              units[r][c] = new UnitImpl(cities[r][c].getProduction(), cities[r][c].getOwner());
+                          }
+                      }
+                  }
+
+                  // only selects units with 0 move points
+                  if (units[r][c] != null && units[r][c].getMoveCount() == 0) {
+                      units[r][c].changeMoveCounter(1); // sets the unit moveCount to 1 if it is zero (current invariant)
+                  }
+              }
+          }
+      }
+
+      // swaps the players each turn
+      if (Player.RED == playerInTurn) {
+          playerInTurn = Player.BLUE;
+      } else {
+          playerInTurn = Player.RED;
+      }
+
   }
   private int getUnitCost(String unitType){
       if(unitType.equals(GameConstants.ARCHER)) return 10;
