@@ -150,7 +150,8 @@ public class TestAlphaCiv {
         Player p1 = game.getWinner();
         assertEquals("Red should dbe the winner of the game",Player.RED,p1);
     }
-    public void shouldInitiallyBeRedAcherAt2x0() {
+    @Test
+    public void shouldInitiallyBeRedArcherAt2x0() {
         assertNotNull("2,0 should not be null",
                 game.getUnitAt(new Position(2,0))); //unit at 2,0
         assertEquals("2,0 should be and archer",
@@ -191,5 +192,78 @@ public class TestAlphaCiv {
         assertEquals("Ending a round the time should be incremented by 100",
                 -3900, game.getAge());
     }			// start time is -4000 + 100 = - 3900
+    @Test
+    public void redShouldNotBeAbleToMoveBlueUnits(){
+        Player p = game.getPlayerInTurn();
+        // test that it indeed is reds turn
+        assertEquals("current player in turn is red", Player.RED, p);
+        // fetches a blue unit
+        Unit u = game.getUnitAt(new Position(3,2));
+        // tests that it indeed blue
+        assertEquals("This unit should be blue", Player.BLUE, u.getOwner());
+        boolean b = game.moveUnit(new Position(3,2), new Position(3,3));
+        assertFalse("Not a legal move, red should not be able to move a blue unit", b);
+    }
+    @Test
+    public void blueshouldNotBeAbleToMoveRedUnits(){
+        game.endOfTurn();
+        Player p = game.getPlayerInTurn();
+        assertEquals("current player in turn is blue", Player.BLUE,p);
+        Unit u = game.getUnitAt(new Position(2,0));
+        assertEquals("This unit should be red",Player.RED, u.getOwner());
+        boolean b = game.moveUnit(new Position(2,0),new Position(3,0));
+        assertFalse("not a legal move, blue should not be able to move a red unit",b);
+
+    }
+    /**
+     * Tests that when adding production to a cities production treasury
+     * the amount is reflected in the cities treasury
+     */
+    @Test
+    public void shouldReturn100WhenSetProductionTo100() {
+        CityImpl c = new CityImpl(Player.RED);
+        c.addProductionTreasury(100);
+        assertEquals("Should return the ammount (100) set by calling setProductionTreasury",
+        100, c.getProductionTreasury());
+    }
+
+    /**
+     * Tests adding production 2x100 which should be 200
+     */
+    @Test
+    public void shouldReturn200AfterSetOf2x100() {
+        CityImpl c = new CityImpl(Player.RED);
+        c.addProductionTreasury(100);
+        c.addProductionTreasury(100);
+        assertEquals("Should return the ammount (200) set by calling setProductionTreasury(100) two times",
+        200, c.getProductionTreasury());
+    }
+
+    /**
+     * Tests endOfRound addition of production to cities
+     */
+    @Test
+    public void citiesProduce6ProductionAfterEndOfEachRound() {
+        CityImpl c = (CityImpl) game.getCityAt(new Position(1,1));
+        assertEquals("Cities should start with 0 in production treasury", 0 ,c.getProductionTreasury());
+        game.endOfTurn();
+        game.endOfTurn(); // ends the current round so resources added
+        CityImpl c2 = (CityImpl) game.getCityAt(new Position(1,1));
+        assertEquals("Cities should have 6 production after first round", 6, c2.getProductionTreasury());
+    }
+
+    /**
+     * Tests that a city that isn't producing anything a city should have 12 production after 2 rounds (4 turns)
+     */
+    @Test
+    public void after2RoundsCitiesShouldHave12ProductionWithNothingInProduction() {
+        game.endOfTurn();
+        game.endOfTurn();
+        game.endOfTurn();
+        game.endOfTurn();// incrementing time by two rounds
+        CityImpl c = (CityImpl) game.getCityAt(new Position(1,1));
+        assertEquals("After two rounds the city at (1,1) should have 12 production in it's treasury",
+                12, c.getProductionTreasury());
+    }
 
 }

@@ -91,8 +91,39 @@ public class GameImpl implements Game {
   public Player getWinner() { return Player.RED; }
   public int getAge() { return age; }
   public boolean moveUnit( Position from, Position to ) {
+// getting the unit
+      UnitImpl theUnitInMove = units[from.getRow()][from.getColumn()];
 
-    return false;
+      // Checking the unit is owned by the player in turn
+      if( theUnitInMove.getOwner() == playerInTurn){
+
+          if (theUnitInMove.getMoveCount() < 1) {
+              return false; // returns false if the unit has < 1 move points left
+          }
+
+          Unit unitPossiblyUnderAttack = getUnitAt(to); // finds the unit possibly coming under attack
+
+          if (unitPossiblyUnderAttack != null
+                  && unitPossiblyUnderAttack.getOwner() == playerInTurn) {
+              return false; // if there isn't any units or the unit there is that of the player in turn
+          }
+
+          Tile moveToTile = getTileAt(to); // finds the tile at the move TO position
+          if (moveToTile.getTypeString().equals(GameConstants.MOUNTAINS)
+                  || moveToTile.getTypeString().equals(GameConstants.OCEANS)) {
+              return false; // mountains and oceans cannot have units on them
+          }
+
+          // *** This is only executed if all tests pass ***
+          // change the move count
+          theUnitInMove.changeMoveCounter(-1);
+
+          // The actual move of the unit
+          units[to.getRow()][to.getColumn()] = theUnitInMove; // move to
+          units[from.getRow()][from.getColumn()] = null; // reset from
+          return true;
+      }
+      else return false; // if the player in turn does not own the unit
   }
   public void endOfTurn() {
       if(playerInTurn == Player.BLUE) { // A round ends after blue players turn as he/she is the last in round
