@@ -110,8 +110,8 @@ public class GameImpl implements Game {
           }
 
           Tile moveToTile = getTileAt(to); // finds the tile at the move TO position
-          if (moveToTile.getTypeString().equals(GameConstants.MOUNTAINS)
-                  || moveToTile.getTypeString().equals(GameConstants.OCEANS)) {
+          if (moveToTile.getClass().equals(Mountain.class)
+                  || moveToTile.getClass().equals(Ocean.class)) {
               return false; // mountains and oceans cannot have units on them
           }
 
@@ -174,6 +174,5 @@ public class GameImpl implements Game {
       ((CityImpl)getCityAt(p)).setProduction(unitType);
   }
   public void performUnitActionAt( Position p ) {}
-
 
 }

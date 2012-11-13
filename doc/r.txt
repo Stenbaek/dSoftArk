@@ -1,3 +1,8 @@
+SPØRG Casper ang. runde/tur
+
+- er en tur == rød runde og blå runde ||  rød tur og blå tur.
+- ant emma?
+
 Tests:
 
 == Players ==
@@ -40,6 +45,7 @@ A unit has a max movement of one
 Test: unitsCanMoveOneTile()
 
 Units can at max move 1 tile per turn
+Test: unitCanMove1tilePerTurn()
 
 Red should not be able to move Blue's units
 Test: redShouldNotBeAbleToMoveBlueUnits()
@@ -54,23 +60,29 @@ Units cannot move over ocean tile
 Test: unitCannotMoveOverOcean()
 
 The unit at (2,0) (archer, red) cannot move to the ocean tile at (1,0)
+Test: archerAt2_0CannotMoveToOceanTileAt1_0()
 
-Units can be move to an empty plains tile
+Units can be moved to an empty plains tile
+Test: archerCanMoveToEmptyPlainTile()
 
-A move should result in changed position and the unit remains the same
-type/owner, testing movement from (2,3) to (3,3)
+A move should result in changed position and the unit remains the same type/owner, testing movement of archer from (2,0) to (3,0)
+Test: typeAndOwnerRemainsUnchangedAfterMovement()
 
 == Combat ==
 
 Red's unit attacks and destroys Blue's unit
+Test: redUnitAttacksAndDestroysBlueUnit()
 
 Blue's unit attacks and destroys Red's unit
+Test: blueUnitAttacksAndDestroysRedUnit()
 
 Red should not be able not attack own units
+Test: redShouldNotBeAbleToAttackOwnUnit()
 
 == Cities ==
 
 Choose what unit a city should produce
+Test: chooseCityProduction
 
 City population stays at 1
 Test: cityPopulationRemainsAtOne()
@@ -110,8 +122,10 @@ Game ages 100 years per turn
 Test: shouldAdvanceTimeBy100AtEndOfFirstRound
 
 After turn 5 the year is 3500 bc
+Test: after5TurnsGameTineShouldBe3500BC()
 
 Units regain the ability to move after each round: setting unit move to 1
+Test: unitCanMove1tileAfterTurn()
 
 == Win ==
 

@@ -3,6 +3,9 @@ package hotciv.standard;
 import hotciv.framework.*;
 
 import org.junit.*;
+
+import java.security.acl.Owner;
+
 import static org.junit.Assert.*;
 
 /** Skeleton class for AlphaCiv test cases
@@ -123,7 +126,7 @@ public class TestAlphaCiv {
 
     @Test
     public void unitsCanMoveOneTile(){
-        Unit u = new UnitImpl(GameConstants.ARCHER, Player.BLUE);
+        Unit u = new UnitImpl(GameConstants.ARCHER, Player.RED);
         assertEquals("Units can only move 1 tile",1,u.getMoveCount());
     }
 
@@ -142,8 +145,8 @@ public class TestAlphaCiv {
     }
     @Test
     public void gameStartsAt4000bc(){
-        int startage = game.getAge();
-        assertEquals("The game should start at at 4000bc ", -4000, startage);
+        int startAge = game.getAge();
+        assertEquals("The game should start at at 4000bc ", -4000, startAge);
     }
     @Test
     public void redShouldWin(){
@@ -205,7 +208,7 @@ public class TestAlphaCiv {
         assertFalse("Not a legal move, red should not be able to move a blue unit", b);
     }
     @Test
-    public void blueshouldNotBeAbleToMoveRedUnits(){
+    public void blueShouldNotBeAbleToMoveRedUnits(){
         game.endOfTurn();
         Player p = game.getPlayerInTurn();
         assertEquals("current player in turn is blue", Player.BLUE,p);
@@ -266,7 +269,7 @@ public class TestAlphaCiv {
                 12, c.getProductionTreasury());
     }
     @Test
-    public void anyUnitCannotMoveToAnyMountainTileFromAnyDirection() {
+     public void anyUnitCannotMoveToAnyMountainTileFromAnyDirection() {
         game.endOfTurn(); // Now blue is in turn
         boolean b = game.moveUnit(new Position(3,2), new Position(3,3));
         assertTrue("This move should be legal. blue is in turn, " +
@@ -276,5 +279,102 @@ public class TestAlphaCiv {
         // the move to the mountain tile
         b = game.moveUnit(new Position(3,3), new Position(2,2));
         assertFalse("The unit should not be able to move to 2,2 as it is a mountain tile", b);
+    }
+
+    @Test
+    public void archerAt2_0CannotMoveToOceanTileAt1_0(){
+        Unit archer = game.getUnitAt(new Position(2, 0));
+        assertEquals("The unit at (2,0) Should be an archer", game.getUnitAt(new Position(2, 0)).getTypeString(), GameConstants.ARCHER);
+        assertTrue("The archer should be own by RED", (archer.getOwner() == Player.RED));
+        assertFalse("The archer should not be able to move to ocean tile", game.moveUnit(new Position(2,0),new Position(1,0)));
+    }
+    @Test
+    public void archerCanMoveToEmptyPlainTile(){
+        Unit archer = game.getUnitAt(new Position(2, 0));
+        assertEquals("The unit at (2,0) Should be an archer", game.getUnitAt(new Position(2, 0)).getTypeString(), GameConstants.ARCHER);
+        assertTrue("The archer should be able to move to empty plain", game.moveUnit(new Position(2, 0), new Position(3, 0)));
+    }
+
+    @Test
+    public void typeAndOwnerRemainsUnchangedAfterMovement(){
+        Unit archer = game.getUnitAt(new Position(2, 0));
+        Player ownerRoundOne = archer.getOwner();
+        String typeRoundOne = archer.getTypeString();
+
+        game.moveUnit(new Position(2,0), new Position(3,0));
+
+        Unit archerAfterMovement = game.getUnitAt(new Position(3, 0));
+        assertEquals("Owner of unit should not have changed during movement",ownerRoundOne,archerAfterMovement.getOwner());
+        assertEquals("Type of unit should not have changed during movement",typeRoundOne,archerAfterMovement.getTypeString());
+    }
+
+    @Test
+    public void redUnitAttacksAndDestroysBlueUnit(){
+        assertTrue("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,1))); //RED is in turn, and moves towards blue legion
+        game.endOfTurn(); //Turn ends, and BLUE is in turn
+        assertTrue("unit at (3,2) should be able to move to (3,1)", game.moveUnit(new Position(3, 2), new Position(3, 1))); //BLUE moves towards RED archer
+        game.endOfTurn(); //Turn ends, and RED is in turn
+        assertTrue("unit at (2,1) should be able to move to (3,1)", game.moveUnit(new Position(2, 1), new Position(3, 1))); //RED moves and attacks BLUE legion - BLUE legion is destroyed
+        game.endOfTurn(); //Turn ends, and BLUE is in turn
+        assertFalse("BLUE should not be able to move unit at (3,1) to (3,2) - it is destroyed", game.moveUnit(new Position(3, 1), new Position(3, 2))); //BLUE tries to move an unit from (3,1), but BLUE has no units on (3,1), since it was destroyed by RED
+        assertEquals("Owner of unit at (3,1) Should be RED", game.getUnitAt(new Position(3, 1)).getOwner(), Player.RED); //Only RED archer remains at (3,1)
+    }
+
+    @Test
+    public void blueUnitAttacksAndDestroysRedUnit(){
+        assertTrue("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,1))); //RED is in turn, and moves towards blue legion
+        game.endOfTurn(); //Turn ends, and BLUE is in turn
+        assertTrue("unit at (3,2) should be able to move to (3,1)",game.moveUnit(new Position(3,2), new Position(3,1))); //BLUE moves towards RED archer
+        game.endOfTurn(); //Turn ends, and RED is in turn
+        game.endOfTurn(); //RED makes an unbelievably stupid move, and ends his turn - BLUE is now in turn, and is in key position to destroy RED archer
+        assertTrue("unit at (3,1) should be able to move to (2,1)",game.moveUnit(new Position(3,1), new Position(2,1))); //BLUE moves and attacks RED archer - RED archer is destroyed
+        game.endOfTurn(); //Turn ends, and BLUE is in turn
+        assertFalse("BLUE should not be able to move unit at (3,1) to (3,2) - it is destroyed",game.moveUnit(new Position(2,1), new Position(3,1))); //RED tries to move an unit from (2,1), but RED has no units on (2,1), since it was destroyed by BLUE
+        assertEquals("Owner of unit at (3,1) Should be RED",game.getUnitAt(new Position(2,1)).getOwner(), Player.BLUE); //Only RED archer remains at (3,1)
+    }
+
+    @Test
+    public void redShouldNotBeAbleToAttackOwnUnit(){
+        assertTrue("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,1))); //RED is in turn, and moves towards blue legion
+        assertTrue("unit at (4,3) should be able to move to (4,2)",game.moveUnit(new Position(4,3), new Position(4,2)));
+        game.endOfTurn(); //Turn ends, and BLUE is in turn
+        assertTrue("unit at (3,2) should be able to move to (3,3)", game.moveUnit(new Position(3, 2), new Position(3, 3))); //BLUE moves towards RED archer
+        game.endOfTurn(); //Turn ends, and RED is in turn
+        assertTrue("unit at (4,2) should be able to move to (3,2)", game.moveUnit(new Position(4, 2), new Position(3, 2)));
+        assertTrue("unit at (2,1) should be able to move to (3,1)",game.moveUnit(new Position(2,1), new Position(3,1))); //RED is in turn, and moves towards blue legion
+        game.endOfTurn();
+        game.endOfTurn();
+        assertFalse("Red archer cannot attack own settler",game.moveUnit(new Position(3,1), new Position(3,2)));
+    }
+    @Test
+    public void chooseCityProduction(){
+    game.changeProductionInCityAt(new Position(1,1), GameConstants.LEGION); // sets production to legion
+    String prod = game.getCityAt(new Position(1,1)).getProduction();
+    assertNotNull("City production should not be null",prod);
+    assertEquals("City production should be a legion",GameConstants.LEGION,prod);
+    }
+    @Test
+    public void after5TurnsGameTineShouldBe3500BC() {
+
+        for(int x=0;x<10;x++)
+        {
+            game.endOfTurn();
+        }
+        			// start time is -4000 + 300 = - 350
+        assertEquals("After 5 turns game time should be 3500BC",
+                -3500, game.getAge());
+    }
+    @Test
+    public void unitCanMove1tilePerTurn(){
+        assertTrue("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,1))); //RED is in turn, and moves towards blue legion
+        assertFalse("unit at (2,1) should not be able to move to (3,1)",game.moveUnit(new Position(2,1), new Position(3,1))); //RED is still in turn, and moves towards blue legion
+    }
+    @Test
+    public void unitCanMove1tileAfterTurn(){
+        Unit u = new UnitImpl(GameConstants.ARCHER, Player.RED);
+        assertTrue("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,1)));
+        game.endOfTurn(); //Blue's turn
+        game.endOfTurn(); //Red's turn
+        assertEquals("Units can only move 1 tile",1,u.getMoveCount());
     }
 }
