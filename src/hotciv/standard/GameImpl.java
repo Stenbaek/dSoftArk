@@ -92,8 +92,17 @@ public class GameImpl implements Game {
   public Player getWinner() { return Player.RED; }
   public int getAge() { return age; }
   public boolean moveUnit( Position from, Position to ) {
-// getting the unit
+      if(from.getColumn() < 0 || from.getRow() < 0 || to.getColumn() < 0 || to.getRow() < 0) return false; //Outside the array
+      if(from.getColumn() >= GameConstants.WORLDSIZE || from.getRow() >= GameConstants.WORLDSIZE || to.getColumn() >= GameConstants.WORLDSIZE || to.getRow() >= GameConstants.WORLDSIZE) return false;
+      // getting the unit
       UnitImpl theUnitInMove = units[from.getRow()][from.getColumn()];
+
+      if(!(to.getColumn() >= from.getColumn()-1 && to.getColumn() <= from.getColumn()+1
+              && to.getRow() >= from.getRow()-1 && to.getRow() <= from.getRow()+1)){
+           return false; //Unit can only move within the 8 adjacent tiles
+      }
+
+
 
       // Checking the unit is owned by the player in turn
       if( theUnitInMove.getOwner() == playerInTurn){

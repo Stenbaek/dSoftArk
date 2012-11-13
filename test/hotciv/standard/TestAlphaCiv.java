@@ -4,8 +4,6 @@ import hotciv.framework.*;
 
 import org.junit.*;
 
-import java.security.acl.Owner;
-
 import static org.junit.Assert.*;
 
 /** Skeleton class for AlphaCiv test cases
@@ -291,7 +289,7 @@ public class TestAlphaCiv {
     @Test
     public void archerCanMoveToEmptyPlainTile(){
         Unit archer = game.getUnitAt(new Position(2, 0));
-        assertEquals("The unit at (2,0) Should be an archer", game.getUnitAt(new Position(2, 0)).getTypeString(), GameConstants.ARCHER);
+        assertEquals("The unit at (2,0) Should be an archer",archer.getTypeString(), GameConstants.ARCHER);
         assertTrue("The archer should be able to move to empty plain", game.moveUnit(new Position(2, 0), new Position(3, 0)));
     }
 
@@ -365,12 +363,13 @@ public class TestAlphaCiv {
                 -3500, game.getAge());
     }
     @Test
-    public void unitCanMove1tilePerTurn(){
-        assertTrue("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,1))); //RED is in turn, and moves towards blue legion
-        assertFalse("unit at (2,1) should not be able to move to (3,1)", game.moveUnit(new Position(2, 1), new Position(3, 1))); //RED is still in turn, and moves towards blue legion
+    public void unitCanMoveOneTilePerTurn(){
+        assertFalse("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,2))); //RED is in turn, and moves towards blue legion
+        assertTrue("Legal move", game.moveUnit(new Position(2, 0), new Position(2, 1)));
+        assertFalse("unit at (2,1) should not be able to move mre than once per turn", game.moveUnit(new Position(2, 1), new Position(3, 1))); //RED is still in turn, and moves towards blue legion
     }
     @Test
-    public void unitCanMove1tileAfterTurn(){
+    public void unitCanMoveOneTileAfterTurn(){
         Unit u = new UnitImpl(GameConstants.ARCHER, Player.RED);
         assertTrue("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,1)));
         game.endOfTurn(); //Blue's turn
@@ -385,10 +384,10 @@ public class TestAlphaCiv {
         assertEquals("City production should be a archer",GameConstants.ARCHER,prod);
         game.endOfTurn();//blue's turn
         game.endOfTurn();//red's turn
-        assertNull("Archer should not be ready",game.getUnitAt(new Position(1,1)));
+        assertNull("Archer should not be ready", game.getUnitAt(new Position(1, 1)));
         game.endOfTurn();//blue's turn
         game.endOfTurn();//red's turn
-        Unit unit = game.getUnitAt(new Position(1,1));
+        Unit unit = game.getUnitAt(new Position(1, 1));
         assertNotNull("Unit should be ready",unit);
         assertEquals("Unit should an Archer",unit.getTypeString(),GameConstants.ARCHER);
         assertEquals("Archer should be own by RED",unit.getOwner(),Player.RED);
@@ -412,5 +411,20 @@ public class TestAlphaCiv {
         assertNotNull("Unit should be ready",unit);
         assertEquals("Unit should be a " + GameConstants.LEGION,unit.getTypeString(),GameConstants.LEGION);
         assertEquals("Archer should be own by RED",unit.getOwner(),Player.BLUE);
+    }
+
+    @Test
+    public void unitCanNotMoveOutsideTheBoundaries(){
+        assertFalse("Archer should not be able to move outside the world",game.moveUnit(new Position(2,0),new Position(2,-1)));
+        for(int i = 0; i<12; i++){
+            game.moveUnit(new Position(4+i,3),new Position(5+i,3));
+            game.endOfTurn();
+            game.moveUnit(new Position(3,2+i),new Position(3,3+i));
+            game.endOfTurn();
+        }
+        game.moveUnit(new Position(3,14),new Position(3,15));
+        game.endOfTurn();
+        assertFalse("Settler should not be able to move outside the world",game.moveUnit(new Position(3,15),new Position(3,16)));
+        assertFalse("Legion should not be able to move outside the world",game.moveUnit(new Position(15,3),new Position(16,3)));
     }
 }
