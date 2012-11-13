@@ -137,4 +137,54 @@ Test: unitCanMove1tileAfterTurn()
 Red should be the winner
 Test: redShouldWin
 
-
+B)
+Her er den test-liste vi har fundet frem til og lavet test cases for de kraven vi
+fandt på s. 458 og s.462:
+Vi har arbejder frem efter at der vælges en test udefra listen. Derefter bruges
+nedenstående TDD rytme til at få en test fra papir til fake-it kode også
+derefter til produktionskode. Som testes til det virker.
+1. Tilføj en test
+2. Kør alle testene og se den nye test fejle
+3. Ændrer koden i den nye test
+4. Kør alle testene igen og se dem alle virke
+5. Lav refaktorisering for at fjerne duplikatkode.
+Vi startede med at implementerer Tile så den ikke må returnere null, men
+finder ud af at det ikke er nødvendigt altså der står intet i kravene om det, så
+det er ikke begrundet med tests. Starter forfra
+Derefter gik vi i gang med at teste placering af Units:
+Test case der tjekker at rød fra start har en archer på Tile Position (2,0)
+Mini skridt:
+Null test for at sikre vi ikke får null object tilbage.
+Tilføre til koden så en anonym klasse; unit returneres.
+Mini skridt:
+Tester om enheden er en archer.
+Tilføjer at getUnitAt returner en anonym klasse med archer
+som typeString
+Mini skridt:
+Tester om enheden tilhøre RØD
+tilføjer at getUnitAt returnere en anonym klasse med archer
+som typeString og player er rød.
+Ingen refaktorisering nødvendig.
+Test der tjekker at der er en blå legion på 3,2
+-Null check
+Ok er ikke null
+-Legion check
+Tilføjer returnering af anonym Unit klasse ved Position 2,3
+med getTypeString =  LEGION
+-Blue check
+getOwner ændres til at returnere BLUE
+Test der tjekker at der er en rød settler på 4,3
+Null check
+Ok
+Settler check
+Tilføjer returnering af anonym Unit klasse ved Position 4,3
+med getTypeString =  SETTLER
+Red check
+getOwner ændres til at returnere RED
+Refaktorisering – UnitImpl klasse oprettes, anonyme klasser fjernes
+Efter dette refaktoriserede vi da vi havde duplikering af kode. Denne
+refaktorisering resulterede i at vi brugte 2-d arrays og dermed flyttede
+skabelsen af enhederne op i konstruktøren.
+Ydermere på grund af denne ændring kunne vi fjerne fake-it kode fra flere
+metoder og refaktoriserede konstruktøren således at skabelsen af map'et sker
+i en hjælpe-metode
