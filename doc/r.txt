@@ -110,8 +110,10 @@ Blue has a city at tile(4,1)
 Test: shouldHaveBlueCityAt4_1()
 
 Game can place a red archer once there is enough production in city at (1,1)
+Test: cityCanProduceAnArcherAfter2Turns()
 
 Game can place a blue legion once there is enough production in city at (4,1)
+Test: cityCanProduceALegionAfter3Turns()
 
 == Aging ==
 

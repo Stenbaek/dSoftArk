@@ -344,7 +344,7 @@ public class TestAlphaCiv {
         assertTrue("unit at (2,1) should be able to move to (3,1)",game.moveUnit(new Position(2,1), new Position(3,1))); //RED is in turn, and moves towards blue legion
         game.endOfTurn();
         game.endOfTurn();
-        assertFalse("Red archer cannot attack own settler",game.moveUnit(new Position(3,1), new Position(3,2)));
+        assertFalse("Red archer cannot attack own settler", game.moveUnit(new Position(3, 1), new Position(3, 2)));
     }
     @Test
     public void chooseCityProduction(){
@@ -367,7 +367,7 @@ public class TestAlphaCiv {
     @Test
     public void unitCanMove1tilePerTurn(){
         assertTrue("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,1))); //RED is in turn, and moves towards blue legion
-        assertFalse("unit at (2,1) should not be able to move to (3,1)",game.moveUnit(new Position(2,1), new Position(3,1))); //RED is still in turn, and moves towards blue legion
+        assertFalse("unit at (2,1) should not be able to move to (3,1)", game.moveUnit(new Position(2, 1), new Position(3, 1))); //RED is still in turn, and moves towards blue legion
     }
     @Test
     public void unitCanMove1tileAfterTurn(){
@@ -376,5 +376,41 @@ public class TestAlphaCiv {
         game.endOfTurn(); //Blue's turn
         game.endOfTurn(); //Red's turn
         assertEquals("Units can only move 1 tile",1,u.getMoveCount());
+    }
+    @Test
+    public void cityCanProduceAnArcherAfter2Turns(){
+        game.changeProductionInCityAt(new Position(1,1), GameConstants.ARCHER); // sets production to archer
+        String prod = game.getCityAt(new Position(1,1)).getProduction();
+        assertNotNull("City production should not be null",prod);
+        assertEquals("City production should be a archer",GameConstants.ARCHER,prod);
+        game.endOfTurn();//blue's turn
+        game.endOfTurn();//red's turn
+        assertNull("Archer should not be ready",game.getUnitAt(new Position(1,1)));
+        game.endOfTurn();//blue's turn
+        game.endOfTurn();//red's turn
+        Unit unit = game.getUnitAt(new Position(1,1));
+        assertNotNull("Unit should be ready",unit);
+        assertEquals("Unit should an Archer",unit.getTypeString(),GameConstants.ARCHER);
+        assertEquals("Archer should be own by RED",unit.getOwner(),Player.RED);
+    }
+    @Test
+    public void cityCanProduceALegionAfter3Turns(){
+        Position cityPosition = new Position(4,1);
+        game.endOfTurn();
+        game.changeProductionInCityAt(cityPosition, GameConstants.LEGION); // sets production to archer
+        String prod = game.getCityAt(cityPosition).getProduction();
+        assertNotNull("City production should not be null",prod);
+        assertEquals("City production should be a archer",GameConstants.LEGION,prod);
+        game.endOfTurn();//blue's turn
+        game.endOfTurn();//red's turn
+        game.endOfTurn();//blue's turn
+        game.endOfTurn();//red's turn
+        assertNull("Archer should not be ready",game.getUnitAt(cityPosition));
+        game.endOfTurn();//blue's turn
+        game.endOfTurn();//red's turn
+        Unit unit = game.getUnitAt(cityPosition);
+        assertNotNull("Unit should be ready",unit);
+        assertEquals("Unit should be a " + GameConstants.LEGION,unit.getTypeString(),GameConstants.LEGION);
+        assertEquals("Archer should be own by RED",unit.getOwner(),Player.BLUE);
     }
 }
