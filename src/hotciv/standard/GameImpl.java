@@ -71,13 +71,14 @@ public class GameImpl implements Game {
       return units[p.getRow()][p.getColumn()]; }
 
   public City getCityAt( Position p ) {
-    if(p.equals(new Position(1,1))){
+    /*if(p.equals(new Position(1,1))){
         return new CityImpl(Player.RED);
     }else if(p.equals(new Position(4,1))){
         return new CityImpl(Player.BLUE);
     }else{
         return null;
-    }
+    }*/
+    return cities[p.getRow()][p.getColumn()];
   }
   public Player getPlayerInTurn() {
       return playerInTurn;

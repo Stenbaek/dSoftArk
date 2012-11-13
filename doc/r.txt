@@ -1,4 +1,4 @@
-Test:
+Tests:
 
 == Players ==
 
@@ -19,7 +19,7 @@ Test: shouldHaveOceanAt1_0()
 Plains everywhere else
 Test: worldShouldHavePlainsEverywhereElse()
 
-Mountian tile at (2,2)
+Mountain tile at (2,2)
 Test: shouldHaveMountainAt2_2()
 
 Hills tile at (0,1)
@@ -36,13 +36,13 @@ Test: shouldInitiallyBeBlueLegionAt3x2()
 Red archer at tile(2,0)
 Test: shouldInitiallyBeRedSettlerAt4x3()
 
-A unit has a max movent of one
+A unit has a max movement of one
 Test: unitsCanMoveOneTile()
 
 Units can at max move 1 tile per turn
 
 Red should not be able to move Blue's units
-Test: redshouldNotBeAbleToMoveBlueUnits()
+Test: redShouldNotBeAbleToMoveBlueUnits()
 
 Blue should not be able to move Red's units
 Test: blueshouldNotBeAbleToMoveRedUnits()
@@ -79,9 +79,11 @@ City population should initially be 1
 Test: cityPopulationStartsAtOne()
 
 Cities produces 6 production after end of round
+Test: citiesProduce6ProductionAfterEndOfEachRound
 
 After 2 turns cities should have produced 12 production with nothing in
 production
+Test: after2RoundsCitiesShouldHave12ProductionWithNothingInProduction
 
 Setting city production tresuary to 100 it should return 100
 Test: shouldReurn100WhenSetProductionTo100()

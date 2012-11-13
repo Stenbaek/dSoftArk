@@ -265,5 +265,16 @@ public class TestAlphaCiv {
         assertEquals("After two rounds the city at (1,1) should have 12 production in it's treasury",
                 12, c.getProductionTreasury());
     }
-
+    @Test
+    public void anyUnitCannotMoveToAnyMountainTileFromAnyDirection() {
+        game.endOfTurn(); // Now blue is in turn
+        boolean b = game.moveUnit(new Position(3,2), new Position(3,3));
+        assertTrue("This move should be legal. blue is in turn, " +
+                "its his unit and there's nothing on 3,3 which is plains", b);
+        game.endOfTurn();
+        game.endOfTurn(); // its now blue again
+        // the move to the mountain tile
+        b = game.moveUnit(new Position(3,3), new Position(2,2));
+        assertFalse("The unit should not be able to move to 2,2 as it is a mountain tile", b);
+    }
 }
