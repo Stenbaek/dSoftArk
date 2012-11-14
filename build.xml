@@ -73,7 +73,9 @@ HotCiv build management.
   <target name="build-src" depends="prepare">
     <javac srcdir="${source-directory}"
 	   destdir="${build-directory}"
-	   debug="on" 
+	   debug="on"
+       source="1.6"
+       target="1.6"
 	   includeantruntime="no" 
 	   >
       <classpath refid="class-path"/>
@@ -84,6 +86,8 @@ HotCiv build management.
     <javac srcdir="${test-source-directory}"
 	   destdir="${build-directory}"
 	   debug = "on"
+       source="1.6"
+       target="1.6"
 	   includeantruntime="no" 
 	   >
       <classpath refid="class-path"/>

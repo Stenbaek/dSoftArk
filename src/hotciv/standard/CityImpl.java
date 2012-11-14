@@ -8,7 +8,6 @@ import hotciv.framework.Player;
  * User: Thomas
  * Date: 07-11-12
  * Time: 12:43
- * To change this template use File | Settings | File Templates.
  */
 public class CityImpl implements City{
 
@@ -23,32 +22,34 @@ public class CityImpl implements City{
 
     @Override
     public Player getOwner() {
-        return this.owner;  //To change body of implemented methods use File | Settings | File Templates.
+        return this.owner;
     }
 
     @Override
     public int getSize() {
-        return 1;  //To change body of implemented methods use File | Settings | File Templates.
+        return 1;
     }
 
     @Override
     public String getProduction() {
-        return unitInProduction;  //To change body of implemented methods use File | Settings | File Templates.
+        return unitInProduction;
     }
 
     @Override
     public String getWorkforceFocus() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
+
     public int getProductionTreasury(){
         return cityTreasury;
-
     }
+
     public void addProductionTreasury(int amount){
         cityTreasury += amount;
     }
+
     public void setProduction(String unitType){
         unitInProduction = unitType;
-
     }
+
 }

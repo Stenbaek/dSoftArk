@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 */
 public class TestAlphaCiv {
     private Game game;
-    /** Fixture for alphaciv testing. */
+    /** Fixture for alphaCiv testing. */
     @Before
     public void setUp() {
         game = new GameImpl();
@@ -141,16 +141,13 @@ public class TestAlphaCiv {
             }
         }
     }
+
     @Test
     public void gameStartsAt4000bc(){
         int startAge = game.getAge();
         assertEquals("The game should start at at 4000bc ", -4000, startAge);
     }
-    @Test
-    public void redShouldWin(){
-        Player p1 = game.getWinner();
-        assertEquals("Red should dbe the winner of the game",Player.RED,p1);
-    }
+
     @Test
     public void shouldInitiallyBeRedArcherAt2x0() {
         assertNotNull("2,0 should not be null",
@@ -186,13 +183,15 @@ public class TestAlphaCiv {
                 Player.RED,
                 game.getUnitAt(new Position(4,3)).getOwner()); //returns owner of 3,2
     }
+
     @Test
     public void shouldAdvanceTimeBy100AtEndOfFirstRound() {
         game.endOfTurn();
         game.endOfTurn();
         assertEquals("Ending a round the time should be incremented by 100",
                 -3900, game.getAge());
-    }			// start time is -4000 + 100 = - 3900
+    }// start time is -4000 + 100 = - 3900
+
     @Test
     public void redShouldNotBeAbleToMoveBlueUnits(){
         Player p = game.getPlayerInTurn();
@@ -205,6 +204,7 @@ public class TestAlphaCiv {
         boolean b = game.moveUnit(new Position(3,2), new Position(3,3));
         assertFalse("Not a legal move, red should not be able to move a blue unit", b);
     }
+
     @Test
     public void blueShouldNotBeAbleToMoveRedUnits(){
         game.endOfTurn();
@@ -216,6 +216,7 @@ public class TestAlphaCiv {
         assertFalse("not a legal move, blue should not be able to move a red unit",b);
 
     }
+
     /**
      * Tests that when adding production to a cities production treasury
      * the amount is reflected in the cities treasury
@@ -266,6 +267,7 @@ public class TestAlphaCiv {
         assertEquals("After two rounds the city at (1,1) should have 12 production in it's treasury",
                 12, c.getProductionTreasury());
     }
+
     @Test
      public void anyUnitCannotMoveToAnyMountainTileFromAnyDirection() {
         game.endOfTurn(); // Now blue is in turn
@@ -286,6 +288,7 @@ public class TestAlphaCiv {
         assertTrue("The archer should be own by RED", (archer.getOwner() == Player.RED));
         assertFalse("The archer should not be able to move to ocean tile", game.moveUnit(new Position(2,0),new Position(1,0)));
     }
+
     @Test
     public void archerCanMoveToEmptyPlainTile(){
         Unit archer = game.getUnitAt(new Position(2, 0));
@@ -344,6 +347,7 @@ public class TestAlphaCiv {
         game.endOfTurn();
         assertFalse("Red archer cannot attack own settler", game.moveUnit(new Position(3, 1), new Position(3, 2)));
     }
+
     @Test
     public void chooseCityProduction(){
     game.changeProductionInCityAt(new Position(1,1), GameConstants.LEGION); // sets production to legion
@@ -351,6 +355,7 @@ public class TestAlphaCiv {
     assertNotNull("City production should not be null",prod);
     assertEquals("City production should be a legion",GameConstants.LEGION,prod);
     }
+
     @Test
     public void after5TurnsGameTineShouldBe3500BC() {
 
@@ -362,12 +367,14 @@ public class TestAlphaCiv {
         assertEquals("After 5 turns game time should be 3500BC",
                 -3500, game.getAge());
     }
+
     @Test
     public void unitCanMoveOneTilePerTurn(){
         assertFalse("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,2))); //RED is in turn, and moves towards blue legion
         assertTrue("Legal move", game.moveUnit(new Position(2, 0), new Position(2, 1)));
         assertFalse("unit at (2,1) should not be able to move mre than once per turn", game.moveUnit(new Position(2, 1), new Position(3, 1))); //RED is still in turn, and moves towards blue legion
     }
+
     @Test
     public void unitCanMoveOneTileAfterTurn(){
         Unit u = new UnitImpl(GameConstants.ARCHER, Player.RED);
@@ -376,6 +383,7 @@ public class TestAlphaCiv {
         game.endOfTurn(); //Red's turn
         assertEquals("Units can only move 1 tile",1,u.getMoveCount());
     }
+
     @Test
     public void cityCanProduceAnArcherAfter2Turns(){
         game.changeProductionInCityAt(new Position(1,1), GameConstants.ARCHER); // sets production to archer
@@ -392,6 +400,7 @@ public class TestAlphaCiv {
         assertEquals("Unit should an Archer",unit.getTypeString(),GameConstants.ARCHER);
         assertEquals("Archer should be own by RED",unit.getOwner(),Player.RED);
     }
+
     @Test
     public void cityCanProduceALegionAfter3Turns(){
         Position cityPosition = new Position(4,1);
@@ -426,5 +435,14 @@ public class TestAlphaCiv {
         game.endOfTurn();
         assertFalse("Settler should not be able to move outside the world",game.moveUnit(new Position(3,15),new Position(3,16)));
         assertFalse("Legion should not be able to move outside the world",game.moveUnit(new Position(15,3),new Position(16,3)));
+    }
+
+    @Test
+    public void redWinsIn3000BC(){
+        while(game.getAge() < -3000){
+            game.endOfTurn();
+        }
+        assertEquals("Year shuld be 3000BC (age == -3000)",-3000,game.getAge());
+        assertEquals("Red should be the winner in 3000BC",Player.RED,game.getWinner());
     }
 }

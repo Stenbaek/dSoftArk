@@ -9,7 +9,6 @@ import hotciv.framework.Tile;
  * User: Thomas
  * Date: 08-11-12
  * Time: 09:01
- * To change this template use File | Settings | File Templates.
  */
 public class Plain implements Tile {
 
@@ -21,11 +20,11 @@ public class Plain implements Tile {
 
     @Override
     public Position getPosition() {
-        return position;  //To change body of implemented methods use File | Settings | File Templates.
+        return position;
     }
 
     @Override
     public String getTypeString() {
-        return GameConstants.PLAINS;  //To change body of implemented methods use File | Settings | File Templates.
+        return GameConstants.PLAINS;
     }
 }
