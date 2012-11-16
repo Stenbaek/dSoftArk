@@ -225,7 +225,7 @@ public class TestAlphaCiv {
     public void shouldReturn100WhenSetProductionTo100() {
         CityImpl c = new CityImpl(Player.RED);
         c.addProductionTreasury(100);
-        assertEquals("Should return the ammount (100) set by calling setProductionTreasury",
+        assertEquals("Should return the amount (100) set by calling setProductionTreasury",
         100, c.getProductionTreasury());
     }
 
@@ -237,7 +237,7 @@ public class TestAlphaCiv {
         CityImpl c = new CityImpl(Player.RED);
         c.addProductionTreasury(100);
         c.addProductionTreasury(100);
-        assertEquals("Should return the ammount (200) set by calling setProductionTreasury(100) two times",
+        assertEquals("Should return the amount (200) set by calling setProductionTreasury(100) two times",
         200, c.getProductionTreasury());
     }
 
@@ -421,7 +421,6 @@ public class TestAlphaCiv {
         assertEquals("Unit should be a " + GameConstants.LEGION,unit.getTypeString(),GameConstants.LEGION);
         assertEquals("Archer should be own by RED",unit.getOwner(),Player.BLUE);
     }
-
     @Test
     public void unitCanNotMoveOutsideTheBoundaries(){
         assertFalse("Archer should not be able to move outside the world",game.moveUnit(new Position(2,0),new Position(2,-1)));

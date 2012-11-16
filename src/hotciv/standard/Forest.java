@@ -18,12 +18,10 @@ public class Forest implements Tile {
         this.position = p;
     }
 
-    @Override
     public Position getPosition() {
         return position;
     }
 
-    @Override
     public String getTypeString() {
         return GameConstants.FOREST;
     }

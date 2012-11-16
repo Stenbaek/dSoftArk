@@ -18,12 +18,10 @@ public class Plain implements Tile {
         this.position = p;
     }
 
-    @Override
     public Position getPosition() {
         return position;
     }
 
-    @Override
     public String getTypeString() {
         return GameConstants.PLAINS;
     }

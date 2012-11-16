@@ -25,10 +25,12 @@ public class GameImpl implements Game {
     private Unit[][] units; // matrix of units in game
     private CityImpl[][] cities; // matrix of cities in game
     private Player playerInTurn = Player.RED;
+    private CivAgeStrategy ageing;
 
-    public GameImpl(){
+    public GameImpl(CivAgeStrategy ageing){
         this.age = -4000; // initial start age
         this.createWorld();
+        this.ageing = ageing;
     }
 
     private void createWorld(){
@@ -75,7 +77,7 @@ public class GameImpl implements Game {
     }
 
     public int getAge() {
-        return age;
+        return ageing.getAge();
     }
 
     public boolean moveUnit( Position from, Position to ) {
