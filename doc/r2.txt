@@ -6,16 +6,26 @@
 
 == Testcases for Betaciv ==
 Blue player has then city at (1,1) – Blue player is the winner
-Its age 4000BC I - Next turn it is age 3900BC
-Its age 100BC - Next turn it is age 1BC
-Its age 1BC - Next turn it is age 1AD
-Its age 1AD - - Next turn it is age 50AD
-Its age 1700AD - - Next turn it is age 1750AD
-Its age 1875AD - - Next turn it is age 1900AD
-Its age 1900AD – Next turn it is age 1905 AD
-Its age 1970AD - - Next turn it is age 1971AD
 Initially no player should have won
+Test: intiallyNoPlayerShouldHaveWon
+Its age 4000BC I - Next turn it is age 3900BC
+Test: ageShouldAdvanceTimeBy100AtEndOfFirstRound
+Its age 100BC - Next turn it is age 1BC
+Test: ageShouldAdvanceFrom100BCTo1BC
+Its age 1BC - Next turn it is age 1AD
+Test: ageShouldAdvanceFrom1BCTo1AD
+Its age 1AD - - Next turn it is age 50AD
+Test: ageShouldAdvanceFrom1ADTo50AD
+Its age 1700AD - - Next turn it is age 1750AD
+Test: ageShouldAdvanceFrom1700ADTo1750AD
+Its age 1875AD - - Next turn it is age 1900AD
+Test: ageShouldAdvanceFrom1875ADTo1900AD
+Its age 1900AD – Next turn it is age 1905 AD
+Test: ageShouldAdvanceFrom1900ADTo1905AD
+Its age 1970AD - - Next turn it is age 1971AD
+Test: ageShouldAdvanceFrom1YearFrom1970AD
 Age initially be 4000BC
+Test: StartAgeShuldBe4000BC
 
 == Testcases for gammaciv ==
 There is a city and no settler at (4,3) after build action

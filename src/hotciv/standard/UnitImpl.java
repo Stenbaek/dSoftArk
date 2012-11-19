@@ -13,33 +13,35 @@ public class UnitImpl implements Unit{
     private String typeString; //type of unit
     private Player owner; //the player who owns the unit
     private int moveCount = 1; //movement - hardcoded
+    private int defensiveStrength;
 
     public UnitImpl(String typeString, Player owner){
         this.typeString=typeString;
         this.owner=owner;
+
     }
 
-    @Override
+
     public String getTypeString() {
         return typeString;
     }
 
-    @Override
+
     public Player getOwner() {
         return owner;
     }
 
-    @Override
+
     public int getMoveCount() {
         return moveCount;
     }
 
-    @Override
+
     public int getDefensiveStrength() {
         return 0;
     }
 
-    @Override
+
     public int getAttackingStrength() {
         return 0;
     }

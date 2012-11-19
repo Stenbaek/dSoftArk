@@ -1,5 +1,7 @@
 package hotciv.standard;
 
+import hotciv.CivForms.AlphaCivAge;
+import hotciv.CivForms.AlphaCivWin;
 import hotciv.framework.*;
 
 import org.junit.*;
@@ -27,7 +29,7 @@ public class TestAlphaCiv {
     /** Fixture for alphaCiv testing. */
     @Before
     public void setUp() {
-        game = new GameImpl();
+        game = new GameImpl(new AlphaCivAge(),new AlphaCivWin());
     }
 
     @Test
@@ -444,4 +446,5 @@ public class TestAlphaCiv {
         assertEquals("Year shuld be 3000BC (age == -3000)",-3000,game.getAge());
         assertEquals("Red should be the winner in 3000BC",Player.RED,game.getWinner());
     }
+
 }

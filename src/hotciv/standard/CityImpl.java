@@ -51,5 +51,7 @@ public class CityImpl implements City{
     public void setProduction(String unitType){
         unitInProduction = unitType;
     }
-
+    public void setOwner(Player p) {
+        owner = p;
+    }
 }
