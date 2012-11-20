@@ -43,7 +43,7 @@ public class DeltaCivMap implements CivMapStrategy {
     }
 
     @Override
-    public Tile[][] getWorld(Position p) {
+    public Tile[][] getWorld() {
         String[] layout = deltaCivMap();
         for (int r = 0; r < size; r++) {
             for (int c = 0; c < size; c++) {

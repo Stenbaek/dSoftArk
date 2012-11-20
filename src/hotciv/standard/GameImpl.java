@@ -31,15 +31,19 @@ public class GameImpl implements Game {
     private CivWinStrategy winning;
     private CivMovementStrategy move;
     private CivMapStrategy mape;
+    private CivUnitStrategy unitAct;
    private Tile[][] map;
 
-    public GameImpl(CivAgeStrategy ageing, CivWinStrategy winning, CivMovementStrategy move, CivMapStrategy mape){
+    public GameImpl(CivAgeStrategy ageing, CivWinStrategy winning, CivMovementStrategy move, CivMapStrategy mape,CivUnitStrategy unitAct){
         this.age = -4000; // initial start age
         this.createWorld();
         this.ageing = ageing;
         this.winning = winning;
         this.move = move;
         this.mape = mape;
+        this.unitAct = unitAct;
+        this.unitAct.setGame(this);
+
     }
 
     private void createWorld(){
