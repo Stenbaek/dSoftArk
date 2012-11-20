@@ -23,7 +23,7 @@ public class TestBetaCiv {
 
     @Before
     public void setUp() {
-        game = new GameImpl(new BetaCivAge(), new BetaCivWin());
+        game = new GameImpl(new BetaCivAge(),new BetaCivWin());
     }
     @Test
     public void startAgeShouldBe4000BC(){

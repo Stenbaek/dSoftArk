@@ -29,27 +29,24 @@ public class GameImpl implements Game {
     private Player playerInTurn = Player.RED;
     private CivAgeStrategy ageing;
     private CivWinStrategy winning;
+    private CivMovementStrategy move;
+    private CivMapStrategy mape;
+   private Tile[][] map;
 
-    public GameImpl(CivAgeStrategy ageing, CivWinStrategy winning){
+    public GameImpl(CivAgeStrategy ageing, CivWinStrategy winning, CivMovementStrategy move, CivMapStrategy mape){
         this.age = -4000; // initial start age
         this.createWorld();
         this.ageing = ageing;
         this.winning = winning;
+        this.move = move;
+        this.mape = mape;
     }
 
     private void createWorld(){
-        // Initializing the boundaries of the world
-        units = new Unit[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
-        cities = new CityImpl[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
+        units = mape.getUnits();
+        cities = mape.getCities();
+        map = mape.getWorld();
 
-        // Populating the map with units
-        units[2][0] = new Archer(Player.RED);
-        units[3][2] = new Legion(Player.BLUE);
-        units[4][3] = new Settler(Player.RED);
-
-        //Populating the map with cities
-        cities[1][1] = new CityImpl(Player.RED);
-        cities[4][1] = new CityImpl(Player.BLUE);
     }
 
     public Tile getTileAt( Position p ) {
@@ -206,9 +203,9 @@ public class GameImpl implements Game {
     }
 
     private int getUnitCost(String unitType){
-        if(unitType.equals(GameConstants.ARCHER)) return 10;
-        if(unitType.equals(GameConstants.LEGION)) return 15;
-        if(unitType.equals(GameConstants.SETTLER)) return 30;
+        if(unitType.equals(Archer.class)) return 10;
+        if(unitType.equals(Legion.class)) return 15;
+        if(unitType.equals(Settler.class)) return 30;
         return 0;
     }
 
@@ -219,6 +216,7 @@ public class GameImpl implements Game {
     }
 
     public void performUnitActionAt( Position p ) {}
+
     private Position getFirstEmptyTile(Position p, Player player) {
         int[] pos = {p.getRow(), p.getColumn()};
         int sign = 1; // 1=positive -1=negative

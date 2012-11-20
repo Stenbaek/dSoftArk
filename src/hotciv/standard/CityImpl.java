@@ -15,27 +15,27 @@ public class CityImpl implements City{
     private int cityTreasury;
     private String unitInProduction;
 
-    public CityImpl(Player p){
-             this.owner = p;
+    public CityImpl(Player owner){
+             this.owner = owner;
              cityTreasury =0;
     }
 
-    @Override
+
     public Player getOwner() {
         return this.owner;
     }
 
-    @Override
+
     public int getSize() {
         return 1;
     }
 
-    @Override
+
     public String getProduction() {
         return unitInProduction;
     }
 
-    @Override
+
     public String getWorkforceFocus() {
         return null;
     }

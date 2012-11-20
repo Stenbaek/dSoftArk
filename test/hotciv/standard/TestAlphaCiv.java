@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.CivForms.AlphaCivAge;
+import hotciv.CivForms.AlphaCivMap;
 import hotciv.CivForms.AlphaCivWin;
 import hotciv.framework.*;
 
@@ -29,7 +30,7 @@ public class TestAlphaCiv {
     /** Fixture for alphaCiv testing. */
     @Before
     public void setUp() {
-        game = new GameImpl(new AlphaCivAge(),new AlphaCivWin());
+        game = new GameImpl(new AlphaCivAge(),new AlphaCivWin(),new AlphaCivMap());
     }
 
     @Test
@@ -445,6 +446,42 @@ public class TestAlphaCiv {
         }
         assertEquals("Year shuld be 3000BC (age == -3000)",-3000,game.getAge());
         assertEquals("Red should be the winner in 3000BC",Player.RED,game.getWinner());
+    }
+    /**
+     * Testing that units are only placed on plains, hills and not on
+     * mountains, oceans or existing units
+     */
+    @Test
+    public void gameShouldPlaceUnitsClockwiseStartingFromNorthAtCity1x1() {
+
+        game.changeProductionInCityAt(new Position(1,1), GameConstants.ARCHER);
+        game.endOfTurn(); game.endOfTurn(); // ends a round
+        game.endOfTurn(); game.endOfTurn(); // ends a round -- at this point the first archer should'a been build
+        // treasury = 2
+        assertNotNull("There should be a unit at (1,1)", game.getUnitAt(new Position(1,1)));
+        game.endOfTurn(); game.endOfTurn(); // ends a round
+        game.endOfTurn(); game.endOfTurn(); // ends a round -- an archer should have been build
+        // treasury = 4
+        assertNotNull("There should be a unit at (0,1)", game.getUnitAt(new Position(0,1)));
+        game.endOfTurn(); game.endOfTurn(); // ends a round
+        // treasury = 0
+        assertNotNull("There should be a unit at (0,2)", game.getUnitAt(new Position(0,2)));
+        game.endOfTurn(); game.endOfTurn(); // ends a round
+        game.endOfTurn(); game.endOfTurn(); // ends a round -- an archer should have been build
+        // treasury = 2
+        assertNotNull("There should be a unit at (1,2)", game.getUnitAt(new Position(1,2)));
+        game.endOfTurn(); game.endOfTurn(); // ends a round
+        game.endOfTurn(); game.endOfTurn(); // ends a round -- an archer should have been build
+        // treasury = 4
+        assertNull("Mountains at 2,2 so no unit should be found there", game.getUnitAt(new Position(2,2)));
+
+        assertNotNull("There should be a unit at (2,1)", game.getUnitAt(new Position(2,1)));
+        game.endOfTurn(); game.endOfTurn();
+        // treasury = 0
+        assertNull("As theres oceans at 1,0 the game shouldnt place any unit there", game.getUnitAt(new Position(1,0)));
+
+        // but a Unit should be found a 0.0
+        assertNotNull("There should be a unit at (0,0)", game.getUnitAt(new Position(0,0)));
     }
 
 }
