@@ -1,13 +1,8 @@
 package hotciv.standard;
 
-import java.util.Map;
-import java.util.Iterator;
 import hotciv.framework.*;
 import hotciv.framework.Player;
 import hotciv.framework.Unit;
-import hotciv.standard.units.Archer;
-import hotciv.standard.units.Legion;
-import hotciv.standard.units.Settler;
 
 /** Skeleton implementation of HotCiv.
 
@@ -34,17 +29,17 @@ public class GameImpl implements Game {
 
     private CivAgeStrategy ageingStrategy;
     private CivWinStrategy winningStrategy;
-    private CivMovementStrategy moveStrategy;
+    private CivActionStrategy actionStrategy;
     private CivMapStrategy mapStrategy;
     private CivUnitStrategy unitAct;
 
-    public GameImpl(CivAgeStrategy ageingStrategy, CivWinStrategy winningStrategy, CivMovementStrategy moveStrategy, CivMapStrategy mapStrategy,CivUnitStrategy unitActStrategy){
+    public GameImpl(AbstractFactory factory){
 
-        this.ageingStrategy = ageingStrategy;
-        this.winningStrategy = winningStrategy;
-        this.moveStrategy = moveStrategy;
-        this.mapStrategy = mapStrategy;
-        this.unitAct = unitActStrategy;
+        this.ageingStrategy = factory.getAgeStrategy();
+        this.winningStrategy = factory.getWinningStrategy();
+        this.actionStrategy = factory.getActionStrategy();
+        this.mapStrategy = factory.getWorldStrategy();
+        this.unitAct = factory.getUnitStrategy();
 
         this.ageingStrategy.setGame(this);
         this.mapStrategy.setGame(this);
@@ -75,8 +70,8 @@ public class GameImpl implements Game {
         return unitAct;
     }
 
-    public CivMovementStrategy getMovementStrategy() {
-        return moveStrategy;
+    public CivActionStrategy getMovementStrategy() {
+        return actionStrategy;
     }
 
     public Player getWinner() {
@@ -101,25 +96,6 @@ public class GameImpl implements Game {
             playerInTurn = Player.RED;
         }
 
-    }
-    private void endOfRoundActions(){
-    //TODO - tag stilling til endOfGameActions
-
-        /*
-        for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
-            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                CityImpl currentCity = cities[r][c];
-                if (currentCity != null) {
-                    currentCity.setProduction(null);
-                }
-
-                UnitImpl currentUnit = (UnitImpl) units[r][c];
-                if (currentUnit != null) {
-                    int unitMovePoints = currentUnit.getMoveCount();
-                    currentUnit.changeMoveCounter((-unitMovePoints));
-                }
-            }
-        }*/
     }
 
     private int getUnitCost(String unitType){

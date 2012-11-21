@@ -21,23 +21,22 @@ public interface CivMapStrategy {
     public void setGame( Game game );
 
     /**
-     * return array containing units. Length should be same as
+     * return HashMap containing units. Length should be same as
      * GameConstants.WORLDSIZE
      * @return array containing units
      */
     public UnitHashMap<Position,Unit> getUnits();
 
     /**
-     * return array containing cities. Length should be same as
+     * return Hap containing cities. Length should be same as
      * GameConstants.WORLDSIZE
-     * @return array containing cities
+     * @return Map containing cities
      */
     public CityHashMap<Position,City> getCities();
 
     /**
-     * return array containing tiles. Length should be same as
-     * GameConstants.WORLDSIZE
-     * @return array containing tiles
+     * return Map containing tiles.
+     * @return Map containing tiles
      */
     public Map<Position,Tile> getTiles();
 

@@ -1,4 +1,4 @@
-package hotciv.CivForms;
+package hotciv.strategies;
 
 import hotciv.framework.Player;
 import hotciv.framework.CivWinStrategy;

@@ -1,6 +1,7 @@
 package hotciv.standard;
 
-import hotciv.CivForms.*;
+import hotciv.factories.GammaFactory;
+import hotciv.strategies.*;
 import hotciv.framework.*;
 
 import hotciv.standard.units.Archer;
@@ -20,7 +21,7 @@ public class TestGammaCiv {
 
     @Before
     public void setUp(){
-        game = new GameImpl(new AlphaCivAge(), new AlphaCivWin(),new AlphaCivMovement(), new AlphaCivMap(), new GammaCivUnitAction());
+        game = new GameImpl(new GammaFactory());
 
     }
 

@@ -1,4 +1,4 @@
-package hotciv.CivForms;
+package hotciv.strategies;
 
 import hotciv.framework.*;
 import hotciv.standard.CityImpl;
@@ -7,7 +7,6 @@ import hotciv.standard.maps.UnitHashMap;
 import hotciv.standard.tiles.*;
 import hotciv.standard.units.Archer;
 import hotciv.standard.units.Legion;
-import hotciv.standard.units.Settler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,10 +26,15 @@ public class DeltaCivMap implements CivMapStrategy {
     private Game game;
 
     public DeltaCivMap(){
-
+        //Adding Cities
         addCity(new Position(8,12),Player.RED);
         addCity(new Position(4,5),Player.BLUE);
 
+        //Adding units
+        addUnit(new Position(4, 4), new Legion(Player.BLUE));
+		addUnit(new Position(8, 3), new Archer(Player.BLUE));
+
+        //Populating the map
         setWorld();
     }
 
@@ -39,15 +43,15 @@ public class DeltaCivMap implements CivMapStrategy {
 		for(int r=0; r < GameConstants.WORLDSIZE; r++){
 			for(int c=0; c < GameConstants.WORLDSIZE; c++){
 				if(worldLayout[r].charAt(c) == '~'){
-					addTile(new Position(r,c), new Ocean(new Position(r,c)));
+					addTile(new Position(r, c), new Ocean(new Position(r, c)));
 				} else if(worldLayout[r].charAt(c) == 'M'){
-					addTile(new Position(r,c), new Mountain(new Position(r,c)));
+					addTile(new Position(r, c), new Mountain(new Position(r, c)));
 				} else if(worldLayout[r].charAt(c) == 'o'){
-					addTile(new Position(r,c), new Plain(new Position(r,c)));
+					addTile(new Position(r, c), new Plain(new Position(r, c)));
 				} else if(worldLayout[r].charAt(c) == 'f'){
-					addTile(new Position(r,c), new Forest(new Position(r,c)));
+					addTile(new Position(r, c), new Forest(new Position(r, c)));
 				} else if(worldLayout[r].charAt(c) == 'h'){
-					addTile(new Position(r,c), new Hill(new Position(r,c)));
+					addTile(new Position(r, c), new Hill(new Position(r, c)));
 				}
 			}
 		}

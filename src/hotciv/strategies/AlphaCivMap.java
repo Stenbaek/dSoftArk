@@ -1,4 +1,4 @@
-package hotciv.CivForms;
+package hotciv.strategies;
 
 import java.util.Map;
 import java.util.HashMap;

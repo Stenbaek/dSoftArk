@@ -1,9 +1,10 @@
 package hotciv.standard;
 
-import hotciv.CivForms.*;
+import hotciv.factories.DeltaFactory;
+import hotciv.standard.tiles.Mountain;
+import hotciv.strategies.*;
 import hotciv.framework.*;
 
-import hotciv.standard.units.Archer;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -20,13 +21,20 @@ public class TestDeltaCiv {
 
     @Before
     public void setUp(){
-        game = new GameImpl(new AlphaCivAge(), new AlphaCivWin(),new AlphaCivMovement(), new DeltaCivMap(), new AlphaCivUnitAction());
+        game = new GameImpl(new DeltaFactory());
 
     }
 
     @Test
     public void thereShouldBeACityAt8_12(){
-        assertNotNull("There should be a Settler at (8,12)",game.getCityAt(new Position(8,12)));
+        assertNotNull("There should be a Settler at (8,12)",game.getCityAt(new Position(8, 12)));
+        assertEquals("City should be at (8,12)", CityImpl.class, game.getCityAt(new Position(8,12)).getClass());
+    }
+
+    @Test
+    public void thereShouldBeAMountainAt0_5(){
+        assertNotNull("There should be a Settler at (0,5)",game.getTileAt(new Position(0, 5)));
+        assertEquals("City should be at (0,5)", Mountain.class, game.getTileAt(new Position(0, 5)).getClass());
     }
 
 }

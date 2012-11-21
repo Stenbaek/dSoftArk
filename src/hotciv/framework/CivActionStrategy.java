@@ -9,7 +9,7 @@ import hotciv.standard.maps.UnitHashMap;
  * Time: 09:37
  * To change this template use File | Settings | File Templates.
  */
-public interface CivMovementStrategy {
+public interface CivActionStrategy {
     /**
      * check if the unit's movement should be restored,
      * and if so restore it

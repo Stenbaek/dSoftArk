@@ -2,7 +2,8 @@ package hotciv.standard;
 
 import static org.junit.Assert.*;
 
-import hotciv.CivForms.*;
+import hotciv.factories.BetaFactory;
+import hotciv.strategies.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +22,7 @@ public class TestBetaCiv {
 
     @Before
     public void setUp() {
-        game = new GameImpl(new BetaCivAge(),new BetaCivWin(),new AlphaCivMovement(),new AlphaCivMap(),new AlphaCivUnitAction());
+        game = new GameImpl(new BetaFactory());
     }
     @Test
     public void startAgeShouldBe4000BC(){

@@ -1,4 +1,4 @@
-package hotciv.CivForms;
+package hotciv.strategies;
 
 import hotciv.framework.*;
 import hotciv.standard.CityImpl;
@@ -49,7 +49,7 @@ public class AlphaCivAge implements CivAgeStrategy{
         Player playerInTurn = game.getPlayerInTurn();
         CivMapStrategy mapStrategy = game.getMapStrategy();
         CivUnitStrategy unitStrategy = game.getUnitStrategy();
-        CivMovementStrategy moveStrategy = game.getMovementStrategy();
+        CivActionStrategy moveStrategy = game.getMovementStrategy();
         if(playerInTurn == Player.BLUE) { // A round ends after blue players turn as he/she is the last in round
 
             Integer currentAge = getAge(); // fetches the current Age

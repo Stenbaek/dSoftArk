@@ -1,6 +1,6 @@
-package hotciv.CivForms;
+package hotciv.strategies;
 
-import hotciv.framework.CivMovementStrategy;
+import hotciv.framework.CivActionStrategy;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
 import hotciv.standard.units.AbstractUnit;
@@ -16,7 +16,7 @@ import java.util.Map;
  * Time: 09:41
  * To change this template use File | Settings | File Templates.
  */
-public class AlphaCivMovement implements CivMovementStrategy{
+public class AlphaCivAction implements CivActionStrategy {
 
     public void restoreAllMovement(UnitHashMap<Position,Unit> unitsMap) { // always restores units movement
 

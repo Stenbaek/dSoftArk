@@ -1,10 +1,8 @@
-package hotciv.CivForms;
+package hotciv.strategies;
 
 import hotciv.framework.*;
 import hotciv.standard.CityImpl;
 import hotciv.standard.units.Archer;
-
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +11,7 @@ import java.util.Map;
  * Time: 11:07
  * To change this template use File | Settings | File Templates.
  */
-public class AlphaCivUnitAction implements CivUnitStrategy {
+public class AlphaCivUnit implements CivUnitStrategy {
 
     private Game game;
 

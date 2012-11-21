@@ -1,10 +1,9 @@
-package hotciv.CivForms;
+package hotciv.strategies;
 
 import hotciv.framework.Game;
 import hotciv.framework.Position;
 import hotciv.framework.Player;
 import hotciv.framework.Unit;
-import hotciv.standard.CityImpl;
 import hotciv.standard.units.*;
 
 /**
@@ -14,7 +13,7 @@ import hotciv.standard.units.*;
  * Time: 07.32
  * To change this template use File | Settings | File Templates.
  */
-public class GammaCivUnitAction extends AlphaCivUnitAction{
+public class GammaCivUnit extends AlphaCivUnit {
 
     private Game game;
 

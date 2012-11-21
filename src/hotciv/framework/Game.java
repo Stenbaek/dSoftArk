@@ -133,5 +133,5 @@ public interface Game {
   public CivUnitStrategy getUnitStrategy();
 
   //TODO write javadoc
-  public CivMovementStrategy getMovementStrategy();
+  public CivActionStrategy getMovementStrategy();
 }
