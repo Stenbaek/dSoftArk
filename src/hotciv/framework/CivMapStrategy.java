@@ -1,8 +1,7 @@
 package hotciv.framework;
 
-import hotciv.standard.CityImpl;
-import hotciv.standard.UnitHashMap;
-import hotciv.framework.Unit;
+import hotciv.standard.maps.UnitHashMap;
+import hotciv.standard.maps.CityHashMap;
 
 import java.util.Map;
 
@@ -16,6 +15,12 @@ import java.util.Map;
 public interface CivMapStrategy {
 
     /**
+     * set game
+     * @param game
+     */
+    public void setGame( Game game );
+
+    /**
      * return array containing units. Length should be same as
      * GameConstants.WORLDSIZE
      * @return array containing units
@@ -27,7 +32,7 @@ public interface CivMapStrategy {
      * GameConstants.WORLDSIZE
      * @return array containing cities
      */
-    public Map<Position,City> getCities();
+    public CityHashMap<Position,City> getCities();
 
     /**
      * return array containing tiles. Length should be same as
@@ -38,7 +43,14 @@ public interface CivMapStrategy {
 
     public void addUnit( Position p , Unit u );
 
-    public void addCity( Position p , City u );
+    public void addCity( Position p , Player player);
 
     public void addTile( Position p , Tile u );
+
+    public void setCityProduction(Position p, String unitType);
+
+    public Position getPositionOfFirstEmptyTile(Position p, Player player);
+
+    public boolean isTileEmpty(Position p, Player player);
+
 }

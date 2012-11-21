@@ -3,6 +3,8 @@ package hotciv.standard;
 import hotciv.CivForms.*;
 import hotciv.framework.*;
 
+import hotciv.standard.tiles.*;
+import hotciv.standard.units.Archer;
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -96,13 +98,13 @@ public class TestAlphaCiv {
 
     @Test
     public void unitCannotMoveOverMountain(){
-        assertFalse("Units cannot move over mountain tiles",
+        assertFalse("units cannot move over mountain tiles",
             game.moveUnit(new Position(3,2),new Position(2,2)));
     }
 
     @Test
     public void unitCannotMoveOverOcean(){
-        assertFalse("Units cannot move over ocean tiles",
+        assertFalse("units cannot move over ocean tiles",
             game.moveUnit(new Position(2,0),new Position(1,0)));
     }
 
@@ -128,7 +130,7 @@ public class TestAlphaCiv {
     @Test
     public void unitsCanMoveOneTile(){
         Unit u = new Archer(Player.RED);
-        assertEquals("Units can only move 1 tile",1,u.getMoveCount());
+        assertEquals("units can only move 1 tile",1,u.getMoveCount());
     }
 
     @Test
@@ -385,7 +387,7 @@ public class TestAlphaCiv {
         assertTrue("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,1)));
         game.endOfTurn(); //Blue's turn
         game.endOfTurn(); //Red's turn
-        assertEquals("Units can only move 1 tile",1,u.getMoveCount());
+        assertEquals("units can only move 1 tile",1,u.getMoveCount());
     }
 
     @Test
@@ -427,7 +429,7 @@ public class TestAlphaCiv {
     }
     @Test
     public void unitCanNotMoveOutsideTheBoundaries(){
-        assertFalse("Archer should not be able to move outside the world",game.moveUnit(new Position(2,0),new Position(2,-1)));
+        assertFalse("Archer should not be able to move outside the world", game.moveUnit(new Position(2, 0), new Position(2, -1)));
         for(int i = 0; i<12; i++){
             game.moveUnit(new Position(4+i,3),new Position(5+i,3));
             game.endOfTurn();
@@ -437,9 +439,9 @@ public class TestAlphaCiv {
         game.endOfTurn();
         game.moveUnit(new Position(3,14),new Position(3,15));
         game.endOfTurn();
-        assertFalse("Legion should not be able to move outside the world",game.moveUnit(new Position(15,3),new Position(16,3)));
+        assertFalse("Legion should not be able to move outside the world", game.moveUnit(new Position(15, 3), new Position(16, 3)));
         game.endOfTurn();
-        assertFalse("Settler should not be able to move outside the world",game.moveUnit(new Position(3,15),new Position(3,16)));
+        assertFalse("Settler should not be able to move outside the world", game.moveUnit(new Position(3, 15), new Position(3, 16)));
     }
 
     @Test

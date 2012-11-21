@@ -1,8 +1,7 @@
-package hotciv.standard;
+package hotciv.standard.tiles;
 
 import hotciv.framework.GameConstants;
 import hotciv.framework.Position;
-import hotciv.framework.Tile;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,14 +9,15 @@ import hotciv.framework.Tile;
  * Date: 08-11-12
  * Time: 09:01
  */
-public class Hill extends AbstractTile{
+public class Forest extends AbstractTile {
 
-    public Hill(Position position){
-        super(position,GameConstants.HILLS);
+    public Forest(Position position){
+        super(position,GameConstants.FOREST);
     }
 
     @Override
     public boolean isHabitable() {
         return true;
     }
+
 }

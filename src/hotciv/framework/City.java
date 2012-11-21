@@ -43,4 +43,5 @@ public interface City {
    */
   public String getWorkforceFocus();
 
+  void setProduction(String unitType);
 }

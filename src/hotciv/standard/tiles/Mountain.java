@@ -1,8 +1,7 @@
-package hotciv.standard;
+package hotciv.standard.tiles;
 
 import hotciv.framework.GameConstants;
 import hotciv.framework.Position;
-import hotciv.framework.Tile;
 
 /**
  * Created by IntelliJ IDEA.

@@ -108,7 +108,17 @@ public class TestBetaCiv {
 
     }
     @Test
-    public void intiallyNoPlayerShouldHaveWon() {
+    public void initiallyNoPlayerShouldHaveWon(){
         assertNull("No player should have won at the start of the game", game.getWinner());
+    }
+
+    @Test
+    public void redPlayerShouldWinIfAllCitiesAreHis(){
+        assertTrue("Settler should be able to move towards BLUE city",game.moveUnit(new Position(4,3),new Position(4,2)));
+        game.endOfTurn();
+        game.endOfTurn();
+        assertTrue("Settler should be able to move towards BLUE city",game.moveUnit(new Position(4,2),new Position(4,1)));
+        assertNotNull("RED Should be the winner, when his settler overtakes BLUE city",game.getWinner());
+        assertEquals("Red should be the winner now",game.getWinner(),Player.RED);
     }
 }

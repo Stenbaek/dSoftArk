@@ -1,4 +1,4 @@
-package hotciv.standard;
+package hotciv.standard.tiles;
 
 import hotciv.framework.Position;
 import hotciv.framework.Tile;

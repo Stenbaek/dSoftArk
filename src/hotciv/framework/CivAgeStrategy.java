@@ -1,5 +1,7 @@
 package hotciv.framework;
 
+import hotciv.framework.Game;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Thomas
@@ -26,4 +28,7 @@ public interface CivAgeStrategy {
      */
     public Integer getEndOfGameAge();
 
+    void setGame(Game game);
+
+    void endOfTurn();
 }

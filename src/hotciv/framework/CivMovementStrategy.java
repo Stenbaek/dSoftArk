@@ -1,7 +1,6 @@
 package hotciv.framework;
 
-import hotciv.standard.AbstractUnit;
-import hotciv.standard.UnitHashMap;
+import hotciv.standard.maps.UnitHashMap;
 
 /**
  * Created with IntelliJ IDEA.

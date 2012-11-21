@@ -16,7 +16,7 @@ public interface CivUnitStrategy {
      * set game
      * @param game
      */
-    public void setGame( GameImpl game );
+    public void setGame( Game game );
 
     /**
      * perform unit's action at position
@@ -29,9 +29,8 @@ public interface CivUnitStrategy {
      * fetches all units in the game
      * @return Map<Position,Unit> of all units in the game
      */
-    public Map<Position,Unit> getAllUnits();
 
-    public void addUnit( Position p , Unit u );
+    boolean moveUnit(Position from, Position to);
 
-
+    int getUnitCost(String unitType);
 }

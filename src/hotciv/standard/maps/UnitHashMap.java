@@ -1,8 +1,7 @@
-package hotciv.standard;
+package hotciv.standard.maps;
 
 import java.util.HashMap;
-import hotciv.framework.Position;
-import hotciv.framework.Unit;
+import java.util.Iterator;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,7 +10,7 @@ import hotciv.framework.Unit;
  * Time: 02.32
  * To change this template use File | Settings | File Templates.
  */
-public class UnitHashMap<Position,Unit> extends HashMap {
+public class UnitHashMap<Position,Unit> extends HashMap implements Iterable{
 
     public UnitHashMap(){
         super();
@@ -25,4 +24,8 @@ public class UnitHashMap<Position,Unit> extends HashMap {
 
     }
 
+    @Override
+    public Iterator iterator() {
+        return this.entrySet().iterator();
+    }
 }

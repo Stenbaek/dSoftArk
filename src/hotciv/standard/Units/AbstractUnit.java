@@ -1,4 +1,4 @@
-package hotciv.standard;
+package hotciv.standard.units;
 
 import hotciv.framework.Player;
 import hotciv.framework.Unit;

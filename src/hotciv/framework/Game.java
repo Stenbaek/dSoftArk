@@ -48,6 +48,12 @@ public interface Game {
    * @return the player that is in turn
    */
   public Player getPlayerInTurn();
+
+  /** return the player that is 'in turn', that is, is able to
+   * move units and manage cities.
+   * @return the player that is in turn
+   */
+  public CivMapStrategy getMapStrategy();
     
   /** return the player that has won the game. 
    * @return the player that has won. If the game is still
@@ -123,5 +129,9 @@ public interface Game {
    */
   public void performUnitActionAt( Position p );
 
+  //TODO write javadoc
+  public CivUnitStrategy getUnitStrategy();
 
+  //TODO write javadoc
+  public CivMovementStrategy getMovementStrategy();
 }

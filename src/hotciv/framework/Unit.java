@@ -55,4 +55,5 @@ public interface Unit {
     public int getAttackingStrength();
 
     public void changeMoveCounter(int i);
+
 }

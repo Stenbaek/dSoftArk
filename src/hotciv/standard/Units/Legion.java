@@ -1,8 +1,7 @@
-package hotciv.standard;
+package hotciv.standard.units;
 
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
-import hotciv.framework.Unit;
 
 /**
  * Created with IntelliJ IDEA.
