@@ -28,8 +28,8 @@ public class Archer extends AbstractUnit{
         return 2;
     }
 
-    public void setFortified(){
-        this.fortified = true;
+    public void toggleFortified(){
+        this.fortified = (fortified) ? false : true;
     }
 
     public boolean isFortified(){

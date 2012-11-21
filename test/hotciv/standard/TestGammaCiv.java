@@ -43,6 +43,45 @@ public class TestGammaCiv {
         game.performUnitActionAt(p);
         assertFalse("Unit should not be able to move, since it is fortified",game.moveUnit(p,new Position(2,1)));
         assertEquals("Archer's defensive Strength should be doubled (6)",6,game.getUnitAt(p).getDefensiveStrength());
+        game.performUnitActionAt(p);
+        assertTrue("Unit should not be able to move, since it is fortified",game.moveUnit(p,new Position(2,1)));
+        assertEquals("Archer's defensive Strength should be normal (3)",3,game.getUnitAt(new Position(2,1)).getDefensiveStrength());
+    }
+
+    @Test
+    public void archersShouldHaveDefenceOf3BeforeAction() {
+        Unit u = game.getUnitAt(new Position(2,0));
+        assertEquals("Archer defence should be 3", 3, u.getDefensiveStrength());
+    }
+
+    @Test
+    public void archersShouldHaveDefenceOf6AfterAction() {
+        game.performUnitActionAt(new Position(2,0));
+        Unit u = game.getUnitAt(new Position(2,0));
+        assertEquals("Archer defence should be 6", 6, u.getDefensiveStrength());
+    }
+
+    @Test
+    public void archersShouldBeHaveDefenceOf3After2Actions() {
+        game.performUnitActionAt(new Position(2,0));
+        game.performUnitActionAt(new Position(2,0));
+        Unit u = game.getUnitAt(new Position(2,0));
+        assertEquals("Archer defence should be 3", 3, u.getDefensiveStrength());
+    }
+
+    @Test
+    public void archersShouldNotBeAbleToMoveAfterAction() {
+        game.performUnitActionAt(new Position(2,0));
+        boolean b = game.moveUnit(new Position(2,0), new Position(2,1));
+        assertFalse("Action should cause unit to not be able to move", b);
+    }
+
+    @Test
+    public void redSettlerShouldNotBeAbleToPerformActionOnBluePlayersTurn() {
+        game.endOfTurn();
+        Position p = new Position(4,3);
+        game.performUnitActionAt(p);
+        assertNull("Red city should not be built on blue players turn", game.getCityAt(p));
     }
 
 }

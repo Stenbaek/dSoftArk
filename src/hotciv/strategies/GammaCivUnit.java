@@ -25,15 +25,17 @@ public class GammaCivUnit extends AlphaCivUnit {
     @Override
     public void performUnitActionAt(Position p){
         Unit unit = game.getUnitAt(p);
-        if(unit.getClass().equals(Settler.class)){
-            Player owner = unit.getOwner();
-            game.getMapStrategy().getUnits().remove(p);
-            game.getMapStrategy().addCity(p,owner);
-        }else if(game.getUnitAt(p).getClass().equals(Archer.class)){
-            Archer archer = (Archer) unit;
-            archer.setFortified();
-        }else{
-            //nothing happens, no unit is chosen
+        if(unit != null && unit.getOwner().equals(game.getPlayerInTurn())){
+            if(unit.getClass().equals(Settler.class)){
+                Player owner = unit.getOwner();
+                game.getMapStrategy().getUnits().remove(p);
+                game.getMapStrategy().addCity(p,owner);
+            }else if(game.getUnitAt(p).getClass().equals(Archer.class)){
+                Archer archer = (Archer) unit;
+                archer.toggleFortified();
+            }else{
+                //nothing happens, no unit is chosen
+            }
         }
     }
 
