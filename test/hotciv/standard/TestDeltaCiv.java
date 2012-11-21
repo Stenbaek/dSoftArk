@@ -59,4 +59,72 @@ public class TestDeltaCiv {
         }
     }
 
+    @Test
+    public void thereShouldBe86OceansOnTheMap() {
+        int n = 0;
+        for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+                String l = game.getTileAt(new Position(r, c)).getTypeString();
+                if (l.equals(GameConstants.OCEANS)) {
+                    n++;
+                }
+            }
+        }
+        assertEquals("There should be 86 ocean tiles on the map", 86, n);
+    }
+
+    @Test
+    public void thereShouldBe10HillsOnTheMap() {
+        int n = 0;
+        for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+                String l = game.getTileAt(new Position(r, c)).getTypeString();
+                if (l.equals(GameConstants.HILLS)) {
+                    n++;
+                }
+            }
+        }
+        assertEquals("There should be 10 hill tiles on the map", 10, n);
+    }
+
+    @Test
+    public void thereShouldBe137PlainsOnTheMap() {
+        int n = 0;
+        for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+                String l = game.getTileAt(new Position(r, c)).getTypeString();
+                if (l.equals(GameConstants.PLAINS)) {
+                    n++;
+                }
+            }
+        }
+        assertEquals("There should be 137 plain tiles on the map", 137, n);
+    }
+
+    @Test
+    public void thereShouldBe14ForestsOnTheMap() {
+        int n = 0;
+        for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+                String l = game.getTileAt(new Position(r, c)).getTypeString();
+                if (l.equals(GameConstants.FOREST)) {
+                    n++;
+                }
+            }
+        }
+        assertEquals("There should be 14 forests on the map", 14, n);
+    }
+    @Test
+    public void thereShouldBe9MountainsOnTheMap() {
+        int n = 0;
+        for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+                String l = game.getTileAt(new Position(r, c)).getTypeString();
+                if (l.equals(GameConstants.MOUNTAINS)) {
+                    n++;
+                }
+            }
+        }
+        assertEquals("There should be 9 mountain tiles on the map", 9, n);
+    }
 }

@@ -53,6 +53,17 @@ There should be a plain at 5_6
 Test: thereShouldBeAPlainAt5_6()
 There should be a tile at every coordinate
 Test: thereShouldBeATileAtEveryCoordinate()
+There should be 89 ocean tiles on the map
+Test: thereShouldBe86OceansOnTheMap()
+There should be 10 hills tiles on the map
+Test: thereShouldBe10HillsOnTheMap()
+There should be 137 tiles tiles on the map
+Test: thereShouldBe137PlainsOnTheMap()
+There should be 14 forest tiles on the map
+Test: thereShouldBe14ForestsOnTheMap()
+There should be 9 mountain tiles on the map
+Test: thereShouldBe9MountainsOnTheMap()
+
 
 == GammaCiv ==
 A Settler can create a new city
