@@ -26,12 +26,12 @@ public class AlphaCivAge implements CivAgeStrategy{
     }
 
     public int getAge() {
-        return age;  //To change body of implemented methods use File | Settings | File Templates.
+        return age;
     }
 
 
     public void ageProgress() {
-        age = age + 100; //To change body of implemented methods use File | Settings | File Templates.
+        age = age + 100;
     }
 
 
@@ -52,56 +52,58 @@ public class AlphaCivAge implements CivAgeStrategy{
         CivActionStrategy moveStrategy = game.getMovementStrategy();
         if(playerInTurn == Player.BLUE) { // A round ends after blue players turn as he/she is the last in round
 
-            Integer currentAge = getAge(); // fetches the current Age
-            if (getEndOfGameAge() == null
-                    || getEndOfGameAge().compareTo(currentAge) != 0) {
-                ageProgress(); // advances time
+                            Integer currentAge = getAge(); // fetches the current Age
+                            if (getEndOfGameAge() == null
+                                    || getEndOfGameAge().compareTo(currentAge) != 0) {
+                                ageProgress(); // advances time
 
-                Iterator it = mapStrategy.getCities().iterator(); //Creates an iterator of the cityMap
+                                Iterator it = mapStrategy.getCities().iterator(); //Creates an iterator of the cityMap
 
-                //Iterates over every city in the game
-                while (it.hasNext()) {
-                    Map.Entry pairs = (Map.Entry)it.next();
+                                //Iterates over every city in the game
+                                while (it.hasNext()) {
+                                    Map.Entry pairs = (Map.Entry)it.next();
 
-                    // Adding 6 production to each cities treasury each round
-                    CityImpl city = (CityImpl) pairs.getValue();
-                    city.addProductionTreasury(6);
+                                    // Adding 6 production to each cities treasury each round
+                                    CityImpl city = (CityImpl) pairs.getValue();
+                                    city.addProductionTreasury(6);
 
-                    if (city.getProduction() != null) {
+                                    if (city.getProduction() != null) {
 
-                        // If the city can afford what it is producing, the unit is placed on the map
-                        String cityProductionType = city.getProduction();
-                        Integer priceOfProduction = unitStrategy.getUnitCost(cityProductionType);
+                                        // If the city can afford what it is producing, the unit is placed on the map
+                                        String cityProductionType = city.getProduction();
+                                        Integer priceOfProduction = unitStrategy.getUnitCost(cityProductionType);
 
-                        // only allow production if the city can afford it
-                        if(city.getProductionTreasury() >= priceOfProduction) {
+                                        // only allow production if the city can afford it
+                                        if(city.getProductionTreasury() >= priceOfProduction) {
 
-                            // getting the first free spot found for unit placement
-                            Position newUnitPos = mapStrategy.getPositionOfFirstEmptyTile((Position) pairs.getKey(),city.getOwner());
-                            Unit theNewUnit = null;
-                            // Creates the new unit
-                            if(cityProductionType == GameConstants.ARCHER){
-                                theNewUnit = new Archer(city.getOwner());
-                            }else if(cityProductionType == GameConstants.SETTLER){
-                                theNewUnit = new Settler(city.getOwner());
-                            }else if(cityProductionType == GameConstants.LEGION){
-                                theNewUnit = new Legion(city.getOwner());
+                                            // getting the first free spot found for unit placement
+                                            Position newUnitPos = mapStrategy.getPositionOfFirstEmptyTile((Position) pairs.getKey(),city.getOwner());
+                                            Unit theNewUnit = null;
+                                            // Creates the new unit
+                                            if(cityProductionType == GameConstants.ARCHER){
+                                                theNewUnit = new Archer(city.getOwner());
+                                            }else if(cityProductionType == GameConstants.SETTLER){
+                                                theNewUnit = new Settler(city.getOwner());
+                                            }else if(cityProductionType == GameConstants.LEGION){
+                                                theNewUnit = new Legion(city.getOwner());
+                                            }
+
+                                            // places the unit on map
+                                            mapStrategy.addUnit(newUnitPos,theNewUnit);
+                                            city.addProductionTreasury((-priceOfProduction));
+                                        }
+                                    }
+                                }
+
+                                moveStrategy.restoreAllMovement(mapStrategy.getUnits()); //restores movement-count for all units
+
+                            } else {
+                                moveStrategy.restoreAllMovement(mapStrategy.getUnits()); //restores movement-count for all units
+                                //endOfRoundActions();
                             }
-
-                            // places the unit on map
-                            mapStrategy.addUnit(newUnitPos,theNewUnit);
-                            city.addProductionTreasury((-priceOfProduction));
                         }
-                    }
-                }
-
-                moveStrategy.restoreAllMovement(mapStrategy.getUnits()); //restores movement-count for all units
-
-            } else {
-                moveStrategy.restoreAllMovement(mapStrategy.getUnits()); //restores movement-count for all units
-                //endOfRoundActions();
-            }
-        }
 
     }
+
+
 }

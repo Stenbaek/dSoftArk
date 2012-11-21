@@ -15,7 +15,6 @@ import static org.junit.Assert.*;
  * User: Thomas
  * Date: 20-11-12
  * Time: 21:09
- * To change this template use File | Settings | File Templates.
  */
 public class TestDeltaCiv {
 

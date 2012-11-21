@@ -31,4 +31,5 @@ public interface CivAgeStrategy {
     void setGame(Game game);
 
     void endOfTurn();
+
 }
