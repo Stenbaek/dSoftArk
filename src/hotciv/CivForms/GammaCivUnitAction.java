@@ -2,7 +2,10 @@ package hotciv.CivForms;
 
 import hotciv.framework.CivUnitStrategy;
 import hotciv.framework.Position;
+import hotciv.framework.Unit;
 import hotciv.standard.GameImpl;
+
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,7 +24,7 @@ public class GammaCivUnitAction implements CivUnitStrategy {
 
     @Override
     public void performUnitActionAt(Position p) {
-        UnitImpl u = (UnitImpl) game.getUnitAt(p);
+        /*UnitImpl u = (UnitImpl) game.getUnitAt(p);
         if (game.getPlayerInTurn().equals(units.getOwner())) { // action can only be performed by player in turn
             if (GameConstants.ARCHER.equals(u.getTypeString())) { // if archer
                 if (u.getDefensiveStrength() == 3) { // if not fortified
@@ -34,7 +37,17 @@ public class GammaCivUnitAction implements CivUnitStrategy {
                 game.setCityAt(p, new CityImpl(u.getOwner())); // set new city at unit's position
                 game.setUnitAt(p, null); // remove unit
             }
-        }
+        }*/
+    }
+
+    @Override
+    public Map<Position, Unit> getAllUnits() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void addUnit(Position p, Unit u) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
 }

@@ -10,20 +10,14 @@ import hotciv.framework.Tile;
  * Date: 08-11-12
  * Time: 09:01
  */
-public class Hill implements Tile {
+public class Hill extends AbstractTile{
 
-    private Position position;
-
-    public Hill(Position p){
-        this.position = p;
+    public Hill(Position position){
+        super(position,GameConstants.HILLS);
     }
 
-    public Position getPosition() {
-        return position;
-    }
-
-
-    public String getTypeString() {
-        return GameConstants.HILLS;
+    @Override
+    public boolean isHabitable() {
+        return true;
     }
 }

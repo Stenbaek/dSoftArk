@@ -1,8 +1,6 @@
 package hotciv.standard;
 
-import hotciv.CivForms.AlphaCivAge;
-import hotciv.CivForms.AlphaCivMap;
-import hotciv.CivForms.AlphaCivWin;
+import hotciv.CivForms.*;
 import hotciv.framework.*;
 
 import org.junit.*;
@@ -30,7 +28,7 @@ public class TestAlphaCiv {
     /** Fixture for alphaCiv testing. */
     @Before
     public void setUp() {
-        game = new GameImpl(new AlphaCivAge(),new AlphaCivWin(),new AlphaCivMap());
+        game = new GameImpl(new AlphaCivAge(),new AlphaCivWin(),new AlphaCivMovement(),new AlphaCivMap(),new AlphaCivUnitAction());
     }
 
     @Test
@@ -116,11 +114,13 @@ public class TestAlphaCiv {
 
     @Test
     public void cityPopulationRemainsAtOne(){
-        CityImpl cStart = (CityImpl)game.getCityAt(new Position(1,1));
+        CityImpl cStart = (CityImpl) game.getCityAt(new Position(1,1));
+        assertNotNull("The City should  be here",cStart);
         assertEquals("City population stays at one",1,cStart.getSize());
         game.endOfTurn();
-        game.endOfTurn();//2 turns to checl that population stays at one
-        CityImpl cAfterTwoTurns = (CityImpl)game.getCityAt(new Position(1,1));
+        game.endOfTurn();//2 turns to check that population stays at one
+        CityImpl cAfterTwoTurns = (CityImpl) game.getCityAt(new Position(1,1));
+        assertNotNull("The City should still be here",cAfterTwoTurns);
         assertEquals("The population of a city remains at one, no matter how many turns",
              1,cAfterTwoTurns.getSize());
     }
@@ -314,11 +314,12 @@ public class TestAlphaCiv {
 
     @Test
     public void redUnitAttacksAndDestroysBlueUnit(){
+        assertNotNull("There is a unit at (2,0)",game.getUnitAt(new Position(2,0)));
         assertTrue("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,1))); //RED is in turn, and moves towards blue legion
         game.endOfTurn(); //Turn ends, and BLUE is in turn
         assertTrue("unit at (3,2) should be able to move to (3,1)", game.moveUnit(new Position(3, 2), new Position(3, 1))); //BLUE moves towards RED archer
         game.endOfTurn(); //Turn ends, and RED is in turn
-        assertTrue("unit at (2,1) should be able to move to (3,1)", game.moveUnit(new Position(2, 1), new Position(3, 1))); //RED moves and attacks BLUE legion - BLUE legion is destroyed
+        assertTrue("unit at (2,1) should be able to move to (3,1)" + game.getUnitAt(new Position(2,1)).getOwner().name() + " " + game.getUnitAt(new Position(3,1)).getOwner().name(), game.moveUnit(new Position(2, 1), new Position(3, 1))); //RED moves and attacks BLUE legion - BLUE legion is destroyed
         game.endOfTurn(); //Turn ends, and BLUE is in turn
         assertFalse("BLUE should not be able to move unit at (3,1) to (3,2) - it is destroyed", game.moveUnit(new Position(3, 1), new Position(3, 2))); //BLUE tries to move an unit from (3,1), but BLUE has no units on (3,1), since it was destroyed by RED
         assertEquals("Owner of unit at (3,1) Should be RED", game.getUnitAt(new Position(3, 1)).getOwner(), Player.RED); //Only RED archer remains at (3,1)
@@ -395,7 +396,7 @@ public class TestAlphaCiv {
         assertEquals("City production should be a archer",GameConstants.ARCHER,prod);
         game.endOfTurn();//blue's turn
         game.endOfTurn();//red's turn
-        assertNull("Archer should not be ready", game.getUnitAt(new Position(1, 1)));
+        assertNull("Archer should not be ready ", game.getUnitAt(new Position(1, 1)));
         game.endOfTurn();//blue's turn
         game.endOfTurn();//red's turn
         Unit unit = game.getUnitAt(new Position(1, 1));
@@ -433,10 +434,12 @@ public class TestAlphaCiv {
             game.moveUnit(new Position(3,2+i),new Position(3,3+i));
             game.endOfTurn();
         }
+        game.endOfTurn();
         game.moveUnit(new Position(3,14),new Position(3,15));
         game.endOfTurn();
-        assertFalse("Settler should not be able to move outside the world",game.moveUnit(new Position(3,15),new Position(3,16)));
         assertFalse("Legion should not be able to move outside the world",game.moveUnit(new Position(15,3),new Position(16,3)));
+        game.endOfTurn();
+        assertFalse("Settler should not be able to move outside the world",game.moveUnit(new Position(3,15),new Position(3,16)));
     }
 
     @Test

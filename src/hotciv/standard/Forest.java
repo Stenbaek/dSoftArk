@@ -10,19 +10,15 @@ import hotciv.framework.Tile;
  * Date: 08-11-12
  * Time: 09:01
  */
-public class Forest implements Tile {
+public class Forest extends AbstractTile {
 
-    private Position position;
-
-    public Forest(Position p){
-        this.position = p;
+    public Forest(Position position){
+        super(position,GameConstants.FOREST);
     }
 
-    public Position getPosition() {
-        return position;
+    @Override
+    public boolean isHabitable() {
+        return true;
     }
 
-    public String getTypeString() {
-        return GameConstants.FOREST;
-    }
 }

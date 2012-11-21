@@ -1,17 +1,16 @@
 package hotciv.CivForms;
 
-import hotciv.framework.CivMapStrategy;
-import hotciv.framework.Position;
-import hotciv.framework.Tile;
-import hotciv.framework.Player;
-import hotciv.standard.CityImpl;
-import hotciv.standard.UnitImpl;
+import hotciv.framework.*;
+import hotciv.standard.*;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,45 +21,62 @@ import java.io.InputStreamReader;
  */
 public class DeltaCivMap implements CivMapStrategy {
 
-    private static int size = GameConstants.WORLDSIZE;
-    private CityImpl[][] cities = new CityImpl[size][size];
-    private UnitImpl[][] units = new UnitImpl[size][size];
-    private Tile[][] t = new Tile[size][size]; // 16x16=256
+    private UnitHashMap<Position,Unit> units;
+    private HashMap<Position,City> cities;
 
-    @Override
-    public UnitImpl[][] getUnits() {
-        units[4][4] = new UnitImpl(GameConstants.LEGION, Player.BLUE);
-        units[3][8] = new UnitImpl(GameConstants.ARCHER, Player.RED);
-        units[5][5] = new UnitImpl(GameConstants.SETTLER, Player.RED);
-        return units;  //To change body of implemented methods use File | Settings | File Templates.
+    public DeltaCivMap(){
+        units = new UnitHashMap();
+        units.put(new Position(2,0),new Archer(Player.RED));
+        units.put(new Position(3,2),new Legion(Player.BLUE));
+        units.put(new Position(4,3),new Settler(Player.RED));
+
+        cities = new HashMap();
+        cities.put(new Position(1,1),new CityImpl(Player.RED));
+        cities.put(new Position(4,1),new CityImpl(Player.BLUE));
     }
 
     @Override
-    public CityImpl[][] getCities() {
-        cities[8][12] = new CityImpl(Player.RED);
-        cities[4][5] = new CityImpl(Player.BLUE);
+    public UnitHashMap<Position,Unit> getUnits() {
+        return units;
+    }
+
+    @Override
+    public Map<Position,City> getCities() {
         return cities;
     }
 
     @Override
-    public Tile[][] getWorld() {
-        String[] layout = deltaCivMap();
-        for (int r = 0; r < size; r++) {
-            for (int c = 0; c < size; c++) {
-                if (layout[r].charAt(c) == 'o') {
-                    t[r][c] = new Ocean(p);
-                } else if (layout[r].charAt(c) == 'p') {
-                    t[r][c] = new TileImpl(GameConstants.PLAINS, r, c);
-                } else if (layout[r].charAt(c) == 'm') {
-                    t[r][c] = new TileImpl(GameConstants.MOUNTAINS, r, c);
-                } else if (layout[r].charAt(c) == 'h') {
-                    t[r][c] = new TileImpl(GameConstants.HILLS, r, c);
-                } else if (layout[r].charAt(c) == 'f')
-                    t[r][c] = new TileImpl(GameConstants.FOREST, r, c);
+    public Map<Position,Tile> getTiles() {
+        HashMap<Position,Tile> tiles = new HashMap();
+
+        for (int r = 0; r < GameConstants.WORLDSIZE; r++) { // all tiles are plains...
+            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+                tiles.put(new Position(r, c),new Plain(new Position(r, c)));
             }
         }
-        return t;  //To change body of implemented methods use File | Settings | File Templates.
+
+        tiles.put(new Position(1,0),new Ocean(new Position(1,0)));
+        tiles.put(new Position(0,1),new Hill(new Position(0, 1)));
+        tiles.put(new Position(2,2),new Mountain(new Position(2, 2)));
+
+        return tiles;
     }
+
+    @Override
+    public void addUnit(Position p, Unit u) {
+        units.put(p,u);
+    }
+
+    @Override
+    public void addCity(Position p, City c) {
+        cities.put(p,c);
+    }
+
+    @Override
+    public void addTile(Position p, Tile t) {
+        //Empty for now
+    }
+
     private String[] deltaCivMap() {
         String[] stringMap = new String[16];
         try {

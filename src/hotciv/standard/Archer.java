@@ -9,27 +9,10 @@ import hotciv.framework.Unit;
  * User: Thomas
  * Date: 14-11-12
  */
-public class Archer implements Unit {
-    private Player owner;
-    private int moveCount = 1;
+public class Archer extends AbstractUnit {
 
     public Archer(Player owner){
-        this.owner = owner;
-    }
-
-    @Override
-    public String getTypeString() {
-        return GameConstants.ARCHER;
-    }
-
-    @Override
-    public Player getOwner() {
-        return this.owner;
-    }
-
-    @Override
-    public int getMoveCount() {
-        return moveCount;
+        super(owner,GameConstants.ARCHER);
     }
 
     @Override
@@ -41,7 +24,5 @@ public class Archer implements Unit {
     public int getAttackingStrength() {
         return 2;
     }
-    public void changeMoveCounter(int moveChange){
-        moveCount += moveChange;
-    }
+
 }

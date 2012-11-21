@@ -1,5 +1,7 @@
 package hotciv.framework;
 
+import hotciv.standard.AbstractUnit;
+import hotciv.standard.UnitHashMap;
 import hotciv.standard.UnitImpl;
 
 /**
@@ -15,5 +17,5 @@ public interface CivMovementStrategy {
      * and if so restore it
      * @param u the unit who's movement to restore
      */
-    public void restoreMovement(UnitImpl u);
+    public void restoreAllMovement(UnitHashMap<Position,Unit> unitsMap);
 }

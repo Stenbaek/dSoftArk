@@ -19,7 +19,7 @@ public class TestGammaCiv {
 
     @Before
     public void setUp(){
-        game = new GameImpl(new AlphaCivMap(),new AlphaCivWin(),new AlphaCivAge(), new GammaCivMovement());
+        game = new GameImpl(new AlphaCivAge(), new AlphaCivWin(),new AlphaCivMovement(), new AlphaCivMap(), new AlphaCivUnitAction());
 
     }
     /* test til gamma civ

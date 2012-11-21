@@ -1,8 +1,11 @@
 package hotciv.standard;
 
+import java.util.Map;
+import java.util.Iterator;
 import hotciv.framework.*;
 import hotciv.framework.Player;
 import hotciv.framework.Unit;
+import hotciv.standard.UnitHashMap;
 
 /** Skeleton implementation of HotCiv.
 
@@ -24,52 +27,48 @@ import hotciv.framework.Unit;
 public class GameImpl implements Game {
 
     private int age;
+
+    private Map<Position,Unit> unitMap;
+    private Map<Position,City> cityMap;
+    private Map<Position,Tile> tileMap;
+
     private Unit[][] units; // matrix of units in game
     private CityImpl[][] cities; // matrix of cities in game
     private Player playerInTurn = Player.RED;
-    private CivAgeStrategy ageing;
-    private CivWinStrategy winning;
-    private CivMovementStrategy move;
-    private CivMapStrategy mape;
+
+    private CivAgeStrategy ageingStrategy;
+    private CivWinStrategy winningStrategy;
+    private CivMovementStrategy moveStrategy;
+    private CivMapStrategy mapStrategy;
     private CivUnitStrategy unitAct;
-   private Tile[][] map;
 
-    public GameImpl(CivAgeStrategy ageing, CivWinStrategy winning, CivMovementStrategy move, CivMapStrategy mape,CivUnitStrategy unitAct){
+    public GameImpl(CivAgeStrategy ageingStrategy, CivWinStrategy winningStrategy, CivMovementStrategy moveStrategy, CivMapStrategy mapStrategy,CivUnitStrategy unitActStrategy){
         this.age = -4000; // initial start age
-        this.createWorld();
-        this.ageing = ageing;
-        this.winning = winning;
-        this.move = move;
-        this.mape = mape;
-        this.unitAct = unitAct;
+        this.ageingStrategy = ageingStrategy;
+        this.winningStrategy = winningStrategy;
+        this.moveStrategy = moveStrategy;
+        this.mapStrategy = mapStrategy;
+        this.unitAct = unitActStrategy;
         this.unitAct.setGame(this);
-
+        this.createWorld();
     }
 
     private void createWorld(){
-        units = mape.getUnits();
-        cities = mape.getCities();
-        map = mape.getWorld();
-
+        unitMap = mapStrategy.getUnits();
+        cityMap = mapStrategy.getCities();
+        tileMap = mapStrategy.getTiles();
     }
 
     public Tile getTileAt( Position p ) {
-        if (p.equals(new Position(1,0))){ // 1,1 is ocean
-            return new Ocean(p);
-        } else if(p.equals(new Position(0,1))){ // 0,1 is hills
-            return new Hill(p);
-        } else if(p.equals(new Position(2,2))){ // is mountains
-            return new Mountain(p);
-        }
-        return new Plain(p); // All other tiles are of type plains
+        return mapStrategy.getTiles().get(p);
     }
 
     public Unit getUnitAt( Position p ) {
-        return units[p.getRow()][p.getColumn()];
+        return (Unit) mapStrategy.getUnits().get(p);
     }
 
     public City getCityAt( Position p ) {
-        return cities[p.getRow()][p.getColumn()];
+        return mapStrategy.getCities().get(p);
     }
 
     public Player getPlayerInTurn() {
@@ -77,20 +76,33 @@ public class GameImpl implements Game {
     }
 
     public Player getWinner() {
-        return winning.getWinner(this);
+        return winningStrategy.getWinner(this);
     }
 
     public int getAge() {
-        return ageing.getAge();
+        return ageingStrategy.getAge();
     }
 
     public boolean moveUnit( Position from, Position to ) {
 
-        // getting the unit
-        UnitImpl theUnitInMove = (UnitImpl) units[from.getRow()][from.getColumn()];
+        // Getting the unit
+        Unit theUnitInMove = getUnitAt(from);
 
         // Checking the unit is owned by the player in turn
-        if( theUnitInMove.getOwner() == playerInTurn){
+        if(theUnitInMove.getOwner() == playerInTurn){
+
+            //We check that the move is legal - within the boundaries of the world.
+            if(from.getColumn() < 0 || from.getRow() < 0 ||
+                to.getColumn() < 0 || to.getRow() < 0) return false; //Outside the array
+            if(from.getColumn() >= GameConstants.WORLDSIZE ||
+                from.getRow() >= GameConstants.WORLDSIZE ||
+                to.getColumn() >= GameConstants.WORLDSIZE ||
+                to.getRow() >= GameConstants.WORLDSIZE) return false; //Outside the world
+
+            if(!(to.getColumn() >= from.getColumn()-1 &&
+                to.getColumn() <= from.getColumn()+1 &&
+                to.getRow() >= from.getRow()-1 &&
+                to.getRow() <= from.getRow()+1)) return false; //Unit can only move within the 8 adjacent tiles
 
             if (theUnitInMove.getMoveCount() < 1) {
                 return false; // returns false if the unit has < 1 move points left
@@ -101,11 +113,15 @@ public class GameImpl implements Game {
             if (unitPossiblyUnderAttack != null
                     && unitPossiblyUnderAttack.getOwner() == playerInTurn) {
                 return false; // if there is a unit and the unit is owned by the player in turn
+            }else if(unitPossiblyUnderAttack != null
+                    && unitPossiblyUnderAttack.getOwner() != playerInTurn){
+                if(mapStrategy.getUnits().remove(to).getClass().equals(Unit.class)){
+                    return true;
+                }
             }
 
             Tile moveToTile = getTileAt(to); // finds the tile at the move TO position
-            if (moveToTile.getTypeString().equals(GameConstants.MOUNTAINS)
-                    || moveToTile.getTypeString().equals(GameConstants.OCEANS)) {
+            if (!moveToTile.isHabitable()) {
                 return false; // mountains and oceans cannot have units on them
             }
 
@@ -113,12 +129,13 @@ public class GameImpl implements Game {
             // change the move count
             theUnitInMove.changeMoveCounter(-1);
 
+
+
             // The actual move of the unit
-            units[to.getRow()][to.getColumn()] = theUnitInMove; // move to
-            units[from.getRow()][from.getColumn()] = null; // reset from
+            mapStrategy.getUnits().moveUnitToNewPosition(from,to);
 
             // The possible city at the to position
-            CityImpl cityPossiblyCaptured = cities[to.getRow()][to.getColumn()];
+            CityImpl cityPossiblyCaptured = (CityImpl) getCityAt(to);
 
             // If there is a city and it's owned by the other player,
             // the city is set to be owned by the attacker
@@ -136,24 +153,59 @@ public class GameImpl implements Game {
     public void endOfTurn() {
         if(playerInTurn == Player.BLUE) { // A round ends after blue players turn as he/she is the last in round
 
-            Integer currAge = ageing.getAge(); // fetches the current Age
-            if (ageing.getEndOfGameAge() == null
-                    || ageing.getEndOfGameAge().compareTo(currAge) != 0) {
-                ageing.ageProgress(); // advances time
+            Integer currentAge = ageingStrategy.getAge(); // fetches the current Age
+            if (ageingStrategy.getEndOfGameAge() == null
+                    || ageingStrategy.getEndOfGameAge().compareTo(currentAge) != 0) {
+                ageingStrategy.ageProgress(); // advances time
 
-                // runs from 0 to worldsize
-                for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
-                    for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                        performEndOfRoundActions(r,c);
+                Iterator it = cityMap.entrySet().iterator(); //Creates an iterator of the cityMap
+
+                //Iterates over every city in the game
+                while (it.hasNext()) {
+                    Map.Entry pairs = (Map.Entry)it.next();
+
+                    // Adding 6 production to each cities treasury each round
+                    CityImpl city = (CityImpl) pairs.getValue();
+                    city.addProductionTreasury(6);
+
+                    if (city.getProduction() != null) {
+
+                        // If the city can afford what it is producing, the unit is placed on the map
+                        String cityProductionType = city.getProduction();
+                        Integer priceOfProduction = getUnitCost(cityProductionType);
+
+                        // only allow production if the city can afford it
+                        if(city.getProductionTreasury() >= priceOfProduction) {
+
+                            // getting the first free spot found for unit placement
+                            Position newUnitPos = getFirstEmptyTile((Position) pairs.getKey(),city.getOwner());
+                            Unit theNewUnit = null;
+                            // Creates the new unit
+                            if(cityProductionType == GameConstants.ARCHER){
+                                theNewUnit = new Archer(city.getOwner());
+                            }else if(cityProductionType == GameConstants.SETTLER){
+                                theNewUnit = new Settler(city.getOwner());
+                            }else if(cityProductionType == GameConstants.LEGION){
+                                theNewUnit = new Legion(city.getOwner());
+                            }
+
+                            // places the unit on map
+                            mapStrategy.addUnit(newUnitPos,theNewUnit);
+                            city.addProductionTreasury((-priceOfProduction));
+                        }
                     }
                 }
+
+                moveStrategy.restoreAllMovement(mapStrategy.getUnits()); //restores movement-count for all units
+
             } else {
-                endOfRoundActions();
+                moveStrategy.restoreAllMovement(mapStrategy.getUnits()); //restores movement-count for all units
+                //endOfRoundActions();
             }
         }
 
         // swaps the players each turn
-        if (Player.RED == playerInTurn) {
+        if (playerInTurn == Player.RED) {
             playerInTurn = Player.BLUE;
         } else {
             playerInTurn = Player.RED;
@@ -161,6 +213,9 @@ public class GameImpl implements Game {
 
     }
     private void endOfRoundActions(){
+
+
+
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
                 CityImpl currentCity = cities[r][c];
@@ -177,39 +232,10 @@ public class GameImpl implements Game {
         }
     }
 
-
-    private void performEndOfRoundActions(int r, int c) {
-        if (cities[r][c] != null) {
-            // Adding 6 production to each cities treasury each round
-            cities[r][c].addProductionTreasury(6);
-
-            if (cities[r][c].getProduction() != null) {
-
-                // If the city can afford what it is producing, the unit is placed on the map
-                CityImpl currentCity = cities[r][c];
-                String cityProductionType = currentCity.getProduction();
-                int priceOfProduction = getUnitCost(cityProductionType);
-
-                // only allow production if the city can afford it
-                if(cities[r][c].getProductionTreasury() >= priceOfProduction) {
-
-                    // getting the first free spot found for unit placement
-                    Position newUnitPos = getFirstEmptyTile(new Position(r,c),currentCity.getOwner());
-
-                    // Creates the new unit
-                    UnitImpl theNewUnit = new UnitImpl(cityProductionType, currentCity.getOwner());
-                    // places the unit on map
-                    units[newUnitPos.getRow()][newUnitPos.getColumn()] = theNewUnit;
-                    currentCity.addProductionTreasury((-priceOfProduction));
-                }
-            }
-        }
-    }
-
     private int getUnitCost(String unitType){
-        if(unitType.equals(Archer.class)) return 10;
-        if(unitType.equals(Legion.class)) return 15;
-        if(unitType.equals(Settler.class)) return 30;
+        if(unitType.equals(GameConstants.ARCHER)) return 10;
+        if(unitType.equals(GameConstants.LEGION)) return 15;
+        if(unitType.equals(GameConstants.SETTLER)) return 30;
         return 0;
     }
 

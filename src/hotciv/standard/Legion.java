@@ -9,27 +9,10 @@ import hotciv.framework.Unit;
  * User: Thomas
  * Date: 14-11-12
  */
-public class Legion implements Unit {
-    private Player owner;
-    private int moveCount = 1;
+public class Legion  extends AbstractUnit {
 
     public Legion(Player owner){
-        this.owner = owner;
-    }
-
-    @Override
-    public String getTypeString() {
-        return GameConstants.LEGION;
-    }
-
-    @Override
-    public Player getOwner() {
-        return this.owner;
-    }
-
-    @Override
-    public int getMoveCount() {
-        return moveCount;
+        super(owner,GameConstants.LEGION);
     }
 
     @Override
@@ -41,7 +24,5 @@ public class Legion implements Unit {
     public int getAttackingStrength() {
         return 4;
     }
-    public void changeMoveCounter(int moveChange){
-        moveCount += moveChange;
-    }
+
 }

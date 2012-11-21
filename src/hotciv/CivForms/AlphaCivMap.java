@@ -1,10 +1,10 @@
 package hotciv.CivForms;
 
-import hotciv.framework.CivMapStrategy;
-import hotciv.framework.Player;
-import hotciv.framework.Tile;
+import java.util.Map;
+import java.util.HashMap;
+
+import hotciv.framework.*;
 import hotciv.standard.*;
-import hotciv.framework.GameConstants;
 import hotciv.standard.CityImpl;
 
 
@@ -17,38 +17,59 @@ import hotciv.standard.CityImpl;
  */
 public class AlphaCivMap implements CivMapStrategy {
 
-    private int size = GameConstants.WORLDSIZE;
-    private CityImpl[][] cities = new CityImpl[size][size];
-    private Unit[][] units;
-    private Tile[][] t = new Tile[size][size]; // 16x16=256
+    private UnitHashMap<Position,Unit> units;
+    private HashMap<Position,City> cities;
+
+    public AlphaCivMap(){
+        units = new UnitHashMap();
+        units.put(new Position(2,0),new Archer(Player.RED));
+        units.put(new Position(3,2),new Legion(Player.BLUE));
+        units.put(new Position(4,3),new Settler(Player.RED));
+
+        cities = new HashMap();
+        cities.put(new Position(1,1),new CityImpl(Player.RED));
+        cities.put(new Position(4,1),new CityImpl(Player.BLUE));
+    }
 
     @Override
-    public Unit[][] getUnits() {
-        units[2][0] = new Archer(Player.RED);
-        units[3][2] = new Legion(Player.BLUE);
-        units[4][3] = new Settler(Player.RED);
+    public UnitHashMap<Position,Unit> getUnits() {
         return units;
     }
 
     @Override
-    public CityImpl[][] getCities() {
-        cities[1][1] = new CityImpl(Player.RED);
-        cities[4][1] = new CityImpl(Player.BLUE);
+    public Map<Position,City> getCities() {
         return cities;
     }
 
     @Override
-    public Tile[][] getWorld() {
-        for (int r = 0; r < size; r++) { // all tiles are plains...
-            for (int c = 0; c < size; c++) {
-                t[r][c] = new Tile(Plain.class, r, c);
+    public Map<Position,Tile> getTiles() {
+        HashMap<Position,Tile> tiles = new HashMap();
+
+        for (int r = 0; r < GameConstants.WORLDSIZE; r++) { // all tiles are plains...
+            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+                tiles.put(new Position(r, c),new Plain(new Position(r, c)));
             }
         }
-        // except for:
-        t[1][0] = new Tile(Ocean.class, 1, 0);
-        t[0][1] = new Tile(Hill.class, 0, 1);
-        t[2][2] = new Tile(Mountain.class, 2, 2);
 
-        return t;
+        tiles.put(new Position(1,0),new Ocean(new Position(1,0)));
+        tiles.put(new Position(0,1),new Hill(new Position(0, 1)));
+        tiles.put(new Position(2,2),new Mountain(new Position(2, 2)));
+
+        return tiles;
+    }
+
+    @Override
+    public void addUnit(Position p, Unit u) {
+        units.put(p,u);
+    }
+
+    @Override
+    public void addCity(Position p, City c) {
+        cities.put(p,c);
+    }
+
+    @Override
+    public void addTile(Position p, Tile t) {
+        //Empty for now
     }
 }

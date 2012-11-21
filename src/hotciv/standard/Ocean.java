@@ -10,21 +10,15 @@ import hotciv.framework.Tile;
  * Date: 08-11-12
  * Time: 09:01
  */
-public class Ocean implements Tile {
+public class Ocean extends AbstractTile{
 
-    private Position position;
-
-    public Ocean(Position p){
-        this.position = p;
+    public Ocean(Position position){
+        super(position,GameConstants.OCEANS);
     }
 
     @Override
-    public Position getPosition() {
-        return position;
+    public boolean isHabitable() {
+        return false;
     }
 
-    @Override
-    public String getTypeString() {
-        return GameConstants.OCEANS;
-    }
 }

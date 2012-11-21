@@ -1,5 +1,6 @@
 package hotciv.framework;
 
+import java.util.Map;
 import hotciv.standard.GameImpl;
 
 /**
@@ -23,4 +24,14 @@ public interface CivUnitStrategy {
      * @param p position of unit
      */
     public void performUnitActionAt( Position p );
+
+    /**
+     * fetches all units in the game
+     * @return Map<Position,Unit> of all units in the game
+     */
+    public Map<Position,Unit> getAllUnits();
+
+    public void addUnit( Position p , Unit u );
+
+
 }

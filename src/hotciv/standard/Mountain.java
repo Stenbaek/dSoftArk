@@ -11,21 +11,15 @@ import hotciv.framework.Tile;
  * Time: 09.28
  */
 
-public class Mountain implements Tile {
+public class Mountain extends AbstractTile{
 
-    private Position position;
-
-    public Mountain(Position p){
-        this.position = p;
+    public Mountain(Position position){
+        super(position,GameConstants.MOUNTAINS);
     }
 
     @Override
-    public Position getPosition() {
-        return position;
+    public boolean isHabitable() {
+        return false;
     }
 
-    @Override
-    public String getTypeString() {
-        return GameConstants.MOUNTAINS;
-    }
 }
