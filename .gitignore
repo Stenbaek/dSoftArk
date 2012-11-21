@@ -3,5 +3,6 @@
 
 build/
 out/
+coverage/
 
 *.iml

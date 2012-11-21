@@ -1,7 +1,6 @@
 package hotciv.framework;
 
 import hotciv.standard.CityImpl;
-import hotciv.standard.UnitImpl;
 import hotciv.standard.UnitHashMap;
 import hotciv.framework.Unit;
 

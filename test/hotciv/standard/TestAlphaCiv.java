@@ -127,7 +127,7 @@ public class TestAlphaCiv {
 
     @Test
     public void unitsCanMoveOneTile(){
-        Unit u = new UnitImpl(GameConstants.ARCHER, Player.RED);
+        Unit u = new Archer(Player.RED);
         assertEquals("Units can only move 1 tile",1,u.getMoveCount());
     }
 
@@ -381,7 +381,7 @@ public class TestAlphaCiv {
 
     @Test
     public void unitCanMoveOneTileAfterTurn(){
-        Unit u = new UnitImpl(GameConstants.ARCHER, Player.RED);
+        Unit u = new Archer(Player.RED);
         assertTrue("unit at (2,0) should be able to move to (2,1)",game.moveUnit(new Position(2,0), new Position(2,1)));
         game.endOfTurn(); //Blue's turn
         game.endOfTurn(); //Red's turn

@@ -213,9 +213,9 @@ public class GameImpl implements Game {
 
     }
     private void endOfRoundActions(){
+    //TODO - tag stilling til endOfGameActions
 
-
-
+        /*
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
                 CityImpl currentCity = cities[r][c];
@@ -229,7 +229,7 @@ public class GameImpl implements Game {
                     currentUnit.changeMoveCounter((-unitMovePoints));
                 }
             }
-        }
+        }*/
     }
 
     private int getUnitCost(String unitType){

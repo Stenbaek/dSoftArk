@@ -4,9 +4,7 @@ import hotciv.framework.CivMovementStrategy;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
 import hotciv.standard.AbstractUnit;
-import hotciv.standard.Archer;
 import hotciv.standard.UnitHashMap;
-import hotciv.standard.UnitImpl;
 
 import java.util.Iterator;
 import java.util.Map;

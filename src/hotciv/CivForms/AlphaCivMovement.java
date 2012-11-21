@@ -6,7 +6,6 @@ import hotciv.framework.Unit;
 import hotciv.standard.AbstractUnit;
 import hotciv.standard.CityImpl;
 import hotciv.standard.UnitHashMap;
-import hotciv.standard.UnitImpl;
 
 import java.util.Iterator;
 import java.util.Map;
