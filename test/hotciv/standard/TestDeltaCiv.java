@@ -1,7 +1,9 @@
 package hotciv.standard;
 
 import hotciv.factories.DeltaFactory;
+import hotciv.standard.tiles.Forest;
 import hotciv.standard.tiles.Mountain;
+import hotciv.standard.tiles.Plain;
 import hotciv.strategies.*;
 import hotciv.framework.*;
 
@@ -33,8 +35,29 @@ public class TestDeltaCiv {
 
     @Test
     public void thereShouldBeAMountainAt0_5(){
-        assertNotNull("There should be a Settler at (0,5)",game.getTileAt(new Position(0, 5)));
-        assertEquals("City should be at (0,5)", Mountain.class, game.getTileAt(new Position(0, 5)).getClass());
+        assertNotNull("There should be a Mountain at (0,5)",game.getTileAt(new Position(0, 5)));
+        assertEquals("Mountain should be at (0,5)", Mountain.class, game.getTileAt(new Position(0, 5)).getClass());
+    }
+
+    @Test
+    public void thereShouldBeAForestAt5_5(){
+        assertNotNull("There should be a Forest at (5,5)",game.getTileAt(new Position(5, 5)));
+        assertEquals("Forest should be at (5,5)", Forest.class, game.getTileAt(new Position(5, 5)).getClass());
+    }
+
+    @Test
+    public void thereShouldBeAPlainAt5_6(){
+        assertNotNull("There should be a Plain at (5,6)",game.getTileAt(new Position(5, 6)));
+        assertEquals("Plain should be at (5,6)", Plain.class, game.getTileAt(new Position(5, 6)).getClass());
+    }
+
+    @Test
+    public void thereShouldBeATileAtEveryCoordinate(){
+        for(int r = 0; r < GameConstants.WORLDSIZE; r++){
+            for(int c = 0; c < GameConstants.WORLDSIZE; c++){
+                assertNotNull("There should be a Tile at (" + r + "," + c + ") " + game.getTileAt(new Position(r,c)).getClass(), game.getTileAt(new Position(r,c)));
+            }
+        }
     }
 
 }
