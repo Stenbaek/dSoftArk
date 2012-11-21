@@ -1,0 +1,24 @@
+Testcases:
+
+== Alphaciv ==
+
+Once a city is captured its current production is changed to null
+
+Red´s unit attacks Blue’s city and captures it
+
+players city cannot place a unit on another players unit
+
+Unit cost is deducted from city production treasury
+
+red settler should be able to capture blue city
+
+when a city is captured it still has its productionrates
+
+== BetaCiv ==
+
+
+
+
+
+
+
