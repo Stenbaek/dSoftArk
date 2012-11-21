@@ -139,6 +139,9 @@
                       classname="org.junit.runner.JUnitCore">
               <html/>
               <arg value="hotciv.standard.TestAlphaCiv"/>
+              <arg value="hotciv.standard.TestBetaCiv"/>
+              <arg value="hotciv.standard.TestGammaCiv"/>
+              <arg value="hotciv.standard.TestDeltaCiv"/>
               <classpath refid="class-path"/>
             </emmajava>
           </target>

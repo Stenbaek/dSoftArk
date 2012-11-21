@@ -34,6 +34,6 @@ public class DeltaFactory implements AbstractFactory{
 
     @Override
     public CivUnitStrategy getUnitStrategy() {
-        return new GammaCivUnit();
+        return new AlphaCivUnit();
     }
 }

@@ -12,20 +12,20 @@ import static org.junit.Assert.*;
 
 /** Skeleton class for AlphaCiv test cases
 
-   This source code is from the book
-     "Flexible, Reliable Software:
-       Using Patterns and Agile Development"
-     published 2010 by CRC Press.
-   Author:
-     Henrik B Christensen
-     Computer Science Department
-     Aarhus University
+ This source code is from the book
+ "Flexible, Reliable Software:
+ Using Patterns and Agile Development"
+ published 2010 by CRC Press.
+ Author:
+ Henrik B Christensen
+ Computer Science Department
+ Aarhus University
 
-   This source code is provided WITHOUT ANY WARRANTY either
-   expressed or implied. You may study, use, modify, and
-   distribute it for non-commercial purposes. For any
-   commercial use, see http://www.baerbak.com/
-*/
+ This source code is provided WITHOUT ANY WARRANTY either
+ expressed or implied. You may study, use, modify, and
+ distribute it for non-commercial purposes. For any
+ commercial use, see http://www.baerbak.com/
+ */
 public class TestAlphaCiv {
     private Game game;
     /** Fixture for alphaCiv testing. */
@@ -78,7 +78,7 @@ public class TestAlphaCiv {
     public void redShouldBeFirstInTurn(){
         Player p = game.getPlayerInTurn();
         assertEquals("Red should be first in turn",
-            Player.RED, p);
+                Player.RED, p);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class TestAlphaCiv {
         game.endOfTurn();
         Player p = game.getPlayerInTurn();
         assertEquals("After red, blue player is in turn",
-            Player.BLUE, p);
+                Player.BLUE, p);
     }
 
     @Test
@@ -94,19 +94,19 @@ public class TestAlphaCiv {
         game.endOfTurn(); game.endOfTurn();
         Player p = game.getPlayerInTurn();
         assertEquals("After blue, red player is in turn",
-            Player.RED, p);
+                Player.RED, p);
     }
 
     @Test
     public void unitCannotMoveOverMountain(){
         assertFalse("units cannot move over mountain tiles",
-            game.moveUnit(new Position(3,2),new Position(2,2)));
+                game.moveUnit(new Position(3,2),new Position(2,2)));
     }
 
     @Test
     public void unitCannotMoveOverOcean(){
         assertFalse("units cannot move over ocean tiles",
-            game.moveUnit(new Position(2,0),new Position(1,0)));
+                game.moveUnit(new Position(2,0),new Position(1,0)));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class TestAlphaCiv {
         CityImpl cAfterTwoTurns = (CityImpl) game.getCityAt(new Position(1,1));
         assertNotNull("The City should still be here",cAfterTwoTurns);
         assertEquals("The population of a city remains at one, no matter how many turns",
-             1,cAfterTwoTurns.getSize());
+                1,cAfterTwoTurns.getSize());
     }
 
     @Test
@@ -232,7 +232,7 @@ public class TestAlphaCiv {
         CityImpl c = new CityImpl(Player.RED);
         c.addProductionTreasury(100);
         assertEquals("Should return the amount (100) set by calling setProductionTreasury",
-        100, c.getProductionTreasury());
+                100, c.getProductionTreasury());
     }
 
     /**
@@ -244,7 +244,7 @@ public class TestAlphaCiv {
         c.addProductionTreasury(100);
         c.addProductionTreasury(100);
         assertEquals("Should return the amount (200) set by calling setProductionTreasury(100) two times",
-        200, c.getProductionTreasury());
+                200, c.getProductionTreasury());
     }
 
     /**
@@ -275,7 +275,7 @@ public class TestAlphaCiv {
     }
 
     @Test
-     public void anyUnitCannotMoveToAnyMountainTileFromAnyDirection() {
+    public void anyUnitCannotMoveToAnyMountainTileFromAnyDirection() {
         game.endOfTurn(); // Now blue is in turn
         boolean b = game.moveUnit(new Position(3,2), new Position(3,3));
         assertTrue("This move should be legal. blue is in turn, " +
@@ -357,10 +357,10 @@ public class TestAlphaCiv {
 
     @Test
     public void chooseCityProduction(){
-    game.changeProductionInCityAt(new Position(1,1), GameConstants.LEGION); // sets production to legion
-    String prod = game.getCityAt(new Position(1,1)).getProduction();
-    assertNotNull("City production should not be null",prod);
-    assertEquals("City production should be a legion",GameConstants.LEGION,prod);
+        game.changeProductionInCityAt(new Position(1,1), GameConstants.LEGION); // sets production to legion
+        String prod = game.getCityAt(new Position(1,1)).getProduction();
+        assertNotNull("City production should not be null",prod);
+        assertEquals("City production should be a legion",GameConstants.LEGION,prod);
     }
 
     @Test
@@ -370,7 +370,7 @@ public class TestAlphaCiv {
         {
             game.endOfTurn();
         }
-        			// start time is -4000 + 300 = - 350
+        // start time is -4000 + 300 = - 350
         assertEquals("After 5 turns game time should be 3500BC",
                 -3500, game.getAge());
     }
