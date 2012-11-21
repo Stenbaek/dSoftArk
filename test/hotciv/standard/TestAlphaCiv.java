@@ -490,4 +490,35 @@ public class TestAlphaCiv {
         assertNotNull("There should be a unit at (0,0)", game.getUnitAt(new Position(0,0)));
     }
 
+    @Test
+    public void productionShouldRemainAfterCityIsCaptured() {
+        game.moveUnit(new Position(2,0), new Position(2,1));
+        game.endOfTurn(); // advancing to blue
+        game.changeProductionInCityAt(new Position(4,1), GameConstants.ARCHER); // blue builds archer
+        game.endOfTurn(); // ends a turn
+        game.moveUnit(new Position(2,1), new Position(3,1));
+        game.endOfTurn(); game.endOfTurn(); // ends a turn
+
+        CityImpl ba = (CityImpl) game.getCityAt(new Position(4,1));
+        int cityTreasuryBeForeAttack = ba.getProductionTreasury();
+
+        game.moveUnit(new Position(3,1), new Position(4,1));// should take blues city at 4,1
+        CityImpl aa = (CityImpl) game.getCityAt(new Position(4,1)); // after attack
+        assertEquals("City should now belong to RED", Player.RED, aa.getOwner());
+        int cityTreasuryAfterAttack = aa.getProductionTreasury();
+        assertEquals("Production should remain the same", cityTreasuryBeForeAttack, cityTreasuryAfterAttack);
+        String unit = aa.getProduction();
+        assertNull("City should not produce anything after the attack", unit);
+    }
+
+    @Test
+    public void gameShouldDeductUnitCostFromCity() {
+        game.changeProductionInCityAt(new Position(1,1), GameConstants.ARCHER);
+        game.endOfTurn(); game.endOfTurn();
+        game.endOfTurn(); game.endOfTurn(); // unit should now have been build
+        CityImpl u = (CityImpl)game.getCityAt(new Position(1,1));
+        int currentTreasuery = u.getProductionTreasury();
+        assertEquals("The city should currently have 2 in treasury", 2, currentTreasuery);
+    }
+
 }
