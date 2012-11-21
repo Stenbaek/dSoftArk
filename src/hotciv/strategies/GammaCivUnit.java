@@ -1,10 +1,12 @@
 package hotciv.strategies;
 
 import hotciv.framework.Game;
-import hotciv.framework.Position;
 import hotciv.framework.Player;
+import hotciv.framework.Position;
 import hotciv.framework.Unit;
-import hotciv.standard.units.*;
+import hotciv.standard.units.Archer;
+import hotciv.standard.units.Settler;
+
 
 /**
  * Created by IntelliJ IDEA.
