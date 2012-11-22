@@ -1,0 +1,4 @@
+Test til EpislonCiv
+
+Attacker takes the defenders tile when attacker wins
+
