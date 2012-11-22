@@ -1,4 +1,34 @@
-Test til EpislonCiv
+Tests:
+
+== EpsilonCiv ==
 
 Attacker takes the defenders tile when attacker wins
+
+Attacker gets deleted from board/world after attacker loses
+
+After 3 succesfull attacks Red wins
+
+After 3 succesfull attacks Blue wins
+
+Attack strength of Legion placed on a Hill who attacks an archer
+
+Attack strength of Legion placed in a City who attacks an archer
+
+Attack strength of Legion placed in a City who gets attacked by an archer
+
+Blue Settler cannot kill red legion
+
+Red legion can kill Blue Settler
+
+== ZetaCiv ==
+
+When 20 turn has past you after 3 succesfull attacks
+
+Win by taking all the cities before 20 rounds has past
+
+After 20 rounds you do not win by taking all the cities
+
+
+
+
 
