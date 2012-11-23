@@ -12,24 +12,15 @@ import hotciv.framework.Game;
 public interface CivAgeStrategy {
 
     /**
-     * Return the current age
-     * @return current age
+     * Increase age and return the new age
+     * @return new age
      */
-    public int getAge();
-
-    /**
-     * Increase age
-     */
-    public void ageProgress();
+    public int ageProgress(Integer currentAge);
 
     /**
      * Return the year in which the game ends
      * @return ending year
      */
     public Integer getEndOfGameAge();
-
-    void setGame(Game game);
-
-    void endOfTurn();
 
 }

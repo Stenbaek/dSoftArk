@@ -2,6 +2,7 @@ package hotciv.framework;
 
 import java.util.Map;
 import hotciv.standard.GameImpl;
+import hotciv.standard.maps.UnitHashMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,19 +19,13 @@ public interface CivUnitStrategy {
      */
     public void setGame( Game game );
 
-    /**
-     * perform unit's action at position
-     * Precondition: unit at position
-     * @param p position of unit
+        /**
+     * check if the unit's movement should be restored,
+     * and if so restore it
+     * @param unitsMap the unit who's movement to restore
      */
-    public void performUnitActionAt( Position p );
-
-    /**
-     * fetches all units in the game
-     * @return Map<Position,Unit> of all units in the game
-     */
-
-    boolean moveUnit(Position from, Position to);
+    public void restoreAllMovement(UnitHashMap<Position,Unit> unitsMap);
 
     int getUnitCost(String unitType);
+
 }

@@ -18,8 +18,8 @@ public class DeltaFactory implements AbstractFactory{
     }
 
     @Override
-    public CivMapStrategy getWorldStrategy() {
-        return new DeltaCivMap();
+    public CivWorldStrategy getWorldStrategy() {
+        return new DeltaCivWorld();
     }
 
     @Override
@@ -36,4 +36,10 @@ public class DeltaFactory implements AbstractFactory{
     public CivUnitStrategy getUnitStrategy() {
         return new AlphaCivUnit();
     }
+
+    @Override
+    public CivAttackStrategy getAttackStrategy() {
+        return new AlphaCivAttack();
+    }
+
 }
