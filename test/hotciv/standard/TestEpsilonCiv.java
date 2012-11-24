@@ -42,7 +42,7 @@ public class TestEpsilonCiv {
     }
     @Test
     public void redSettlerShouldnotBeAbleToKillBlueLegion(){
-        game.moveUnit(new Position())
+        //game.moveUnit(new Position());
 
     }
 }
