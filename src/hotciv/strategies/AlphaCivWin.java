@@ -14,8 +14,12 @@ import hotciv.standard.GameImpl;
 public class AlphaCivWin implements CivWinStrategy {
 
     public Player getWinner(GameImpl game){
-        return Player.RED; //Red is the winner every time
+        return (game.getAge() >= -3000 ) ? Player.RED : null; //Red is the winner every time
     }
 
+    @Override
+    public void incrementWins(Player winner) {
+        //nothing
+    }
 
 }
