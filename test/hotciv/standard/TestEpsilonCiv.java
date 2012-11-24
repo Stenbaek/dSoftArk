@@ -42,7 +42,8 @@ public class TestEpsilonCiv {
     }
     @Test
     public void redSettlerShouldnotBeAbleToKillBlueLegion(){
-        game.moveUnit(new Position())
+        game.moveUnit(new Position(4,3),new Position(3,2));
+        assertEquals("There should still be a legion af 3_2",Legion.class,game.getUnitAt(new Position(3,2)).getTypeString());
 
     }
 }
