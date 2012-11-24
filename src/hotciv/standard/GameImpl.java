@@ -254,6 +254,7 @@ public class GameImpl implements Game {
         boolean outcome = attackStrategy.outcomeOfBattle(this,attackingPlayerPosition,defendingPlayerPosition);
         if (outcome) {
             removeUnit(defendingPlayerPosition);
+            winningStrategy.incrementWins(getUnitAt(attackingPlayerPosition).getOwner());
             return true;
         }else{
             return false;
