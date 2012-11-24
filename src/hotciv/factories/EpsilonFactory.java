@@ -6,15 +6,14 @@ import hotciv.strategies.*;
 /**
  * Created by IntelliJ IDEA.
  * User: stenbaek
- * Date: 21/11/12
- * Time: 14.03
+ * Date: 22/11/12
+ * Time: 22.59
  * To change this template use File | Settings | File Templates.
  */
-public class GammaFactory implements AbstractFactory{
-
+public class EpsilonFactory implements AbstractFactory {
     @Override
     public CivWinStrategy getWinningStrategy() {
-        return new AlphaCivWin();
+        return new EpsilonCivWin();
     }
 
     @Override
@@ -24,7 +23,7 @@ public class GammaFactory implements AbstractFactory{
 
     @Override
     public CivActionStrategy getActionStrategy() {
-        return new GammaCivAction();
+        return new AlphaCivAction();
     }
 
     @Override
@@ -39,7 +38,6 @@ public class GammaFactory implements AbstractFactory{
 
     @Override
     public CivAttackStrategy getAttackStrategy() {
-        return new AlphaCivAttack();
+        return new EpsilonCivAttack();
     }
-
 }

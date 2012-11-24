@@ -18,8 +18,8 @@ public class BetaFactory implements AbstractFactory{
     }
 
     @Override
-    public CivMapStrategy getWorldStrategy() {
-        return new AlphaCivMap();
+    public CivWorldStrategy getWorldStrategy() {
+        return new AlphaCivWorld();
     }
 
     @Override
@@ -36,4 +36,10 @@ public class BetaFactory implements AbstractFactory{
     public CivUnitStrategy getUnitStrategy() {
         return new AlphaCivUnit();
     }
+
+    @Override
+    public CivAttackStrategy getAttackStrategy() {
+        return new AlphaCivAttack();
+    }
+
 }

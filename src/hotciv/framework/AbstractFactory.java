@@ -10,12 +10,14 @@ public interface AbstractFactory {
 
     CivWinStrategy getWinningStrategy();
 
-    CivMapStrategy getWorldStrategy();
+    CivWorldStrategy getWorldStrategy();
 
     CivActionStrategy getActionStrategy();
 
     CivAgeStrategy getAgeStrategy();
 
     CivUnitStrategy getUnitStrategy();
+
+    CivAttackStrategy getAttackStrategy();
 
 }

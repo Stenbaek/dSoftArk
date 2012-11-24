@@ -1,5 +1,6 @@
 package hotciv.framework;
 
+import hotciv.standard.GameImpl;
 import hotciv.standard.maps.UnitHashMap;
 
 /**
@@ -10,10 +11,12 @@ import hotciv.standard.maps.UnitHashMap;
  * To change this template use File | Settings | File Templates.
  */
 public interface CivActionStrategy {
+
     /**
-     * check if the unit's movement should be restored,
-     * and if so restore it
-     * @param u the unit who's movement to restore
+     * perform unit's action at position
+     * Precondition: unit at position
+     * @param p position of unit
      */
-    public void restoreAllMovement(UnitHashMap<Position,Unit> unitsMap);
+    public void performUnitAction( Unit unit, Position p, Game game );
+
 }

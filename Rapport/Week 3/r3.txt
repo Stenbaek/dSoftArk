@@ -28,6 +28,11 @@ Win by taking all the cities before 20 rounds has past
 
 After 20 rounds you do not win by taking all the cities
 
+Opgaver:
+
+Exercise 36.13
+
+-
 
 
 

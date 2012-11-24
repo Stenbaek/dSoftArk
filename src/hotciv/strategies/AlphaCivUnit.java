@@ -2,7 +2,12 @@ package hotciv.strategies;
 
 import hotciv.framework.*;
 import hotciv.standard.CityImpl;
+import hotciv.standard.maps.UnitHashMap;
+import hotciv.standard.units.AbstractUnit;
 import hotciv.standard.units.Archer;
+
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,81 +24,18 @@ public class AlphaCivUnit implements CivUnitStrategy {
         this.game = game;
     }
 
+    public void restoreAllMovement(UnitHashMap<Position,Unit> unitsMap) { // always restores units movement
 
-    public void performUnitActionAt(Position p) {} // does nothing
+        Iterator it = unitsMap.iterator(); //Creates an iterator of the cityMap
+        // //Iterates over every city in the game
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
 
-    @Override
-    public boolean moveUnit(Position from, Position to) {
-        // Getting the unit
-        Unit theUnitInMove = game.getUnitAt(from);
-        Player playerInTurn = game.getPlayerInTurn();
-        CivMapStrategy mapStrategy = game.getMapStrategy();
-
-        // Checking the unit is owned by the player in turn
-        if(theUnitInMove.getOwner() == playerInTurn){
-
-            //We check that the move is legal - within the boundaries of the world.
-            if(from.getColumn() < 0 || from.getRow() < 0 ||
-                to.getColumn() < 0 || to.getRow() < 0) return false; //Outside the array
-            if(from.getColumn() >= GameConstants.WORLDSIZE ||
-                from.getRow() >= GameConstants.WORLDSIZE ||
-                to.getColumn() >= GameConstants.WORLDSIZE ||
-                to.getRow() >= GameConstants.WORLDSIZE) return false; //Outside the world
-
-            if(!(to.getColumn() >= from.getColumn()-1 &&
-                to.getColumn() <= from.getColumn()+1 &&
-                to.getRow() >= from.getRow()-1 &&
-                to.getRow() <= from.getRow()+1)) return false; //Unit can only move within the 8 adjacent tiles
-
-            if (theUnitInMove.getMoveCount() < 1) {
-                return false; // returns false if the unit has < 1 move points left
-            }
-
-            if (theUnitInMove.getClass().equals(Archer.class)){
-                Archer archer = (Archer)theUnitInMove;
-                if(archer.isFortified()){
-                    return false; //Unit is fortified, cannot move
-                }
-            }
-
-            Unit unitPossiblyUnderAttack = game.getUnitAt(to); // finds the unit possibly coming under attack
-
-            if (unitPossiblyUnderAttack != null
-                    && unitPossiblyUnderAttack.getOwner() == playerInTurn) {
-                return false; // if there is a unit and the unit is owned by the player in turn
-            }else if(unitPossiblyUnderAttack != null
-                    && unitPossiblyUnderAttack.getOwner() != playerInTurn){
-                mapStrategy.getUnits().remove(to);
-            }
-
-            Tile moveToTile = game.getTileAt(to); // finds the tile at the move TO position
-            if (!moveToTile.isHabitable()) {
-                return false; // mountains and oceans cannot have units on them
-            }
-
-            // *** This is only executed if all tests pass ***
-            // change the move count
-            theUnitInMove.changeMoveCounter(-1);
-
-
-
-            // The actual move of the unit
-            mapStrategy.getUnits().moveUnitToNewPosition(from,to);
-
-            // The possible city at the to position
-            CityImpl cityPossiblyCaptured = (CityImpl) game.getCityAt(to);
-
-            // If there is a city and it's owned by the other player,
-            // the city is set to be owned by the attacker
-            if (cityPossiblyCaptured != null &&
-                    cityPossiblyCaptured.getOwner() != playerInTurn) {
-                cityPossiblyCaptured.setOwner(playerInTurn);
-                cityPossiblyCaptured.setProduction(null);
-            }
-
-            return true;
+            // Adding 6 production to each cities treasury each round
+            AbstractUnit unit = (AbstractUnit) pairs.getValue();
+            unit.changeMoveCounter(1);
         }
-        else return false; // if the player in turn does not own the unit
+
     }
 
     @Override

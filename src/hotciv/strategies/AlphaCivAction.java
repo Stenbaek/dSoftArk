@@ -1,10 +1,11 @@
 package hotciv.strategies;
 
-import hotciv.framework.CivActionStrategy;
-import hotciv.framework.Position;
-import hotciv.framework.Unit;
+import hotciv.framework.*;
+import hotciv.standard.CityImpl;
+import hotciv.standard.GameImpl;
 import hotciv.standard.units.AbstractUnit;
 import hotciv.standard.maps.UnitHashMap;
+import hotciv.standard.units.Archer;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -18,19 +19,6 @@ import java.util.Map;
  */
 public class AlphaCivAction implements CivActionStrategy {
 
-    public void restoreAllMovement(UnitHashMap<Position,Unit> unitsMap) { // always restores units movement
+    public void performUnitAction(Unit u, Position p, Game game) {} // does nothing
 
-        Iterator it = unitsMap.iterator(); //Creates an iterator of the cityMap
-
-                //Iterates over every city in the game
-                while (it.hasNext()) {
-                    Map.Entry pairs = (Map.Entry)it.next();
-
-                    // Adding 6 production to each cities treasury each round
-                    AbstractUnit unit = (AbstractUnit) pairs.getValue();
-                    unit.changeMoveCounter(1);
-
-                }
-
-    }
 }
