@@ -18,7 +18,7 @@ public class ZetaCivWin implements CivWinStrategy {
 
     @Override
     public Player getWinner(GameImpl game) {
-        if(game.getAge() >= -1000)
+        if(game.getAge() <= -2100)
             return betawin.getWinner(game);
         else
             return null;  //To change body of implemented methods use File | Settings | File Templates.
