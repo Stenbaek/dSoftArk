@@ -1,0 +1,89 @@
+Testcases:
+
+== AlphaCiv ==
+The game should place unit clockwise starting from north at city at 1x1
+Test: gameShouldPlaceUnitsClockwiseStartingFromNorthAtCity1x1
+
+Once a city is captured its current production is changed to null
+Test: productionShouldRemainAfterCityIsCaptured()
+
+Red´s unit attacks Blue’s city and captures it
+Test: productionShouldRemainAfterCityIsCaptured()
+
+Unit cost is deducted from city production treasury
+Test: gameShouldDeductUnitCostFromCity()
+
+when a city is captured it still has its productionrates
+Test: Test: productionShouldRemainAfterCityIsCaptured()
+
+
+== BetaCiv ==
+
+Red player has the city at (4,1) – Red player is the winner
+Test: redPlayerShouldWinIfAllCitiesAreHis()
+Its age 4000BC I - Next turn it is age 3900BC
+Test: ageShouldAdvanceTimeBy100AtEndOfFirstRound()
+Its age 100BC - Next turn it is age 1BC
+Test: ageShouldAdvanceFrom100BCTo1BC()
+Its age 1BC - Next turn it is age 1AD
+Test: ageShouldAdvanceFrom1BCTo1AD()
+Its age 1AD - - Next turn it is age 50AD
+Test: ageShouldAdvanceFrom1ADTo50AD()
+Its age 1700AD - - Next turn it is age 1750AD
+Test: ageShouldAdvanceFrom1700ADTo1750AD()
+Its age 1875AD - - Next turn it is age 1900AD
+Test: ageShouldAdvanceFrom1875ADTo1900AD()
+Its age 1900AD – Next turn it is age 1905 AD
+Test: ageShouldAdvanceFrom1900ADTo1905AD()
+Its age 1970AD - - Next turn it is age 1971AD
+Test: ageShouldAdvanceFrom1YearFrom1970AD()
+Initially no player should have won
+Test: initiallyNoPlayerShouldHaveWon()
+Age initially be 4000BC
+Test: startAgeShouldBe4000BC()
+
+== DeltaCiv ==
+There should be a city at position 8_12
+Test: thereShouldBeACityAt8_12()
+There should be a mountain at 0_5
+Test: thereShouldBeAMountainAt0_5()
+There should be a forest at 5_5
+Test: thereShouldBeAForestAt5_5()
+There should be a plain at 5_6
+Test: thereShouldBeAPlainAt5_6()
+There should be a tile at every coordinate
+Test: thereShouldBeATileAtEveryCoordinate()
+There should be 89 ocean tiles on the map
+Test: thereShouldBe86OceansOnTheMap()
+There should be 10 hills tiles on the map
+Test: thereShouldBe10HillsOnTheMap()
+There should be 137 tiles tiles on the map
+Test: thereShouldBe137PlainsOnTheMap()
+There should be 14 forest tiles on the map
+Test: thereShouldBe14ForestsOnTheMap()
+There should be 9 mountain tiles on the map
+Test: thereShouldBe9MountainsOnTheMap()
+
+
+== GammaCiv ==
+A Settler can create a new city
+Test: settlerMakesCityWhenActionIsPerformed()
+archers should have defence of 3 after 2 actions
+Test: archersShouldBeHaveDefenceOf3After2Actions()
+archers should have defence of 6 after action
+Test: archersShouldHaveDefenceOf6AfterAction()
+archers should have defence of 3 before actions
+Test: archersShouldHaveDefenceOf3BeforeAction()
+archers should not be able to move after action
+Test: archersShouldNotBeAbleToMoveAfterAction()
+fortified archers movement should not be restored
+Test: ArcherIsFortifiedAndCannotMoveAfterActionIsPerformed()
+red settler should not be able to perform action on blue players turn
+Test: redSettlerShouldNotBeAbleToPerformActionOnBluePlayersTurn()
+
+
+
+
+
+
+
