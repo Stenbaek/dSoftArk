@@ -43,6 +43,7 @@ public class GameImpl implements Game {
     private CivActionStrategy actionStrategy;
     private CivWorldStrategy worldStrategy;
     private CivUnitStrategy unitStrategy;
+    private CivAttackStrategy attackStrategy;
 
     public GameImpl(AbstractFactory factory){
         this.ageingStrategy = factory.getAgeStrategy();
@@ -50,6 +51,7 @@ public class GameImpl implements Game {
         this.actionStrategy = factory.getActionStrategy();
         this.worldStrategy = factory.getWorldStrategy();
         this.unitStrategy = factory.getUnitStrategy();
+        this.attackStrategy = factory.getAttackStrategy();
 
         this.units = new UnitHashMap();
         this.cities = new CityHashMap();
@@ -122,15 +124,21 @@ public class GameImpl implements Game {
                 return false; // if there is a unit and the unit is owned by the player in turn
             }else if(unitPossiblyUnderAttack != null
                     && unitPossiblyUnderAttack.getOwner() != playerInTurn){
-                removeUnit(to);
+                if(fight(from,to)){
+
+                }
+            }
+
+            Tile moveToTile = getTileAt(to); // finds the tile at the move TO position
+            if(!moveToTile.isHabitable()){
+                return false;
             }
 
             // *** This is only executed if all tests pass ***
+
             // change the move count
             theUnitInMove.changeMoveCounter(-1);
-
-            // The actual move of the unit
-            units.moveUnitToNewPosition(from, to);
+            units.moveUnitToNewPosition(from, to); // The actual move of the unit
 
             // The possible city at the to position
             CityImpl cityPossiblyCaptured = (CityImpl) getCityAt(to);
@@ -143,8 +151,7 @@ public class GameImpl implements Game {
                 cityPossiblyCaptured.setProduction(null);
             }
 
-            Tile moveToTile = getTileAt(to); // finds the tile at the move TO position
-            return moveToTile.isHabitable();
+            return true;
         }
         else return false; // if the player in turn does not own the unit
     }
@@ -241,6 +248,16 @@ public class GameImpl implements Game {
     @Override
     public void addCity(Position p, Player player) {
         cities.put(p,new CityImpl(player));
+    }
+
+    public boolean fight(Position attackingPlayerPosition, Position defendingPlayerPosition) {
+        boolean outcome = attackStrategy.outcomeOfBattle(this,attackingPlayerPosition,defendingPlayerPosition);
+        if (outcome) {
+            removeUnit(defendingPlayerPosition);
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

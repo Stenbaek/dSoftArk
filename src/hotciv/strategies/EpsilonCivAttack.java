@@ -1,6 +1,6 @@
 package hotciv.strategies;
 
-import hotciv.framework.CivAttackStrategy;
+import hotciv.framework.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,4 +10,15 @@ import hotciv.framework.CivAttackStrategy;
  * To change this template use File | Settings | File Templates.
  */
 public class EpsilonCivAttack implements CivAttackStrategy {
+
+    private DieRollStrategy dieRollStrategy;
+
+    public EpsilonCivAttack(DieRollStrategy dieRollStrategy) {
+        this.dieRollStrategy = dieRollStrategy;
+    }
+
+    @Override
+    public boolean outcomeOfBattle(Game game, Position attackersPosition, Position defendersPosition) {
+        return (this.dieRollStrategy.roll() < 2);
+    }
 }

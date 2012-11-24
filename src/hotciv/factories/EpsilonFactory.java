@@ -11,6 +11,13 @@ import hotciv.strategies.*;
  * To change this template use File | Settings | File Templates.
  */
 public class EpsilonFactory implements AbstractFactory {
+
+    public DieRollStrategy epsilonDieRollStrategy;
+
+    public EpsilonFactory(DieRollStrategy dieRollStrategy){
+        this.epsilonDieRollStrategy = dieRollStrategy;
+    }
+
     @Override
     public CivWinStrategy getWinningStrategy() {
         return new EpsilonCivWin();
@@ -38,6 +45,6 @@ public class EpsilonFactory implements AbstractFactory {
 
     @Override
     public CivAttackStrategy getAttackStrategy() {
-        return new EpsilonCivAttack();
+        return new EpsilonCivAttack(epsilonDieRollStrategy);
     }
 }

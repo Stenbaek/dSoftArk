@@ -32,7 +32,7 @@ public class TestEpsilonCiv {
     /** Fixture for alphaCiv testing. */
     @Before
     public void setUp() {
-        game = new GameImpl(new EpsilonFactory());
+        game = new GameImpl(new EpsilonFactory(new EpsilonCivDieRoll()));
     }
 
     @Test

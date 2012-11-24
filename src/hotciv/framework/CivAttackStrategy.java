@@ -8,4 +8,7 @@ package hotciv.framework;
  * To change this template use File | Settings | File Templates.
  */
 public interface CivAttackStrategy {
+
+    public boolean outcomeOfBattle(Game game, Position attackersPosition, Position defendersPosition);
+
 }

@@ -1,6 +1,9 @@
 package hotciv.strategies;
 
 import hotciv.framework.CivAttackStrategy;
+import hotciv.framework.Game;
+import hotciv.framework.Position;
+import hotciv.framework.Unit;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,4 +13,9 @@ import hotciv.framework.CivAttackStrategy;
  * To change this template use File | Settings | File Templates.
  */
 public class AlphaCivAttack implements CivAttackStrategy {
+
+    @Override
+    public boolean outcomeOfBattle(Game game, Position attackersPosition, Position defendersPosition) {
+        return true;
+    }
 }
