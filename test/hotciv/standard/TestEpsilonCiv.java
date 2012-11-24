@@ -37,12 +37,8 @@ public class TestEpsilonCiv {
     }
 
     @Test
-    public void shouldHaveRedCityAt1_1() {
-        City c = game.getCityAt(new Position(1,1));
-        assertNotNull("There should be a city at (1,1)", c);
-        Player p = c.getOwner();
-        assertEquals( "City at (1,1) should be owned by red",
-                Player.RED, p );
+    public void redShouldWinAfter3SuccessfulAttacks(){
+
     }
     @Test
     public void redSettlerShouldnotBeAbleToKillBlueLegion(){

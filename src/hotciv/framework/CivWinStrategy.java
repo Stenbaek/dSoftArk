@@ -11,4 +11,6 @@ import hotciv.standard.GameImpl;
  */
 public interface CivWinStrategy {
     Player getWinner(GameImpl game);
+
+    void incrementWins(Player winner);
 }
