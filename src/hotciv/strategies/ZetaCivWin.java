@@ -21,6 +21,6 @@ public class ZetaCivWin implements CivWinStrategy {
         if(game.getAge() <= -2100)
             return betawin.getWinner(game);
         else
-            return null;  //To change body of implemented methods use File | Settings | File Templates.
+            return null; //return epsilonwin.getWinner(game);
     }
 }
