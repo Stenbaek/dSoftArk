@@ -2,6 +2,7 @@ package hotciv.standard;
 
 import hotciv.factories.AlphaFactory;
 import hotciv.factories.EpsilonFactory;
+import hotciv.standard.units.Legion;
 import hotciv.strategies.*;
 import hotciv.framework.*;
 
@@ -42,5 +43,10 @@ public class TestEpsilonCiv {
         Player p = c.getOwner();
         assertEquals( "City at (1,1) should be owned by red",
                 Player.RED, p );
+    }
+    @Test
+    public void redSettlerShouldnotBeAbleToKillBlueLegion(){
+        game.moveUnit(new Position())
+
     }
 }
