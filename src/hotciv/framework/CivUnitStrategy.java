@@ -14,12 +14,6 @@ import hotciv.standard.maps.UnitHashMap;
 public interface CivUnitStrategy {
 
     /**
-     * set game
-     * @param game
-     */
-    public void setGame( Game game );
-
-        /**
      * check if the unit's movement should be restored,
      * and if so restore it
      * @param unitsMap the unit who's movement to restore

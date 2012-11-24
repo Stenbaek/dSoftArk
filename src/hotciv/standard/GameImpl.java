@@ -51,8 +51,6 @@ public class GameImpl implements Game {
         this.worldStrategy = factory.getWorldStrategy();
         this.unitStrategy = factory.getUnitStrategy();
 
-        this.unitStrategy.setGame(this);
-
         this.units = new UnitHashMap();
         this.cities = new CityHashMap();
 
@@ -127,11 +125,6 @@ public class GameImpl implements Game {
                 removeUnit(to);
             }
 
-            Tile moveToTile = getTileAt(to); // finds the tile at the move TO position
-            if (!moveToTile.isHabitable()) {
-                return false; // mountains and oceans cannot have units on them
-            }
-
             // *** This is only executed if all tests pass ***
             // change the move count
             theUnitInMove.changeMoveCounter(-1);
@@ -150,7 +143,8 @@ public class GameImpl implements Game {
                 cityPossiblyCaptured.setProduction(null);
             }
 
-            return true;
+            Tile moveToTile = getTileAt(to); // finds the tile at the move TO position
+            return moveToTile.isHabitable();
         }
         else return false; // if the player in turn does not own the unit
     }

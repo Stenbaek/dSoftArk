@@ -23,7 +23,7 @@ public class AlphaCivAge implements CivAgeStrategy{
     }
 
     public Integer getEndOfGameAge() {
-        return -3000;  //To change body of implemented methods use File | Settings | File Templates.
+        return -3000;
     }
 
 }
