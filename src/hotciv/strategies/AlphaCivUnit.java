@@ -18,12 +18,6 @@ import java.util.Map;
  */
 public class AlphaCivUnit implements CivUnitStrategy {
 
-    private Game game;
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
     public void restoreAllMovement(UnitHashMap<Position,Unit> unitsMap) { // always restores units movement
 
         Iterator it = unitsMap.iterator(); //Creates an iterator of the cityMap
