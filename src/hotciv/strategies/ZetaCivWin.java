@@ -14,13 +14,12 @@ import hotciv.standard.GameImpl;
 public class ZetaCivWin implements CivWinStrategy {
 
     private CivWinStrategy betawin = new BetaCivWin();
-    //private CivWinStrategy epsilonwin = new EpsilonCivWin();
+    private CivWinStrategy epsilonwin = new EpsilonCivWin();
 
     @Override
     public Player getWinner(GameImpl game) {
         if(game.getAge() <= -2100)
             return betawin.getWinner(game);
-        else
-            return null; //return epsilonwin.getWinner(game);
+        else return epsilonwin.getWinner(game);
     }
 }
