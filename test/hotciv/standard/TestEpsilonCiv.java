@@ -36,13 +36,29 @@ public class TestEpsilonCiv {
         game = new GameImpl(new EpsilonFactory(new EpsilonCivDieRoll()));
     }
 
-    @Test
+   /* @Test
     public void redShouldWinAfter3SuccessfulAttacks(){
+        game.addUnit(new Position(3,2), new Legion(Player.RED));
+        game.addUnit(new Position(4,3), new Settler(Player.BLUE));
+        game.moveUnit(new Position(3,2), new Position(4,3));
+        assertEquals("Red should have won 1 attack", 1,
+        game.endOfTurn(); game.endOfTurn();
+        game.addUnit(new Position(3,2), new Settler(Player.BLUE));
+        game.moveUnit(new Position(4,3), new Position(3,2));
+        assertEquals("Red should have won 2 attack", 2, getAttacksWon()(Player.RED));
+        game.endOfTurn(); game.endOfTurn();
+        game.addUnit(new Position(4,3), new Settler(Player.BLUE));
+        game.moveUnit(new Position(3,2), new Position(4,3));
+        assertEquals("Red should have won 3 attacks", 3, game.getAttacksWon(Player.RED));
+        assertEquals("Red should win after 3 legions won against 3 settlers",
+                Player.RED, game.getWinner());
 
-    }
+    }  */
     @Test
     public void redSettlerShouldnotBeAbleToKillBlueLegion(){
-        game.moveUnit(new Position())
+        game.moveUnit(new Position(4,3), new Position(3,2));
+        assertEquals("There should still be a legion at (3,2)", Legion.class,
+                game.getUnitAt(new Position(3,2)).getTypeString());
 
     }
 }

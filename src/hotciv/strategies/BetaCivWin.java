@@ -21,4 +21,9 @@ public class BetaCivWin implements CivWinStrategy {
             return null; // the game has not been won
         }
     }
+
+    @Override
+    public void incrementWins(Player winner) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }
