@@ -1,5 +1,6 @@
 package hotciv.strategies;
 
+import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.CivWinStrategy;
 import hotciv.standard.GameImpl;
@@ -18,7 +19,7 @@ public class AlphaCivWin implements CivWinStrategy {
     }
 
     @Override
-    public void incrementWins(Player winner) {
+    public void incrementWins(Player winner, Game game) {
         //nothing
     }
 

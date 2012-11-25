@@ -13,7 +13,7 @@ import hotciv.strategies.*;
 public class ZetaFactory implements AbstractFactory {
     @Override
     public CivWinStrategy getWinningStrategy() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return new ZetaCivWin();
     }
 
     @Override

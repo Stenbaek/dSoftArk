@@ -5,6 +5,8 @@ import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.standard.units.Legion;
+import hotciv.standard.units.Settler;
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -26,14 +28,44 @@ public class TestZetaCiv {
     }
 
     @Test
-    public void after20TurnsYouDontWinByTakingAllTheCities() {
+    public void after20TurnsYouDoNotWinByTakingAllTheCities() {
         game.moveUnit(new Position(2,0),new Position(3,0));
-        for(int i=0; i<40;i++){
+        for(int i=0; i<20;i++){
             game.endOfTurn();
             game.endOfTurn();
         }
         game.moveUnit(new Position(3,0),new Position(4,1));
         assertNull("No player should have won the game yet by being inactive",game.getWinner());
+
+    }
+
+    @Test
+    public void after20TurnsYouWinByTaking3SuccessiveAttacks() {
+        for(int i=0; i<26;i++){
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+        assertTrue("Age should be more than -2000",(game.getAge() > -2000));
+        for(int i = 0; i < 3; i++){
+            game.addUnit(new Position(6,6),new Settler(Player.BLUE));
+            game.addUnit(new Position(5,6),new Legion(Player.RED));
+
+            game.moveUnit(new Position(5,6),new Position(6,6));
+            game.removeUnit(new Position(6,6));
+        }
+        assertNotNull("No player should have won the game yet by being inactive",game.getWinner());
+
+    }
+
+    @Test
+    public void after17TurnsYouWinByTakingAllTheCities() {
+        game.moveUnit(new Position(2,0),new Position(3,0));
+        for(int i=0; i<17;i++){
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+        game.moveUnit(new Position(3,0),new Position(4,1));
+        assertNotNull("No player should have won the game yet by being inactive",game.getWinner());
 
     }
 }

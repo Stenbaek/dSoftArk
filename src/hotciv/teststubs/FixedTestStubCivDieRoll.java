@@ -1,4 +1,4 @@
-package hotciv.strategies;
+package hotciv.teststubs;
 
 import hotciv.framework.DieRollStrategy;
 
@@ -8,11 +8,11 @@ import hotciv.framework.DieRollStrategy;
  * Date: 24/11/12
  * Time: 14.48
  */
-public class EpsilonCivDieRoll implements DieRollStrategy{
+public class FixedTestStubCivDieRoll implements DieRollStrategy{
 
     @Override
     public int roll() {
-        return (int) (Math.random()*6)+1;
+        return 1;
     }
 
 }

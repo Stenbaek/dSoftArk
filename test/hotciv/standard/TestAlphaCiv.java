@@ -1,7 +1,6 @@
 package hotciv.standard;
 
 import hotciv.factories.AlphaFactory;
-import hotciv.strategies.*;
 import hotciv.framework.*;
 
 import hotciv.standard.tiles.*;

@@ -1,6 +1,7 @@
 package hotciv.strategies;
 
 import hotciv.framework.CivWinStrategy;
+import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.standard.GameImpl;
 
@@ -18,13 +19,16 @@ public class ZetaCivWin implements CivWinStrategy {
 
     @Override
     public Player getWinner(GameImpl game) {
-        if(game.getAge() <= -2100)
+        if(game.getAge() <= -2100){
             return betaWin.getWinner(game);
-        else return epsilonWin.getWinner(game);
+        }else{
+            return epsilonWin.getWinner(game);
+        }
     }
 
     @Override
-    public void incrementWins(Player winner) {
-        epsilonWin.incrementWins(winner);
+    public void incrementWins(Player winner, Game game) {
+        if (game.getAge() >= -2000)
+            epsilonWin.incrementWins(winner, game);
     }
 }

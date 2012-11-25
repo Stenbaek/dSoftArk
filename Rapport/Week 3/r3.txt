@@ -2,8 +2,6 @@ Tests:
 
 == EpsilonCiv ==
 
-Attacker takes the defenders tile when attacker wins
-
 Attacker gets deleted from board/world after attacker loses
 
 After 3 succesfull attacks Red wins

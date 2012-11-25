@@ -1,6 +1,7 @@
 package hotciv.strategies;
 
 import hotciv.framework.CivWinStrategy;
+import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.standard.GameImpl;
 
@@ -36,10 +37,10 @@ public class EpsilonCivWin implements CivWinStrategy {
     }
 
     @Override
-    public void incrementWins(Player winner) {
+    public void incrementWins(Player winner, Game game) {
         Integer successes = 1;
         if(successfulAttacks.containsKey(winner)){
-            successes = successfulAttacks.get(winner);
+            successes = successfulAttacks.get(winner)+1;
             successfulAttacks.remove(winner);
         }
         successfulAttacks.put(winner,successes);
