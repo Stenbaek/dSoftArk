@@ -46,6 +46,7 @@ public class TestZetaCiv {
             game.endOfTurn();
         }
         assertTrue("Age should be more than -2000",(game.getAge() > -2000));
+        assertNull("And no one should have won yet by being inactibe", game.getWinner());
         for(int i = 0; i < 3; i++){
             game.addUnit(new Position(6,6),new Settler(Player.BLUE));
             game.addUnit(new Position(5,6),new Legion(Player.RED));
@@ -53,7 +54,7 @@ public class TestZetaCiv {
             game.moveUnit(new Position(5,6),new Position(6,6));
             game.removeUnit(new Position(6,6));
         }
-        assertNotNull("No player should have won the game yet by being inactive",game.getWinner());
+        assertNotNull("There should be a winenr",game.getWinner());
 
     }
 
@@ -67,5 +68,16 @@ public class TestZetaCiv {
         game.moveUnit(new Position(3,0),new Position(4,1));
         assertNotNull("No player should have won the game yet by being inactive",game.getWinner());
 
+    }
+    @Test
+    public void noOneAutomaticWinsAfter20Rounds(){
+        for(int i=0; i<40; i++) {
+            game.endOfTurn(); // progresses the time 40 turns
+        }
+        game.moveUnit(new Position(2,0), new Position(3,1));
+        game.endOfTurn();
+        game.endOfTurn();
+        game.moveUnit(new Position(3,1), new Position(4,1));
+        assertNull("None of the players should have won the game yet", game.getWinner());
     }
 }
