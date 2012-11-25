@@ -23,7 +23,7 @@ public class BetaCivWin implements CivWinStrategy {
     }
 
     @Override
-    public void incrementWins(Player winner) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void incrementWins(Player winner, Game game) {
+        //nothing happens
     }
 }

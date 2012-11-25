@@ -125,7 +125,9 @@ public class GameImpl implements Game {
             }else if(unitPossiblyUnderAttack != null
                     && unitPossiblyUnderAttack.getOwner() != playerInTurn){
                 if(fight(from,to)){
-
+                    winningStrategy.incrementWins(playerInTurn, this);
+                }else{
+                    return false;
                 }
             }
 
@@ -251,12 +253,11 @@ public class GameImpl implements Game {
     }
 
     public boolean fight(Position attackingPlayerPosition, Position defendingPlayerPosition) {
-        boolean outcome = attackStrategy.outcomeOfBattle(this,attackingPlayerPosition,defendingPlayerPosition);
-        if (outcome) {
+        if (attackStrategy.outcomeOfBattle(this,attackingPlayerPosition,defendingPlayerPosition)) {
             removeUnit(defendingPlayerPosition);
-            winningStrategy.incrementWins(getUnitAt(attackingPlayerPosition).getOwner());
             return true;
         }else{
+            removeUnit(attackingPlayerPosition);
             return false;
         }
     }
