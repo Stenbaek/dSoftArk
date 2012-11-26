@@ -36,7 +36,7 @@ public class EpsilonCivAttack implements CivAttackStrategy {
         Unit defendingUnit = game.getUnitAt(defendersPosition);
         int defensiveStrength = defendingUnit.getDefensiveStrength();
         //Adding friendly support to defensive strength
-        defensiveStrength += Utility.getFriendlySupport(game, attackersPosition, attackingUnit.getOwner());
+        defensiveStrength += Utility.getFriendlySupport(game, defendersPosition, defendingUnit.getOwner());
         //Adding Terrain factor to defensive strength
         defensiveStrength *= Utility.getTerrainFactor(game, defendersPosition);
 
