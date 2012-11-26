@@ -120,8 +120,7 @@ public class TestEpsilonCiv {
         game.addUnit(new Position(11, 1), new Legion(Player.BLUE));
 
         game.endOfTurn(); // new blue player is in turn
-        boolean move = game.moveUnit(new Position(11,2), new Position(10,2));
-        assertTrue("The move should be legal", move);
+        game.moveUnit(new Position(11,2), new Position(10,2));
         assertEquals("There should still be a archer at 10,2", Archer.class,
                 game.getUnitAt(new Position(10,2)).getTypeString());
     }
