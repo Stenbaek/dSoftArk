@@ -125,5 +125,19 @@ public class TestEpsilonCiv {
         assertEquals("There should still be a archer at 10,2", Archer.class,
                 game.getUnitAt(new Position(10,2)).getTypeString());
     }
+    @Test
+    public void redSettlerAt4x3ShouldNotKillBlueLegionAt3x2WhenSettlerIsAttacking() {
+        game.moveUnit(new Position(4,3), new Position(3,2));
+        assertEquals("There should still be a legion at (3,2)", GameConstants.LEGION,
+                game.getUnitAt(new Position(3,2)).getTypeString());
+    }
+
+    @Test
+    public void blueLegionAt3x2ShouldKillRedSettlerAt4x3WhenLegionIsAttacking() {
+        game.endOfTurn();
+        game.moveUnit(new Position(3,2), new Position(4,3));
+        assertEquals("After attack, there should be a legion at (4,3)",GameConstants.LEGION,
+                game.getUnitAt(new Position(4,3)).getTypeString());
+    }
 
 }
