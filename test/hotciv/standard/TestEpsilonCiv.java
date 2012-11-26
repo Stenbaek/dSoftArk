@@ -11,6 +11,7 @@ import hotciv.standard.units.Settler;
 import hotciv.teststubs.FixedTestStubCivDieRoll;
 import org.junit.Before;
 import org.junit.Test;
+import hotciv.standard.classes.*;
 
 import static org.junit.Assert.*;
 
@@ -141,6 +142,9 @@ public class TestEpsilonCiv {
     }
     @Test
     public void blueAttackingArcherShouldDieToLegionInCityAt8x12() {
+        // Changing the map strategy to ExternalMapStrategy as it has trees
+        game = new GameImpl(
+                new ExternalMapTestFactory(new FixedTestStubCivDieRoll()));
         game.addUnit(new Position(8,12), new Legion(Player.RED));
         game.addUnit(new Position(8,11), new Archer(Player.BLUE));
         game.endOfTurn(); // skipping to blue
