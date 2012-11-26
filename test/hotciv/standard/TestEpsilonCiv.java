@@ -12,6 +12,7 @@ import hotciv.teststubs.FixedTestStubCivDieRoll;
 import org.junit.Before;
 import org.junit.Test;
 import hotciv.standard.classes.*;
+import hotciv.framework.*;
 
 import static org.junit.Assert.*;
 
@@ -150,6 +151,55 @@ public class TestEpsilonCiv {
         game.moveUnit(new Position(8, 11), new Position(8, 12));
                 assertEquals("The unit at the city should still be the legion", GameConstants.LEGION,
                 game.getUnitAt(new Position(8, 12)).getTypeString());
+    }
+    @Test
+    public void attackStrenthOfLegionAttackingArcherInForestAt9x1() {
+        // Changing the map strategy to ExternalMapStrategy as it has trees
+        game = new GameImpl(new ExternalMapTestFactory(new FixedTestStubCivDieRoll()));
+
+        assertEquals("Tile at 9,1 should be plains", GameConstants.FOREST,
+                game.getTileAt(new Position(9,1)).getTypeString());
+        assertEquals("Tile at 10,1 should be plains", GameConstants.PLAINS,
+                game.getTileAt(new Position(10,1)).getTypeString());
+
+
+        game.addUnit(new Position(9,1), // 10,1 is forest
+                new Archer(Player.BLUE));
+        game.addUnit(new Position(10,1), // should be plains
+                new Legion(Player.RED));
+
+        /*
+           * The red archer in the forest (10,1) should gain enough
+           * attack bonus to kill the blue settler at 10,2
+           * archer attack: 2
+           * legion defense: 2
+           * forest bonus: 2
+           * Thus after applying the bonus the archer should have 4 attack and
+           * kill the legion.
+           */
+        game.moveUnit(new Position(10, 1), new Position(9, 1));
+        assertEquals("The should now be an ARCHER at 9,1", GameConstants.ARCHER,
+                game.getUnitAt(new Position(9,1)).getTypeString());
+    }
+    @Test
+    public void attackStrengthOfLegionAttackingArcherIn0x1() {
+        game.addUnit(new Position(0,0),
+                new Legion(Player.RED)); // Placing a unit for red
+
+        game.addUnit(new Position(0,1), // 0,1 is hills
+                new Archer(Player.BLUE)); // Placing a unit for blue
+
+        /*
+           * Legion has 4 attack and archer as 3 defense.
+           * Tiles of types hills has a bonus of defense/attack*2
+           * The defending unit (archer) is on a hills type tile and should gain defensive bonus
+           * The attacking unit (legion) is on a plains type tile and shouldn't gain any bonus
+           * Therefore the attacking Legion should die in this attack
+           */
+        game.moveUnit(new Position(0,0), new Position(0, 1));
+        Unit u = (Unit) game.getUnitAt(new Position(0,1)); // 0,1 is hills
+        assertEquals("There should be an ARCHER at 0,1", GameConstants.ARCHER, u.getTypeString());
+        assertEquals("Archer should belong to BLUE", Player.BLUE, u.getOwner());
     }
 
 }

@@ -1,5 +1,4 @@
-package hotciv.factories;
-
+package hotciv.standard.classes;
 import hotciv.framework.*;
 import hotciv.strategies.*;
 
