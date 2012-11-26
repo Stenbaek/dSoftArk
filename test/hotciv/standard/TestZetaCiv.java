@@ -54,8 +54,8 @@ public class TestZetaCiv {
             game.moveUnit(new Position(5,6),new Position(6,6));
             game.removeUnit(new Position(6,6));
         }
-        assertNotNull("There should be a winenr",game.getWinner());
-
+        assertNotNull("There should be a winner",game.getWinner());
+        assertEquals("Red should be the winner",game.getWinner(),Player.RED);
     }
 
     @Test
@@ -66,8 +66,8 @@ public class TestZetaCiv {
             game.endOfTurn();
         }
         game.moveUnit(new Position(3,0),new Position(4,1));
-        assertNotNull("No player should have won the game yet by being inactive",game.getWinner());
-
+        assertNotNull("There should be a winner now, since one player owns all cities",game.getWinner());
+        assertEquals("Red should be the winner",game.getWinner(),Player.RED);
     }
     @Test
     public void noOneAutomaticWinsAfter20Rounds(){
