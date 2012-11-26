@@ -10,11 +10,11 @@ import hotciv.strategies.*;
  * Time: 22.59
  * To change this template use File | Settings | File Templates.
  */
-public class EpsilonFactory implements AbstractFactory {
+public class ExternalMapTestFactory implements AbstractFactory {
 
     public DieRollStrategy epsilonDieRollStrategy;
 
-    public EpsilonFactory(DieRollStrategy dieRollStrategy){
+    public ExternalMapTestFactory(DieRollStrategy dieRollStrategy){
         this.epsilonDieRollStrategy = dieRollStrategy;
     }
 
