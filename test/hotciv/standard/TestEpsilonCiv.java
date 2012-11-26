@@ -120,9 +120,10 @@ public class TestEpsilonCiv {
         game.addUnit(new Position(11, 1), new Legion(Player.BLUE));
 
         game.endOfTurn(); // new blue player is in turn
-        game.moveUnit(new Position(11,2), new Position(10,2));
+        boolean move = game.moveUnit(new Position(11,2), new Position(10,2));
+        assertFalse("The move should return false, since the attacker dies", move);
         assertEquals("There should still be a archer at 10,2", Archer.class,
-                game.getUnitAt(new Position(10,2)).getTypeString());
+                game.getUnitAt(new Position(10,2)).getClass());
     }
     @Test
     public void redSettlerAt4x3ShouldNotKillBlueLegionAt3x2WhenSettlerIsAttacking() {
