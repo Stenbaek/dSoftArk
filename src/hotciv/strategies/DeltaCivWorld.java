@@ -31,7 +31,9 @@ public class DeltaCivWorld implements CivWorldStrategy {
     @Override
     public void populateWorld(UnitHashMap units, CityHashMap cities) {
         units.put(new Position(4, 4), new Legion(Player.BLUE));
-		units.put(new Position(8, 3), new Archer(Player.BLUE));
+		units.put(new Position(8, 3), new Archer(Player.RED));
+        units.put(new Position(5, 5), new Settler(Player.RED));
+
 
         cities.put(new Position(8,12),new CityImpl(Player.RED));
         cities.put(new Position(4,5),new CityImpl(Player.BLUE));
