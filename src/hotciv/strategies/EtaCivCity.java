@@ -44,14 +44,19 @@ public class EtaCivCity implements CivCityStrategy {
             }
         }
 
+        //Update both the food and the production
         ((CityImpl) c).addProductionTreasury(resultProduction);
         ((CityImpl) c).addFood(resultFood);
     }
 
     @Override
     public void updateCityPopulation(City c) {
-        if(((CityImpl) c).getCityFood() >= (5 + c.getSize() * 3) && c.getSize() < 9){
+        //If the food in the city exceeds the outcome of
+        //the formula (5 + citySize * 3)
+        if( ((CityImpl) c).getCityFood() >= (5 + c.getSize() * 3) && c.getSize() < 9 ){
+            // ... the population is incremented  ...
             ((CityImpl) c).incrementPopulation();
+            // ... and the food is reset
             ((CityImpl) c).resetFood();
         }
     }
