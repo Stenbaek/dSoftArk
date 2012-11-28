@@ -38,9 +38,4 @@ public class BetaCivAge implements CivAgeStrategy {
         return age;
     }
 
-    @Override
-    public Integer getEndOfGameAge() {
-        return null;  //Beta han no specific endOfGameAge
-    }
-
 }

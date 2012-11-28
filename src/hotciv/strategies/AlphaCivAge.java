@@ -22,8 +22,4 @@ public class AlphaCivAge implements CivAgeStrategy{
         return currentAge + 100;
     }
 
-    public Integer getEndOfGameAge() {
-        return -3000;
-    }
-
 }

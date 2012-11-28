@@ -17,10 +17,4 @@ public interface CivAgeStrategy {
      */
     public int ageProgress(Integer currentAge);
 
-    /**
-     * Return the year in which the game ends
-     * @return ending year
-     */
-    public Integer getEndOfGameAge();
-
 }
