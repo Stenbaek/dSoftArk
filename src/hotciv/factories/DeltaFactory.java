@@ -42,4 +42,9 @@ public class DeltaFactory implements AbstractFactory{
         return new AlphaCivAttack();
     }
 
+    @Override
+    public CivCityStrategy getCityStrategy() {
+        return new AlphaCivCity();
+    }
+
 }

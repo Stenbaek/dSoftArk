@@ -40,4 +40,9 @@ public class ZetaFactory implements AbstractFactory {
     public CivAttackStrategy getAttackStrategy() {
         return new AlphaCivAttack();  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    @Override
+    public CivCityStrategy getCityStrategy() {
+        return new AlphaCivCity();
+    }
 }

@@ -20,4 +20,14 @@ public class Forest extends AbstractTile {
         return true;
     }
 
+    @Override
+    public String getTileFocus() {
+        return GameConstants.productionFocus;
+    }
+
+    @Override
+    public int getProductionValue() {
+        return 3;
+    }
+
 }

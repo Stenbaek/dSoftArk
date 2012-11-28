@@ -10,11 +10,11 @@ import hotciv.strategies.*;
  * Time: 14.03
  * To change this template use File | Settings | File Templates.
  */
-public class BetaFactory implements AbstractFactory{
+public class EtaFactory implements AbstractFactory{
 
     @Override
     public CivWinStrategy getWinningStrategy() {
-        return new BetaCivWin();
+        return new AlphaCivWin();
     }
 
     @Override
@@ -29,7 +29,7 @@ public class BetaFactory implements AbstractFactory{
 
     @Override
     public CivAgeStrategy getAgeStrategy() {
-        return new BetaCivAge();
+        return new AlphaCivAge();
     }
 
     @Override
@@ -44,7 +44,6 @@ public class BetaFactory implements AbstractFactory{
 
     @Override
     public CivCityStrategy getCityStrategy() {
-        return new AlphaCivCity();
+        return new EtaCivCity();
     }
-
 }

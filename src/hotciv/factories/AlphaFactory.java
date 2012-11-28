@@ -41,4 +41,9 @@ public class AlphaFactory implements AbstractFactory{
     public CivAttackStrategy getAttackStrategy() {
         return new AlphaCivAttack();
     }
+
+    @Override
+    public CivCityStrategy getCityStrategy() {
+        return new AlphaCivCity();
+    }
 }

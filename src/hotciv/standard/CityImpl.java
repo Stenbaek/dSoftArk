@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.framework.City;
+import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 
 /**
@@ -13,11 +14,19 @@ public class CityImpl implements City{
 
     public Player owner;
     private int cityTreasury;
+
+    private int cityPopulation;
+    private int cityFood;
+
+    private String cityWorkForceFocus = GameConstants.productionFocus;
+
     private String unitInProduction;
 
     public CityImpl(Player owner){
-             this.owner = owner;
-             cityTreasury =0;
+        this.owner = owner;
+        cityTreasury = 0;
+        cityPopulation = 1;
+        cityFood = 0;
     }
 
 
@@ -27,7 +36,7 @@ public class CityImpl implements City{
 
 
     public int getSize() {
-        return 1;
+        return cityPopulation;
     }
 
 
@@ -37,20 +46,41 @@ public class CityImpl implements City{
 
 
     public String getWorkforceFocus() {
-        return null;
+        return cityWorkForceFocus;
     }
 
     public int getProductionTreasury(){
         return cityTreasury;
     }
 
+    public int getCityFood(){
+        return cityFood;
+    }
+
     public void addProductionTreasury(int amount){
-        cityTreasury += amount;
+        cityTreasury = cityTreasury + amount;
+    }
+
+    public void addFood(int amount){
+        cityFood = cityFood + amount;
+    }
+
+    public void resetFood(){
+        cityFood = 0;
     }
 
     public void setProduction(String unitType){
         unitInProduction = unitType;
     }
+
+    public void incrementPopulation(){
+        cityPopulation++;
+    }
+
+    public void setWorkForceFocus(String focus){
+        cityWorkForceFocus = (focus.equals(GameConstants.productionFocus) || focus.equals(GameConstants.foodFocus)) ? focus : this.cityWorkForceFocus;
+    }
+
     public void setOwner(Player p) {
         owner = p;
     }

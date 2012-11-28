@@ -39,4 +39,11 @@ public interface Tile {
      */
     public boolean isHabitable();
 
+    /** returns the production focus of the tile
+     *  @return a string with the focus
+     */
+    public String getTileFocus();
+
+    public int getProductionValue();
+
 }

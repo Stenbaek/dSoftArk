@@ -69,9 +69,8 @@ public class EmptyTileIterator implements Iterator{
         } else if (game.getUnitAt(p) != null) {
             return false; // tile is taken
 
-        } else if ( (game.getTileAt(p).getTypeString() == GameConstants.OCEANS)
-                || (game.getTileAt(p).getTypeString() == GameConstants.MOUNTAINS) ) {
-            return false; // tile is either oceans or mountains hence no unit can stay there
+        } else if ( !game.getTileAt(p).isHabitable() ) {
+            return false; // tile is inhabitable
 
         } else if (game.getCityAt(p) != null && game.getCityAt(p).getOwner() != player) {
             return false; // there is a city on this tile and it is not the same owner as the unit

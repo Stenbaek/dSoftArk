@@ -45,6 +45,46 @@ public class Utility {
     }
     return list.iterator();
   }
+
+  public static Iterator<Tile> getFoodAndProductionSortedIterator(Position center, Game game, String cityFocus) {
+    ArrayList<Tile> productionList = new ArrayList<Tile>();
+    ArrayList<Tile> foodList = new ArrayList<Tile>();
+
+    int row = center.getRow(); int col = center.getColumn();
+    int r,c;
+    for (int dr = -1; dr <= +1; dr++) {
+      for (int dc = -1; dc <= +1; dc++) {
+        r = row+dr; c = col+dc;
+        // avoid positions outside the world
+        if ( r >= 0 && r < GameConstants.WORLDSIZE &&
+             c >= 0 && c < GameConstants.WORLDSIZE ) {
+          // avoid center position
+          if ( r != row || c != col ){
+            Tile t = game.getTileAt(new Position(r,c));
+            if(t.getTileFocus().equals(GameConstants.productionFocus)){
+              productionList.add( t );
+            }else if(t.getTileFocus().equals(GameConstants.foodFocus)){
+              foodList.add( t );
+            }
+          }
+        }
+      }
+    }
+
+    Collections.sort(productionList, new ProductionComparator());
+    Collections.sort(foodList, new ProductionComparator());
+
+    ArrayList<Tile> sortedTileList = new ArrayList<Tile>();
+    if(cityFocus.equals(GameConstants.productionFocus)){
+      sortedTileList.addAll(productionList);
+      sortedTileList.addAll(foodList);
+    }else if(cityFocus.equals(GameConstants.foodFocus)){
+      sortedTileList.addAll(foodList);
+      sortedTileList.addAll(productionList);
+    }
+    return sortedTileList.iterator();
+
+  }
   
   /** get the terrain factor for the attack and defense strength
    * according to the GammaCiv specification

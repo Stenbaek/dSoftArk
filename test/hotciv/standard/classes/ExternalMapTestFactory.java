@@ -46,4 +46,11 @@ public class ExternalMapTestFactory implements AbstractFactory {
     public CivAttackStrategy getAttackStrategy() {
         return new EpsilonCivAttack(epsilonDieRollStrategy);
     }
+
+    @Override
+    public CivCityStrategy getCityStrategy() {
+        return new AlphaCivCity();
+    }
+
+
 }

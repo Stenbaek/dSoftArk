@@ -19,4 +19,14 @@ public class Hill extends AbstractTile{
     public boolean isHabitable() {
         return true;
     }
+
+    @Override
+    public String getTileFocus() {
+        return GameConstants.productionFocus;
+    }
+
+    @Override
+    public int getProductionValue() {
+        return 2;
+    }
 }

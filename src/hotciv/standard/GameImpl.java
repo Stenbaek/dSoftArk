@@ -44,6 +44,7 @@ public class GameImpl implements Game {
     private CivWorldStrategy worldStrategy;
     private CivUnitStrategy unitStrategy;
     private CivAttackStrategy attackStrategy;
+    private CivCityStrategy cityStrategy;
 
     public GameImpl(AbstractFactory factory){
         this.ageingStrategy = factory.getAgeStrategy();
@@ -52,9 +53,10 @@ public class GameImpl implements Game {
         this.worldStrategy = factory.getWorldStrategy();
         this.unitStrategy = factory.getUnitStrategy();
         this.attackStrategy = factory.getAttackStrategy();
+        this.cityStrategy = factory.getCityStrategy();
 
-        this.units = new UnitHashMap();
-        this.cities = new CityHashMap();
+        this.units = new UnitHashMap<Position,Unit>();
+        this.cities = new CityHashMap<Position,City>();
 
         this.worldStrategy.populateWorld(units, cities);
         age = -4000;
@@ -176,13 +178,16 @@ public class GameImpl implements Game {
 
                 // Adding 6 production to each cities treasury each round
                 CityImpl city = (CityImpl) pairs.getValue();
-                city.addProductionTreasury(6);
+
+                //Updating food and production treasury
+                cityStrategy.updateCityRoundProduction(city, (Position) pairs.getKey(), this);
+                cityStrategy.updateCityPopulation(city);
 
                 if (city.getProduction() != null) {
 
                     // If the city can afford what it is producing, the unit is placed on the map
                     String cityProductionType = city.getProduction();
-                    Integer priceOfProduction = unitStrategy.getUnitCost(cityProductionType);
+                    Integer priceOfProduction = getUnitCost(cityProductionType);
 
                     // only allow production if the city can afford it
                     if(city.getProductionTreasury() >= priceOfProduction) {
@@ -223,7 +228,9 @@ public class GameImpl implements Game {
         return unitStrategy.getUnitCost(unitType);
     }
 
-    public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
+    public void changeWorkForceFocusInCityAt( Position p, String balance ) {
+        getCityAt(p).setWorkForceFocus(balance);
+    }
 
     public void changeProductionInCityAt( Position p, String unitType ) {
         getCityAt(p).setProduction(unitType);

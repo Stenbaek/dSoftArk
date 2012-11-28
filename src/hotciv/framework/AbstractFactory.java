@@ -20,4 +20,6 @@ public interface AbstractFactory {
 
     CivAttackStrategy getAttackStrategy();
 
+    CivCityStrategy getCityStrategy();
+
 }

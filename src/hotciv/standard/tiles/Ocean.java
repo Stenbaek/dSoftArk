@@ -20,4 +20,14 @@ public class Ocean extends AbstractTile{
         return false;
     }
 
+    @Override
+    public String getTileFocus() {
+        return GameConstants.foodFocus;
+    }
+
+    @Override
+    public int getProductionValue() {
+        return 1;
+    }
+
 }

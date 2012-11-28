@@ -20,4 +20,14 @@ public class Plain extends AbstractTile {
         return true;
     }
 
+    @Override
+    public String getTileFocus() {
+        return GameConstants.foodFocus;
+    }
+
+    @Override
+    public int getProductionValue() {
+        return 3;
+    }
+
 }

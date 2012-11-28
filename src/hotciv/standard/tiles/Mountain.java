@@ -21,4 +21,14 @@ public class Mountain extends AbstractTile{
         return false;
     }
 
+    @Override
+    public String getTileFocus() {
+        return GameConstants.productionFocus;
+    }
+
+    @Override
+    public int getProductionValue() {
+        return 1;
+    }
+
 }
