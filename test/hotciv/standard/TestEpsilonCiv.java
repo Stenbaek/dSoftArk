@@ -86,12 +86,6 @@ public class TestEpsilonCiv {
      * The effect of using a fixed dice is that all randomness
      * of using a "dice" is removed and we can test the algorithm, not the random nature
      * of a dice.
-     *
-     * Archer attack strength 		= 2 * fixed dice(2) = 4
-     * Settler defense strength 	= 3 * fixed dice(2) = 6
-     *
-     * TODO Hvordan kan man bevise at denne test rentfaktisk tester dice effekten, når dice
-     * er fixed, og der yderligere giver den samme bonus til attacker og defender ?
      */
     @Test
     public void diceFactorShouldMultiplyStrengthByTwo() {
