@@ -39,11 +39,6 @@ public class EpsilonFactory implements AbstractFactory {
     }
 
     @Override
-    public CivUnitStrategy getUnitStrategy() {
-        return new AlphaCivUnit();
-    }
-
-    @Override
     public CivAttackStrategy getAttackStrategy() {
         return new EpsilonCivAttack(epsilonDieRollStrategy);
     }

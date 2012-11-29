@@ -16,8 +16,6 @@ public interface AbstractFactory {
 
     CivAgeStrategy getAgeStrategy();
 
-    CivUnitStrategy getUnitStrategy();
-
     CivAttackStrategy getAttackStrategy();
 
     CivCityStrategy getCityStrategy();
