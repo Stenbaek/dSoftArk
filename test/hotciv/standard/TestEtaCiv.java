@@ -9,6 +9,7 @@ import hotciv.standard.units.Legion;
 import hotciv.standard.units.Settler;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Position;
+import hotciv.teststubs.FixedTestStubCivDieRoll;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -25,12 +26,12 @@ public class TestEtaCiv {
 
     @Before
     public void setUp() {
-        game = new GameImpl(new EtaFactory());
+        game = new GameImpl(new EtaFactory(new FixedTestStubCivDieRoll()));
     }
 
     @Test
     public void firstTest(){
-        CityImpl c = (CityImpl) game.getCityAt(new Position(1,1));
+        CityImpl c = (CityImpl) game.getCityAt(new Position(8,12));
         c.setWorkForceFocus(GameConstants.productionFocus);
         c.setProduction(GameConstants.SETTLER);
         System.out.println("1 0 " + c.getCityFood());
@@ -58,7 +59,7 @@ public class TestEtaCiv {
 
      @Test
     public void secondTest(){
-        CityImpl c = (CityImpl) game.getCityAt(new Position(4,1));
+        CityImpl c = (CityImpl) game.getCityAt(new Position(4,5));
         c.setWorkForceFocus(GameConstants.foodFocus);
         c.setProduction(GameConstants.ARCHER);
         System.out.println("3 0 " + c.getCityFood());
@@ -189,7 +190,7 @@ public class TestEtaCiv {
     //////////////////    Test World Layout    //////////////////
     @Test
     public void testRandomTilesOnTheDeltaMap() {
-        assertEquals("Should be plains at (5,5)", GameConstants.PLAINS,
+        assertEquals("Should be plains at (5,5)", GameConstants.FOREST,
                 game.getTileAt(new Position(5, 5)).getTypeString());
         assertEquals("Should be hills at (4,9)", GameConstants.HILLS,
                 game.getTileAt(new Position(4, 9)).getTypeString());
@@ -208,7 +209,7 @@ public class TestEtaCiv {
     }
 
     @Test
-    public void thereShouldBe12ForestsOnTheMap() {
+    public void thereShouldBe14ForestsOnTheMap() {
         int n = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
@@ -218,7 +219,7 @@ public class TestEtaCiv {
                 }
             }
         }
-        assertEquals("There should be 12 forests on the map", 12, n);
+        assertEquals("There should be 12 forests on the map", 14, n);
     }
     @Test
     public void thereShouldBe9MountainsOnTheMap() {
@@ -234,7 +235,7 @@ public class TestEtaCiv {
         assertEquals("There should be 9 mountain tiles on the map", 9, n);
     }
     @Test
-    public void thereShouldBe139PlainsOnTheMap() {
+    public void thereShouldBe137PlainsOnTheMap() {
         int n = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
@@ -244,7 +245,7 @@ public class TestEtaCiv {
                 }
             }
         }
-        assertEquals("There should be 139 plain tiles on the map", 139, n);
+        assertEquals("There should be 139 plain tiles on the map", 137, n);
     }
 
     @Test
@@ -292,6 +293,29 @@ public class TestEtaCiv {
         }
         assertEquals("There should be 10 hill tiles on the map", 10, n);
     }
+    //////////////////    Test Winner    //////////////////
+    @Test
+    public void redShouldWinAfter3SuccessfulAttacks(){
+        for(int i = 0; i < 3; i++){
+            game.addUnit(new Position(5,6),new Legion(Player.RED));
+            game.addUnit(new Position(6,6),new Settler(Player.BLUE));
 
+            game.moveUnit(new Position(5,6),new Position(6,6));
+            game.removeUnit(new Position(6,6));
+        }
+        assertTrue("RED should be the winner after 3 successful attacks",(game.getWinner().equals(Player.RED)));
+    }
 
+    @Test
+    public void blueShouldWinAfter3SuccessfulAttacks(){
+        game.endOfTurn();
+        for(int i = 0; i < 3; i++){
+            game.addUnit(new Position(5,6),new Legion(Player.BLUE));
+            game.addUnit(new Position(6,6),new Settler(Player.RED));
+
+            game.moveUnit(new Position(5,6),new Position(6,6));
+            game.removeUnit(new Position(6,6));
+        }
+        assertTrue("RED should be the winner after 3 successful attacks",(game.getWinner().equals(Player.BLUE)));
+    }
 }

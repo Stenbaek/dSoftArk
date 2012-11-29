@@ -12,19 +12,25 @@ import hotciv.strategies.*;
  */
 public class EtaFactory implements AbstractFactory{
 
+    public DieRollStrategy epsilonDieRollStrategy;
+
+    public EtaFactory(DieRollStrategy dieRollStrategy){
+        this.epsilonDieRollStrategy = dieRollStrategy;
+    }
+
     @Override
     public CivWinStrategy getWinningStrategy() {
-        return new AlphaCivWin();
+        return new EpsilonCivWin();
     }
 
     @Override
     public CivWorldStrategy getWorldStrategy() {
-        return new AlphaCivWorld();
+        return new DeltaCivWorld();
     }
 
     @Override
     public CivActionStrategy getActionStrategy() {
-        return new AlphaCivAction();
+        return new GammaCivAction();
     }
 
     @Override
@@ -34,7 +40,7 @@ public class EtaFactory implements AbstractFactory{
 
     @Override
     public CivAttackStrategy getAttackStrategy() {
-        return new AlphaCivAttack();
+        return new EpsilonCivAttack(epsilonDieRollStrategy);
     }
 
     @Override
