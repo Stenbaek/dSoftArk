@@ -190,8 +190,8 @@ public class GameImpl implements Game {
                     Integer priceOfProduction = getUnitCost(cityProductionType);
 
                     // only allow production if the city can afford it
-                    if(city.getProductionTreasury() >= priceOfProduction) {
-
+                    // If the city can afford more units, then create until broke
+                    while(city.getProductionTreasury() >= priceOfProduction){
                         // getting the first free spot found for unit placement
                         EmptyTileIterator emptyTileIterator = new EmptyTileIterator((Position) pairs.getKey(), city.getOwner(), this);
                         Position newUnitPos = emptyTileIterator.next();
