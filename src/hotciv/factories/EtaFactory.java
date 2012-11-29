@@ -29,7 +29,7 @@ public class EtaFactory implements AbstractFactory{
 
     @Override
     public CivAgeStrategy getAgeStrategy() {
-        return new AlphaCivAge();
+        return new BetaCivAge();
     }
 
     @Override

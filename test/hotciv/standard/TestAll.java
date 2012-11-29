@@ -19,7 +19,8 @@ import org.junit.runners.Suite;
                 TestDeltaCiv.class,
                 TestGammaCiv.class,
                 TestEpsilonCiv.class,
-                TestZetaCiv.class
+                TestZetaCiv.class,
+                TestEtaCiv.class
         })
 
 public class TestAll {
