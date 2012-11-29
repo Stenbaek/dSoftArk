@@ -5,6 +5,7 @@ import hotciv.framework.Player;
 import hotciv.framework.Unit;
 import hotciv.standard.maps.CityHashMap;
 import hotciv.standard.maps.UnitHashMap;
+import hotciv.standard.units.AbstractUnit;
 import hotciv.standard.units.Archer;
 import hotciv.standard.units.Legion;
 import hotciv.standard.units.Settler;
@@ -42,7 +43,6 @@ public class GameImpl implements Game {
     private CivWinStrategy winningStrategy;
     private CivActionStrategy actionStrategy;
     private CivWorldStrategy worldStrategy;
-    private CivUnitStrategy unitStrategy;
     private CivAttackStrategy attackStrategy;
     private CivCityStrategy cityStrategy;
 
@@ -51,7 +51,6 @@ public class GameImpl implements Game {
         this.winningStrategy = factory.getWinningStrategy();
         this.actionStrategy = factory.getActionStrategy();
         this.worldStrategy = factory.getWorldStrategy();
-        this.unitStrategy = factory.getUnitStrategy();
         this.attackStrategy = factory.getAttackStrategy();
         this.cityStrategy = factory.getCityStrategy();
 
@@ -167,14 +166,11 @@ public class GameImpl implements Game {
     public void endOfTurn() {
         if(playerInTurn == Player.BLUE) { // A round ends after blue players turn as he/she is the last in round
 
-            Integer currentAge = getAge(); // fetches the current Age
-            updateAge(); // advances time
-
-            Iterator it = this.cities.iterator(); //Creates an iterator of the cityMap
+            Iterator citiesIterator = this.cities.iterator(); //Creates an iterator of the cityMap
 
             //Iterates over every city in the game
-            while (it.hasNext()) {
-                Map.Entry pairs = (Map.Entry)it.next();
+            while (citiesIterator.hasNext()) {
+                Map.Entry pairs = (Map.Entry)citiesIterator.next();
 
                 // Adding 6 production to each cities treasury each round
                 CityImpl city = (CityImpl) pairs.getValue();
@@ -212,7 +208,17 @@ public class GameImpl implements Game {
                 }
             }
 
-            unitStrategy.restoreAllMovement(units); //restores movement-count for all units
+            Iterator unitsIterator = units.iterator(); //Creates an iterator of the cityMap
+            //Iterates over every city in the game
+            while (unitsIterator.hasNext()) {
+                Map.Entry pairs = (Map.Entry)unitsIterator.next();
+
+                // Adding 6 production to each cities treasury each round
+                AbstractUnit unit = (AbstractUnit) pairs.getValue();
+                unit.changeMoveCounter(1);
+            }
+
+            updateAge(); // advances time
         }
 
         // swaps the players each turn
@@ -225,7 +231,10 @@ public class GameImpl implements Game {
     }
 
     private int getUnitCost(String unitType){
-        return unitStrategy.getUnitCost(unitType);
+        if(unitType.equals(GameConstants.ARCHER)) return 10;
+        if(unitType.equals(GameConstants.LEGION)) return 15;
+        if(unitType.equals(GameConstants.SETTLER)) return 30;
+        return 0;
     }
 
     public void changeWorkForceFocusInCityAt( Position p, String balance ) {

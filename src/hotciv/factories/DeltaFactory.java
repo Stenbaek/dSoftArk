@@ -33,11 +33,6 @@ public class DeltaFactory implements AbstractFactory{
     }
 
     @Override
-    public CivUnitStrategy getUnitStrategy() {
-        return new AlphaCivUnit();
-    }
-
-    @Override
     public CivAttackStrategy getAttackStrategy() {
         return new AlphaCivAttack();
     }
