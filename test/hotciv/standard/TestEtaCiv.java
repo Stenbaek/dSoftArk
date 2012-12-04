@@ -15,6 +15,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import hotciv.standard.classes.ExternalMapTestFactory;
 
+
 /**
  * Created by IntelliJ IDEA.
  * User: stenbaek
