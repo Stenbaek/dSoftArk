@@ -1,18 +1,15 @@
 package hotciv.standard;
 
 import hotciv.factories.EpsilonFactory;
-import hotciv.framework.Game;
-import hotciv.framework.GameConstants;
-import hotciv.framework.Player;
-import hotciv.framework.Position;
+import hotciv.standard.classes.*;
+import hotciv.framework.*;
 import hotciv.standard.units.Archer;
 import hotciv.standard.units.Legion;
 import hotciv.standard.units.Settler;
 import hotciv.teststubs.FixedTestStubCivDieRoll;
 import org.junit.Before;
 import org.junit.Test;
-import hotciv.standard.classes.*;
-import hotciv.framework.*;
+
 
 import static org.junit.Assert.*;
 
