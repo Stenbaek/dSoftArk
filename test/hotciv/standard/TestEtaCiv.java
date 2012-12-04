@@ -2,6 +2,7 @@ package hotciv.standard;
 
 import hotciv.factories.EtaFactory;
 import hotciv.framework.Game;
+import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.City;
 import hotciv.standard.units.Archer;
@@ -12,6 +13,7 @@ import hotciv.framework.Position;
 import hotciv.teststubs.FixedTestStubCivDieRoll;
 import org.junit.*;
 import static org.junit.Assert.*;
+import hotciv.standard.classes.ExternalMapTestFactory;
 
 /**
  * Created by IntelliJ IDEA.
@@ -316,6 +318,105 @@ public class TestEtaCiv {
             game.moveUnit(new Position(5,6),new Position(6,6));
             game.removeUnit(new Position(6,6));
         }
-        assertTrue("RED should be the winner after 3 successful attacks",(game.getWinner().equals(Player.BLUE)));
+        assertTrue("Blue should be the winner after 3 successful attacks",(game.getWinner().equals(Player.BLUE)));
+    }
+
+    ///////////////// Test Combat //////////////
+    @Test
+    public void diceFactorShouldMultiplyStrengthByTwo() {
+        game.addUnit(new Position(10,3), new Archer(Player.RED));
+        game.addUnit(new Position(10,2), new Settler(Player.BLUE));
+        game.moveUnit(new Position(10,3),new Position(10, 2));
+        assertEquals("The unit at 10,2 should still be a settler", GameConstants.SETTLER,
+                game.getUnitAt(new Position(10,2)).getTypeString());
+    }
+    @Test
+    public void attackStrengthOfRedArcherWithFriendOnAdjacentTile() {
+        game.addUnit(new Position(10, 3), new Archer(Player.RED));
+        game.addUnit(new Position(10, 2), new Archer(Player.RED));
+        game.addUnit(new Position(10, 1), new Archer(Player.RED));
+        game.addUnit(new Position(9, 2), new Archer(Player.RED));
+        game.addUnit(new Position(11, 2), new Legion(Player.BLUE));
+        game.addUnit(new Position(11, 1), new Legion(Player.BLUE));
+
+        game.endOfTurn(); // new blue player is in turn
+        boolean move = game.moveUnit(new Position(11,2), new Position(10,2));
+        assertFalse("The move should return false, since the attacker dies", move);
+        assertEquals("There should still be a archer at 10,2", Archer.class,
+                game.getUnitAt(new Position(10,2)).getClass());
+    }
+    @Test
+    public void redSettlerAt4x3ShouldNotKillBlueLegionAt3x2WhenSettlerIsAttacking() {
+        game.moveUnit(new Position(4,3), new Position(3,2));
+        assertEquals("There should still be a legion at (3,2)", GameConstants.LEGION,
+                game.getUnitAt(new Position(3,2)).getTypeString());
+    }
+
+    @Test
+    public void blueLegionAt3x2ShouldKillRedSettlerAt4x3WhenLegionIsAttacking() {
+        game.endOfTurn();
+        game.moveUnit(new Position(3,2), new Position(4,3));
+        assertEquals("After attack, there should be a legion at (4,3)",GameConstants.LEGION,
+                game.getUnitAt(new Position(4,3)).getTypeString());
+    }
+    @Test
+    public void blueAttackingArcherShouldDieToLegionInCityAt8x12() {
+        // Changing the map strategy to ExternalMapStrategy as it has trees
+        game = new GameImpl(new ExternalMapTestFactory(new FixedTestStubCivDieRoll()));
+        game.addUnit(new Position(8,12), new Legion(Player.RED));
+        game.addUnit(new Position(8,11), new Archer(Player.BLUE));
+        game.endOfTurn(); // skipping to blue
+        game.moveUnit(new Position(8, 11), new Position(8, 12));
+        assertEquals("The unit at the city should still be the legion", GameConstants.LEGION,
+                game.getUnitAt(new Position(8, 12)).getTypeString());
+    }
+    @Test
+    public void attackStrenthOfLegionAttackingArcherInForestAt9x1() {
+        // Changing the map strategy to ExternalMapStrategy as it has trees
+        game = new GameImpl(new ExternalMapTestFactory(new FixedTestStubCivDieRoll()));
+
+        assertEquals("Tile at 9,1 should be plains", GameConstants.FOREST,
+                game.getTileAt(new Position(9,1)).getTypeString());
+        assertEquals("Tile at 10,1 should be plains", GameConstants.PLAINS,
+                game.getTileAt(new Position(10,1)).getTypeString());
+
+
+        game.addUnit(new Position(9,1), // 10,1 is forest
+                new Archer(Player.BLUE));
+        game.addUnit(new Position(10,1), // should be plains
+                new Legion(Player.RED));
+
+        /*
+           * The red archer in the forest (10,1) should gain enough
+           * attack bonus to kill the blue settler at 10,2
+           * archer attack: 2
+           * legion defense: 2
+           * forest bonus: 2
+           * Thus after applying the bonus the archer should have 4 attack and
+           * kill the legion.
+           */
+        game.moveUnit(new Position(10, 1), new Position(9, 1));
+        assertEquals("The should now be an ARCHER at 9,1", GameConstants.ARCHER,
+                game.getUnitAt(new Position(9,1)).getTypeString());
+    }
+    @Test
+    public void attackStrengthOfLegionAttackingArcherIn0x1() {
+        game.addUnit(new Position(0,0),
+                new Legion(Player.RED)); // Placing a unit for red
+
+        game.addUnit(new Position(0,1), // 0,1 is hills
+                new Archer(Player.BLUE)); // Placing a unit for blue
+
+        /*
+           * Legion has 4 attack and archer as 3 defense.
+           * Tiles of types hills has a bonus of defense/attack*2
+           * The defending unit (archer) is on a hills type tile and should gain defensive bonus
+           * The attacking unit (legion) is on a plains type tile and shouldn't gain any bonus
+           * Therefore the attacking Legion should die in this attack
+           */
+        game.moveUnit(new Position(0,0), new Position(0, 1));
+        Unit unit = game.getUnitAt(new Position(0,1)); // 0,1 is hills
+        assertEquals("There should be an ARCHER at 0,1", GameConstants.ARCHER, unit.getTypeString());
+        assertEquals("Archer should belong to BLUE", Player.BLUE, unit.getOwner());
     }
 }
