@@ -12,11 +12,6 @@ import hotciv.strategies.*;
  */
 public class EtaFactory implements AbstractFactory{
 
-    public DieRollStrategy epsilonDieRollStrategy;
-
-    public EtaFactory(DieRollStrategy dieRollStrategy){
-        this.epsilonDieRollStrategy = dieRollStrategy;
-    }
 
     @Override
     public CivWinStrategy getWinningStrategy() {
