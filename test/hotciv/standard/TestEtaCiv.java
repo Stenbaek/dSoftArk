@@ -1,7 +1,6 @@
 package hotciv.standard;
 
 import hotciv.factories.EtaFactory;
-import hotciv.framework.*;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
