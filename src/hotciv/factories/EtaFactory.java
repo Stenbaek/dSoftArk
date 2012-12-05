@@ -20,27 +20,27 @@ public class EtaFactory implements AbstractFactory{
 
     @Override
     public CivWinStrategy getWinningStrategy() {
-        return new EpsilonCivWin();
+        return new AlphaCivWin();
     }
 
     @Override
     public CivWorldStrategy getWorldStrategy() {
-        return new DeltaCivWorld();
+        return new AlphaCivWorld();
     }
 
     @Override
     public CivActionStrategy getActionStrategy() {
-        return new GammaCivAction();
+        return new AlphaCivAction();
     }
 
     @Override
     public CivAgeStrategy getAgeStrategy() {
-        return new BetaCivAge();
+        return new AlphaCivAge();
     }
 
     @Override
     public CivAttackStrategy getAttackStrategy() {
-        return new EpsilonCivAttack(epsilonDieRollStrategy);
+        return new AlphaCivAttack();
     }
 
     @Override
