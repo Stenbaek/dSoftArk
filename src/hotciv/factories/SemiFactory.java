@@ -20,7 +20,7 @@ public class SemiFactory implements AbstractFactory {
 
     @Override
     public CivWinStrategy getWinningStrategy() {
-        return new AlphaCivWin();
+        return new EpsilonCivWin();
     }
 
     @Override
