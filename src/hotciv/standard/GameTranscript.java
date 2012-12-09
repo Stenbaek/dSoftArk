@@ -1,11 +1,5 @@
 package hotciv.standard;
 
-import hotciv.framework.City;
-import hotciv.framework.Game;
-import hotciv.framework.Player;
-import hotciv.framework.Position;
-import hotciv.framework.Tile;
-import hotciv.framework.Unit;
 import hotciv.framework.*;
 
 public class GameTranscript implements Game{
@@ -47,6 +41,21 @@ public class GameTranscript implements Game{
     public int getAge() {
         return game.getAge();
     }
+    @Override
+    public void addCity(Position p, Player owner) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void addUnit(Position p, Unit u) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void removeUnit(Position p) {
+        game.removeUnit(p);
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     @Override
     public boolean moveUnit(Position from, Position to) {
@@ -85,10 +94,16 @@ public class GameTranscript implements Game{
     }
 
     @Override
-    public void changeWorkForceFocusInCityAt(Position p, String balance) { }
+    public void changeWorkForceFocusInCityAt(Position p, String balance) {
+        game.changeWorkForceFocusInCityAt(p, balance);
+        System.out.println("city at " + p + " has changed work focus to " + balance);
+    }
 
     @Override
-    public void changeProductionInCityAt(Position p, String unitType) { }
+    public void changeProductionInCityAt(Position p, String unitType) {
+        game.changeProductionInCityAt(p, unitType);
+        System.out.println("city at " + p + " has changed production to " + unitType);
+    }
 
     @Override
     public void performUnitActionAt(Position p) {
@@ -100,5 +115,7 @@ public class GameTranscript implements Game{
 
 
     }
+
+
 
 }
