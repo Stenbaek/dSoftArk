@@ -20,7 +20,8 @@ import org.junit.runners.Suite;
                 TestGammaCiv.class,
                 TestEpsilonCiv.class,
                 TestZetaCiv.class,
-                TestSemiCiv.class
+                TestSemiCiv.class,
+                TestGameTranscript.class
         })
 
 public class TestAll {
