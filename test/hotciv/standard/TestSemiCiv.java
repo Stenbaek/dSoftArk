@@ -119,16 +119,12 @@ public class TestSemiCiv {
         CityImpl c = (CityImpl) game.getCityAt(new Position(8,12));
         c.setWorkForceFocus(GameConstants.productionFocus);
         c.setProduction(GameConstants.SETTLER);
-        System.out.println("1 0 " + c.getCityFood());
         for(int i = 1; i < 30; i++){
             game.endOfTurn();
             game.endOfTurn();
-            System.out.println("R:1 i:" + i + " F:" + c.getCityFood() + " PT:" + c.getProductionTreasury() + " P:" + c.getSize());
             if(c.getProductionTreasury() == 0){
-                System.out.println(Utility.getFriendlySupport(game, new Position(1,1),c.getOwner()));
             }
         }
-        System.out.println("");
         assertTrue("City food: " + c.getCityFood(),true);
 
         c.setWorkForceFocus(GameConstants.productionFocus);
@@ -136,9 +132,7 @@ public class TestSemiCiv {
         for(int i = 1; i < 22; i++){
             game.endOfTurn();
             game.endOfTurn();
-            System.out.println("R:2 i:" + i + " F:" + c.getCityFood() + " PT:" + c.getProductionTreasury() + " P:" + c.getSize());
         }
-        System.out.println("");
         assertTrue("City food: " + c.getCityFood(),true);
     }
 
@@ -147,13 +141,10 @@ public class TestSemiCiv {
         CityImpl c = (CityImpl) game.getCityAt(new Position(4,5));
         c.setWorkForceFocus(GameConstants.foodFocus);
         c.setProduction(GameConstants.ARCHER);
-        System.out.println("3 0 " + c.getCityFood());
         for(int i = 1; i < 22; i++){
             game.endOfTurn();
             game.endOfTurn();
-            System.out.println("R:3 i:" + i + " F:" + c.getCityFood() + " PT:" + c.getProductionTreasury() + " P:" + c.getSize());
         }
-        System.out.println("");
         assertTrue("City food: " + c.getCityFood(),true);
 
         c.setWorkForceFocus(GameConstants.productionFocus);
@@ -161,9 +152,7 @@ public class TestSemiCiv {
         for(int i = 1; i < 22; i++){
             game.endOfTurn();
             game.endOfTurn();
-            System.out.println("R:4 i:" + i + " F:" + c.getCityFood() + " PT:" + c.getProductionTreasury() + " P:" + c.getSize());
         }
-        System.out.println("");
         assertTrue("City food: " + c.getCityFood(),true);
     }
     //////////////////    Test Unit Actions    //////////////////

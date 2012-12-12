@@ -134,6 +134,7 @@
               <arg value="hotciv.standard.TestEpsilonCiv"/>
               <arg value="hotciv.standard.TestZetaCiv"/>
               <arg value="hotciv.standard.TestSemiCiv"/>
+              <arg value="hotciv.standard.TestGameTranscript"/>
               <classpath refid="class-path"/>
             </java>
           </target>
@@ -153,6 +154,7 @@
               <arg value="hotciv.standard.TestEpsilonCiv"/>
               <arg value="hotciv.standard.TestZetaCiv"/>
               <arg value="hotciv.standard.TestSemiCiv"/>
+              <arg value="hotciv.standard.TestGameTranscript"/>
               <classpath refid="class-path"/>
             </emmajava>
           </target>
