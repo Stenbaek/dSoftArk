@@ -33,6 +33,12 @@ public class BuilderDemo {
     wp.construct(htmlBuilder);
     System.out.println( "--- The HTML Builder ---");
     System.out.println( htmlBuilder.getResult() );
+
+    XMLBuilder xmlBuilder;
+    xmlBuilder = new XMLBuilder();
+    wp.construct(xmlBuilder);
+    System.out.println( "--- The xML Builder ---");
+    System.out.println(xmlBuilder.getResult() );
  
     CountBuilder countBuilder;
     countBuilder = new CountBuilder();
@@ -131,6 +137,27 @@ class HTMLBuilder implements Builder {
   public String getResult() {
     return result;
   }
+}
+/** A concrete builder implementing a XML format */
+class XMLBuilder implements Builder {
+    private String result;
+    public XMLBuilder() {
+        result = new String();
+    }
+    public void buildSection(String text){
+        result += "<Section>"+text+"\n";
+    }
+
+    public void buildSubsection(String text){
+        result += "<Subsection>"+text+"\n";
+    }
+    public void buildParagraph(String text){
+        result += "<Paragraph>"+text+"</Paragraph>\n";
+    }
+
+    public String getResult(){
+        return result;
+    }
 }
 
 /** A concrete builder that simply counts parts */
