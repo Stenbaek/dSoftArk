@@ -26,11 +26,16 @@
           <property name="docDirectory" value="doc"></property>
 
           <property name="junitJar" value="lib/junit-4.4.jar"/>
-
+          <!-- <property name="fractal" value="lib/**.jar"/> -->
           <!-- define the class path for JUnit testing -->
           <path id="class-path">
             <pathelement location="${build-directory}"/>
             <pathelement location="${junitJar}"/>
+              <!-- <pathelement location="${junitJar}"/> -->
+              <!-- <pathelement location="${fractal}"/>-->
+              <fileset dir="lib">
+                  <include name="**/*.jar" />
+              </fileset>
           </path>
 
           <!-- define classpath for Emma -->
