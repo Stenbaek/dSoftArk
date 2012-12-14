@@ -1,7 +1,5 @@
 package hotciv.framework;
 
-import hotciv.standard.maps.UnitHashMap;
-
 /** Game is the central interface allowing a client to access and
  * modify the state of a HotCiv game.  
  This source code is from the book
@@ -130,4 +128,6 @@ public interface Game {
     public void addUnit(Position p, Unit u);
 
     public void removeUnit(Position p);
+
+    public void addObserver(GameObserver observer);
 }
