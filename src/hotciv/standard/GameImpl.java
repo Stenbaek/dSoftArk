@@ -1,8 +1,6 @@
 package hotciv.standard;
 
 import hotciv.framework.*;
-import hotciv.framework.Player;
-import hotciv.framework.Unit;
 import hotciv.standard.maps.CityHashMap;
 import hotciv.standard.maps.UnitHashMap;
 import hotciv.standard.units.AbstractUnit;
@@ -10,7 +8,9 @@ import hotciv.standard.units.Archer;
 import hotciv.standard.units.Legion;
 import hotciv.standard.units.Settler;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /** Skeleton implementation of HotCiv.
@@ -45,6 +45,7 @@ public class GameImpl implements Game {
     private CivWorldStrategy worldStrategy;
     private CivAttackStrategy attackStrategy;
     private CivCityStrategy cityStrategy;
+    private List<GameObserver> observers;
 
     public GameImpl(AbstractFactory factory){
         this.ageingStrategy = factory.getAgeStrategy();
@@ -60,6 +61,7 @@ public class GameImpl implements Game {
         this.worldStrategy.populateWorld(units, cities);
         age = -4000;
         playerInTurn = Player.RED;
+        observers = new ArrayList<GameObserver>();
     }
 
     public Tile getTileAt( Position p ) {
@@ -153,7 +155,8 @@ public class GameImpl implements Game {
                 cityPossiblyCaptured.setOwner(playerInTurn);
                 cityPossiblyCaptured.setProduction(null);
             }
-
+            notifyObserversOfChange(to);
+            notifyObserversOfChange(from);
             return true;
         }
         else return false; // if the player in turn does not own the unit
@@ -204,7 +207,9 @@ public class GameImpl implements Game {
                         // places the unit on map
                         addUnit(newUnitPos, theNewUnit);
                         city.addProductionTreasury((-priceOfProduction));
+                        notifyObserversOfChange(newUnitPos);
                     }
+
                 }
             }
 
@@ -227,7 +232,8 @@ public class GameImpl implements Game {
         } else {
             playerInTurn = Player.RED;
         }
-
+        // Notifying observers
+        notifyObserversOfEndedTurn();
     }
 
     private int getUnitCost(String unitType){
@@ -250,6 +256,7 @@ public class GameImpl implements Game {
         Unit unit = getUnitAt( p );
         if(unit != null && unit.getOwner().equals(playerInTurn)){
             actionStrategy.performUnitAction(unit, p, this);
+            notifyObserversOfChange(p);
         }
     }
 
@@ -275,6 +282,27 @@ public class GameImpl implements Game {
         }else{
             removeUnit(attackingPlayerPosition);
             return false;
+        }
+    }
+    // ========== Observer methods ==============
+
+    public void addObserver(GameObserver observer) {
+        observers.add(observer);
+    }
+
+    public boolean removeObserver(GameObserver observer) {
+        return observers.remove(observer);
+    }
+
+    public void notifyObserversOfEndedTurn() {
+        for(GameObserver o : observers) {
+            o.turnEnds(getPlayerInTurn(), getAge());
+        }
+    }
+
+    public void notifyObserversOfChange(Position pos) {
+        for(GameObserver o : observers) {
+            o.worldChangedAt(pos);
         }
     }
 
