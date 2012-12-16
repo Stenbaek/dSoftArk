@@ -10,12 +10,6 @@ import java.awt.*;
  * tells ownership and move count left for the unit. The upper circle
  * is the owner color, the lower circle marks green for moves left
  * while red is for no more moves left.  
- *
- * dSoftArk Helper class.
- <#if type == "code">
-
- <#include "/data/author.txt">
- </#if>
  */
 
 public class UnitFigure extends ImageFigure {
