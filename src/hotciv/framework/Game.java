@@ -130,4 +130,6 @@ public interface Game {
     public void removeUnit(Position p);
 
     public void addObserver(GameObserver observer);
+
+    public void setTileFocus(Position position);
 }

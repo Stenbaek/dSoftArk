@@ -305,5 +305,11 @@ public class GameImpl implements Game {
             o.worldChangedAt(pos);
         }
     }
-
+    @Override
+    public void setTileFocus(Position position) {
+        // Notify Focus
+        for (GameObserver o : observers) {
+            o.tileFocusChangedAt(position);
+        }
+    }
 }

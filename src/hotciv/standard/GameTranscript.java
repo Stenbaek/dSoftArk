@@ -115,6 +115,14 @@ public class GameTranscript implements Game{
 
 
     }
+    @Override
+    public void addObserver(GameObserver observer) {
+        game.addObserver(observer);
+    }
+    @Override
+    public void setTileFocus(Position position) {
+        game.setTileFocus(position);
+    }
 
 
 
