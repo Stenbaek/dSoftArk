@@ -26,17 +26,16 @@
           <property name="docDirectory" value="doc"></property>
 
           <property name="junitJar" value="lib/junit-4.4.jar"/>
+          <property name="minidrawJar" value="lib/minidraw.jar"/>
           <property name="resource" value="resource"/>
           <!-- <property name="fractal" value="lib/**.jar"/> -->
           <!-- define the class path for JUnit testing -->
           <path id="class-path">
             <pathelement location="${build-directory}"/>
             <pathelement location="${junitJar}"/>
+            <pathelement location="${minidrawJar}"/>
               <!-- <pathelement location="${junitJar}"/> -->
               <!-- <pathelement location="${fractal}"/>-->
-              <fileset dir="lib">
-                  <include name="**/*.jar" />
-              </fileset>
           </path>
 
           <!-- define classpath for Emma -->
@@ -113,7 +112,15 @@
             </javac>
           </target>
 
-          <target name="build-all" depends="build-src,build-test"/>
+        <target name="copyResource" depends="prepare">
+            <copy todir="${build-directory}\${resource}" >
+              <fileset dir="${resource}">
+                 <include name="*.gif"/>
+              </fileset>
+         </copy>
+      </target>
+
+          <target name="build-all" depends="build-src,build-test,copyResource"/>
 
           <target name="mkdirdoc">
             <mkdir dir="${docDirectory}"></mkdir>
