@@ -65,7 +65,7 @@ class SemiCivViewFactory implements Factory {
     }
 
     @Override
-    public JTextField createStatusField(DrawingEditor areditorg0) {
+    public JTextField createStatusField(DrawingEditor editor) {
         JTextField f = new JTextField("Testing default Tool!!");
         f.setEditable(false);
         return f;

@@ -26,6 +26,7 @@
           <property name="docDirectory" value="doc"></property>
 
           <property name="junitJar" value="lib/junit-4.4.jar"/>
+          <property name="resource" value="resource"/>
           <!-- <property name="fractal" value="lib/**.jar"/> -->
           <!-- define the class path for JUnit testing -->
           <path id="class-path">
@@ -57,10 +58,23 @@
             javadoc:   Generate JavaDoc (output in doc/index.html)
 
             test:      Run JUnit test cases.
+                show:          Test MapView
+                text:          Test TextFigure
+                city:          Test CityFigure
 
             emmatest:  Run same JUnit tests as above and in addition
                        generate Emma code coverage report in
                        coverage/index.html.
+
+                Gruppespecifikke targets:
+                HelloWorld:	   Test hello World first map
+                endofturn:	   Test the end of turn tool
+                TestMoveTool:  Tests the move tool
+                TestTileFocusTool: Tests the tile focus tool
+                TestDefaultTool: Tests the default tool
+
+                ======== THE GAME =========
+                SemiCivGame:	Starts a semi civ invariant of hotCiv
             </echo>
           </target>
 
@@ -135,6 +149,7 @@
               <arg value="hotciv.standard.TestZetaCiv"/>
               <arg value="hotciv.standard.TestSemiCiv"/>
               <arg value="hotciv.standard.TestGameTranscript"/>
+              <arg value="hotciv.standard.TestGameObserver"/>
               <classpath refid="class-path"/>
             </java>
           </target>
@@ -155,7 +170,81 @@
               <arg value="hotciv.standard.TestZetaCiv"/>
               <arg value="hotciv.standard.TestSemiCiv"/>
               <arg value="hotciv.standard.TestGameTranscript"/>
+              <arg value="hotciv.standard.TestGameObserver"/>
               <classpath refid="class-path"/>
             </emmajava>
           </target>
+
+    <target name="ShowWorld" depends="build-all">
+        <java fork="yes" classname="hotciv.visual.ShowWorld">
+            <classpath>
+                <path refid="class-path"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="ShowText" depends="build-all">
+        <java fork="yes" classname="hotciv.visual.ShowText">
+            <classpath>
+                <path refid="class-path"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="ShowCity" depends="build-all">
+        <java fork="yes" classname="hotciv.visual.ShowCity">
+            <classpath>
+                <path refid="class-path"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- Group targets -->
+    <target name="HelloWorld" depends="build-all">
+        <java fork="yes" classname="hotciv.visual.HelloWorld">
+            <classpath>
+                <path refid="class-path" />
+            </classpath>
+        </java>
+    </target>
+
+    <target name="endofturn" depends="build-all">
+        <java fork="yes" classname="hotciv.visual.TestEndOfTurnTool">
+            <classpath>
+                <path refid="class-path"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="TestPartialDrawing" depends="build-all">
+        <java fork="yes" classname="hotciv.visual.TestPartialDrawing">
+            <classpath>
+                <path refid="class-path"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="TestTileFocusTool" depends="build-all">
+        <java fork="yes" classname="hotciv.visual.TestTileFocusTool">
+            <classpath>
+                <path refid="class-path"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="TestDefaultTool" depends="build-all">
+        <java fork="yes" classname="hotciv.visual.TestDefaultTool">
+            <classpath>
+                <path refid="class-path"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="PlaySemiCiv" depends="build-all">
+        <java fork="yes" classname="hotciv.view.standard.SemiCivGame">
+            <classpath>
+                <path refid="class-path"/>
+            </classpath>
+        </java>
+    </target>
         </project>
