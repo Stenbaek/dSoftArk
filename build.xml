@@ -26,6 +26,7 @@
           <property name="docDirectory" value="doc"></property>
 
           <property name="junitJar" value="lib/junit-4.4.jar"/>
+          <property name="fractalJar" value="lib/fractal.jar"/>
           <property name="minidrawJar" value="lib/minidraw.jar"/>
           <property name="resource" value="resource"/>
           <!-- <property name="fractal" value="lib/**.jar"/> -->
@@ -34,6 +35,7 @@
             <pathelement location="${build-directory}"/>
             <pathelement location="${junitJar}"/>
             <pathelement location="${minidrawJar}"/>
+            <pathelement location="${fractalJar}"/>
               <!-- <pathelement location="${junitJar}"/> -->
               <!-- <pathelement location="${fractal}"/>-->
           </path>
